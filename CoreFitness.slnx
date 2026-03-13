@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="CoreFitness.Application.Tests/CoreFitness.Application.Tests.csproj" />
+  <Project Path="CoreFitness.Application/CoreFitness.Application.csproj" />
+  <Project Path="CoreFitness.Domain.Tests/CoreFitness.Domain.Tests.csproj" />
+  <Project Path="CoreFitness.Domain/CoreFitness.Domain.csproj" />
+  <Project Path="CoreFitness.Infrastructure.Integrationtests/CoreFitness.Infrastructure.IntegrationTests.csproj" />
+  <Project Path="CoreFitness.Infrastructure/CoreFitness.Infrastructure.csproj" />
+  <Project Path="CoreFitness.Presentation.WebApp/CoreFitness.Presentation.WebApp.csproj" />
+</Solution>
