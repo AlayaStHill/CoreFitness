@@ -37,3 +37,40 @@
     }
 }
 
+/*=======================================
+Header
+=======================================*/
+header {
+    margin: 1rem;
+    padding: 1.5rem 1rem 1.5rem;
+    border-radius: 20px;
+    background-color: var(--header-bg-color);
+    background-image: url(../images/dark-section-img.webp);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: var(--header-text-color);
+
+    &:has(.hero-section) {
+        padding: 1.5rem 1rem 0;
+    }
+}
+
+/*=======================================
+Footer
+=======================================*/
+footer {
+    /* display: none;*/
+    margin: 1rem;
+    padding: 1.563rem 2rem;
+    border-radius: 20px;
+    background-color: var(--footer-bg-color);
+    /*laddar bilden som bakgrund i footern*/
+    background-image: url(../images/dark-section-img.webp);
+    /*visa bilden en gång i footern, utan att upprepa den (annars upprepas bilden per default för att fylla hela elementet)*/
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: var(--footer-text-color);
+}
+
+
+/*header, footer, nav*/
