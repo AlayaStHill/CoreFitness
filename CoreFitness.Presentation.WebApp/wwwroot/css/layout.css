@@ -1,0 +1,39 @@
+﻿/*=======================================
+    App-layout
+=======================================*/
+.app-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100dvh;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+
+    /*Om viewportens bredd är 768px eller större --> begränsa innehållets maxbredd till 720px.*/
+    @media (width >= 768px) {
+        max-width: 720px;
+    }
+
+    @media (width >= 992px) {
+        max-width: 960px;
+    }
+
+    @media (width >= 1200px) {
+        max-width: 1140px;
+    }
+
+    @media (width >= 1400px) {
+        max-width: 1320px;
+    }
+
+    /*ingen maxbreddsbegränsning*/
+    &.full {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+

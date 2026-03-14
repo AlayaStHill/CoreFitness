@@ -1,8 +1,8 @@
 ﻿@{
     var site = SiteSettings.Value;
 
-    string language = site.Language;
-    string siteName = site.SiteName;
+    string language = string.IsNullOrWhiteSpace(site.Language) ? "en" : site.Language;
+    string siteName = string.IsNullOrWhiteSpace(site.SiteName) ? "Gymleco" : site.SiteName;
     string? pageTitle = ViewData["Title"]?.ToString();
 
     string title = string.IsNullOrWhiteSpace(pageTitle) ? $"{siteName} | {site.Slogan}" : $"{pageTitle} | {siteName}";
@@ -18,16 +18,22 @@
     <meta name="description" content="@site.Description" />
     <title>@title</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CoreFitness.Presentation.WebApp.styles.css" asp-append-version="true" />
+ 
 </head>
-<body>
+<body class="app-layout">
+    <partial name="Partials/_Header.cshtml" />
 
    <main>
     @RenderBody()
    </main>
-    
+
+    <partial name="Partials/_Footer.cshtml" />
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

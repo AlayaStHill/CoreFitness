@@ -17,7 +17,7 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
         services.AddLogging();
         services.AddPersistence(configuration, environment);
         services.AddEfCoreContexts(configuration, environment);
-        services.AddRepositories(configuration, environment);
+        services.AddRepositories();
 
         return services;
     }

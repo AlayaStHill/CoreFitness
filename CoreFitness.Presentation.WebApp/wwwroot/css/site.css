@@ -1,0 +1,88 @@
+/*=======================================
+    Custom CSS-variables
+=======================================*/
+:root {
+    --default-font: "DM Sans", sans-serif;
+    --title-font: "Poppins", sans-serif;
+    --dark-color: #27252F;
+    /*transparent version*/
+    --dark-color-alpha-30: #27252f4d;
+    --dark-color-alpha-75: rgba(64,64,64,0.75);
+    --gray-color: #6F6F6F;
+    --lightgray-color: #A7A7A7;
+    --primary-color: #D6EB31;
+    --light-color: #F7F7F7;
+    --white-color: #FFFFFF;
+    --error-color: #AB281F;
+    --default-bg-color: var(--light-color);
+    --default-text-color: var(--dark-color);
+    --border-color: var(--gray-color);
+    --border-primary-color: var(--primary-color);
+    --header-bg-color: var(--dark-color);
+    --header-text-color: var(--white-color);
+    --footer-bg-color: var(--dark-color);
+    --footer-text-color: var(--white-color);
+}
+
+
+/*=======================================
+    Reset / Base
+=======================================*/
+*, *::before, 
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    margin: 0;
+    background-color: var(--default-bg-color);
+    color: var(--default-text-color);
+    font-family: var(--default-font);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 1.5rem;
+    font-family: var(--title-font);
+    font-weight: 500;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 3.375px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 3px;
+    line-height: 3.75px;
+}
+
+/*horizontal rule - skapar center horisontell skiljelinje*/
+hr {
+    margin: 0;
+    border: none;
+    height: 0.0625rem;
+    background: var(--border-color);
+    opacity: 0.4;
+     /*& = det aktuella elementet --> hr, som har klassen primary (hr.primary)*/
+    &.primary {
+        background: var(--border-primary-color);
+        opacity: 0.1;
+    }
+}
+
