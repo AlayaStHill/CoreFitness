@@ -1,0 +1,36 @@
+﻿.primary-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--primary-button-bg-color);
+    color: var(--primary-button-text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(.4, 0, .2, 1), color 150ms cubic-bezier(.4, 0, .2, 1);
+
+    &::after {
+        content: "\f054";
+        font-family: "Font Awesome 7 Pro";
+        font-size: 1em;
+        margin-left: 0.5rem;
+        transform: translateX(0);
+    }
+
+    &:hover {
+        background-color: var(--primary-button-hover-bg-color);
+        color: var(--primary-button-hover-text-color);
+
+        &::after {
+            transform: translateX(3px);
+        }
+    }
+
+    &.offset:hover {
+        background-color: var(--primary-button-hover-offset-bg-color);
+        color: var(--primary-button-hover-offset-text-color);
+    }
+}
+

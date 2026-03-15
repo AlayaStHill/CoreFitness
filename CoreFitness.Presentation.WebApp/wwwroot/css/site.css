@@ -24,7 +24,33 @@
     --footer-text-color: var(--white-color);
     --menu-item-text-color: var(--white-color);
     --menu-item-hover-text-color: var(--primary-color);
+    --primary-button-bg-color: var(--primary-color);
+    --primary-button-text-color: var(--dark-color);
+    --primary-button-hover-bg-color: var(--dark-color);
+    --primary-button-hover-text-color: var(--white-color);
+    --primary-button-hover-offset-bg-color: var(--white-color);
+    --primary-button-hover-offset-text-color: var(--dark-color);
 }
+
+/*=======================================
+    Fonts
+=======================================*/
+@font-face {
+    font-family: "Font Awesome 7 Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url("../fonts/fa-regular-400.woff2");
+}
+
+@font-face {
+    font-family: "Font Awesome 7 Pro Solid";
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url("../fonts/fa-solid-900.woff2");
+}
+
 
 /*=======================================
     Reset / Base
