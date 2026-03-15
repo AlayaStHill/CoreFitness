@@ -1,16 +1,16 @@
 ﻿.site-header {
     margin: 1rem;
-    padding: 1.5rem 1rem 1.5rem;
+    padding: 1.5rem 1rem;
     border-radius: 20px;
+
     background-color: var(--header-bg-color);
-    background-image: url(../images/dark-section-img.webp);
+    background-image: url("../../images/dark-section-img.webp");
     background-repeat: no-repeat;
     background-size: 100%;
-    color: var(--header-text-color);
 }
 
 .menu {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     margin: 0;
     padding: 0;
@@ -18,21 +18,56 @@
     gap: 2rem;
 
     .menu-link {
-        text-decoration: none;
-        color: var(--text-color);
         font-weight: 500;
         transition: color 0.3s ease;
-
-        &:hover {
-            color: var(--accent-color);
-        }
     }
 }
 
+/*=======================================
+    Mobile
+=======================================*/
 .mobile-header {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
 }
 
+/*=======================================
+    Desktop
+=======================================*/
 .desktop-header {
     display: none;
+    padding: 0;
+
+    .header-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.5rem;
+    }
+}
+
+.desktop-navigation {
+    display: flex;
+    justify-content: center;
+}
+
+@media (width >= 1220px) {
+
+    .mobile-header {
+        display: none;
+    }
+
+    .desktop-header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 2rem;
+    }
 }
