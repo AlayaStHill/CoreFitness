@@ -1,7 +1,4 @@
-﻿/*=======================================
-Header
-=======================================*/
-header {
+﻿.site-header {
     margin: 1rem;
     padding: 1.5rem 1rem 1.5rem;
     border-radius: 20px;
@@ -10,13 +7,9 @@ header {
     background-repeat: no-repeat;
     background-size: 100%;
     color: var(--header-text-color);
-
-    &:has(.hero-section) {
-        padding: 1.5rem 1rem 0;
-    }
 }
 
-.nav-links {
+.menu {
     display: inline-flex;
     align-items: center;
     margin: 0;
@@ -24,7 +17,7 @@ header {
     list-style: none;
     gap: 2rem;
 
-    .nav-link a {
+    .menu-link {
         text-decoration: none;
         color: var(--text-color);
         font-weight: 500;
@@ -34,4 +27,12 @@ header {
             color: var(--accent-color);
         }
     }
+}
+
+.mobile-header {
+    display: flex;
+}
+
+.desktop-header {
+    display: none;
 }
