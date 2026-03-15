@@ -1,44 +1,24 @@
 ﻿<header class="site-header">
     <div class="container">
 
-        @* Mobile header *@
-        <section class="mobile-header">
-            <div class="logo">
-                <a class="logo-link" href="/">
-                    <img class="logo-image" src="~/images/logotype.webp" alt="CoreFitness logo" />
-                </a>
-            </div>
+        <div class="header-layout">
 
-            <div class="header-actions">
-                <a class="account-menu-link" href="/signin">Sign in</a>
+            <a class="logo-link" href="/">
+                <img class="logo-image" src="~/images/logotype.webp" alt="CoreFitness logo" />
+            </a>
 
-                <partial name="Partials/MenuNavigation/_MobileNavigation" />
-            </div>
-        </section>
+            <partial name="Partials/Navigation/_PrimaryNavigation" />
 
-        @* Desktop header *@
-        <section class="desktop-header">
-            <div class="logo">
-                <a class="logo-link" href="/">
-                    <img class="logo-image" src="~/images/logotype.webp" alt="CoreFitness logo" />
-                </a>
-            </div>
-
-            <partial name="Partials/MenuNavigation/_DesktopNavigation" />
-            <div class="header-actions">
-            @* Account navigation *@
-                <nav class="account-navigation" aria-label="Account navigation">
-                    <ul class="menu">
-                        <li class="menu-item">
-                            <a class="menu-link" href="/signup">Become member</a>
-                        </li>
-                        <li class="menu-item">
-                            <a class="menu-link" href="/signin">Sign in</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-
+            <nav class="account-navigation" aria-label="Account navigation">
+                <ul class="menu">
+                    <li class="menu-item">
+                        <a class="menu-link" href="/signup">Become member</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link" href="/signin">Sign in</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>
