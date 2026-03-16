@@ -103,7 +103,9 @@ h2 {
     line-height: 3.75rem;
 }
 
-/*horizontal rule - skapar center horisontell skiljelinje*/
+
+
+/*<horizontal rule> - skapar center horisontell skiljelinje*/
 hr {
     margin: 0;
     border: none;
@@ -117,3 +119,6 @@ hr {
     }
 }
 
+.line-break {
+    display: block;
+}   

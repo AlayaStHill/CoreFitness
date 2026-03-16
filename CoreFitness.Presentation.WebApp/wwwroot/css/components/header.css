@@ -111,12 +111,12 @@ font-weight: 500;
     user-select: none;
 }
 
-    .site-header .menu .menu-item.dropdown .dropdown-trigger::after {
-        content: "\f078";
-        font-family: "Font Awesome 7 Pro";
-        font-weight: 400;
-        transition: transform 150ms cubic-bezier(.4, 0, .2, 1);
-    }
+.site-header .menu .menu-item.dropdown .dropdown-trigger::after {
+    content: "\f078";
+    font-family: "Font Awesome 7 Pro";
+    font-weight: 400;
+    transition: transform 150ms cubic-bezier(.4, 0, .2, 1);
+}
 
 .site-header .menu .menu-item.dropdown .dropdown-menu {
     position: absolute;
@@ -168,4 +168,28 @@ justify-content: flex-end;
 
 .site-header .account-navigation .menu {
     gap: 2rem;
+}
+
+/* =========================
+    Responsivitet
+========================= */
+/* låt menyerna stapla*/
+@media (width < 992px) {
+    .site-header .header-layout {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 1rem;
+    }
+
+    .site-header .primary-navigation,
+    .site-header .account-navigation {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .site-header .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.25rem;
+    }
 }

@@ -43,7 +43,6 @@
 Footer
 =======================================*/
 footer {
-    /* display: none;*/
     margin: 1rem;
     padding: 1.563rem 2rem;
     border-radius: 20px;
@@ -56,5 +55,10 @@ footer {
     color: var(--footer-text-color);
 }
 
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    border-radius: 1.25rem;
+    padding: 1rem;
+}
 
-/*header, footer, nav*/
