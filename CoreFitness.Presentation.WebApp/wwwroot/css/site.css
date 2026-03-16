@@ -5,7 +5,7 @@
     --default-font: "DM Sans", sans-serif;
     --title-font: "Poppins", sans-serif;
     --dark-color: #27252F;
-    /*transparent version*/
+    /*transparent version, t, t2*/
     --dark-color-alpha-30: #27252f4d;
     --dark-color-alpha-75: rgba(64,64,64,0.75);
     --gray-color: #6F6F6F;
@@ -24,6 +24,10 @@
     --footer-text-color: var(--white-color);
     --menu-item-text-color: var(--white-color);
     --menu-item-hover-text-color: var(--primary-color);
+    --menu-dropdown-item-bg-color: var(--primary-color);
+    --menu-dropdown-item-text-color: var(--dark-color);
+    --menu-dropdown-item-hover-bg-color: var( --dark-color-alpha-30);
+    --menu-dropdown-item-hover-text-color: var(--white-color);
     --primary-button-bg-color: var(--primary-color);
     --primary-button-text-color: var(--dark-color);
     --primary-button-hover-bg-color: var(--dark-color);

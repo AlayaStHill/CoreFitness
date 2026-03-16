@@ -1,4 +1,4 @@
-﻿<nav class="primary-navigation" aria-label="Primary navigation">
+﻿<nav class="primary-navigation" aria-label="Primary navigation" id="primary-navigation">
     <ul class="menu">
 
         <li class="menu-item">
@@ -9,8 +9,24 @@
             <a class="menu-link" href="/memberships">Memberships</a>
         </li>
 
-        <li class="menu-item">
-            <a class="menu-link" href="/training">Training</a>
+        <li class="menu-item dropdown">
+            <button class="menu-link dropdown-trigger" type="button" aria-expanded="false" aria-haspopup="true">
+                Training
+            </button>
+
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/training/personaltraining">
+                    Personal Training
+                </a>
+
+                <a class="dropdown-item" href="/training/onlinecoaching">
+                    Online Coaching
+                </a>
+
+                <a class="dropdown-item" href="/training/grouptraining">
+                    Group Training
+                </a>
+            </div>
         </li>
 
         <li class="menu-item">
