@@ -2,28 +2,62 @@
     var site = SiteSettings.Value;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<footer>
+<footer class="site-footer">
     <div class="container">
-        &copy; @DateTime.UtcNow.Year @site.CompanyName. @site.Copyright.
+        <h2 class="site-footer__heading">
+            Empowering Your Fitness Journey with Expert<br />
+            Training and Lasting Results
+        </h2>
+
+        <hr class="primary" />
+
+        <div class="site-footer__sections">
+            <section class="site-footer__section">
+                <h3>Our Location</h3>
+                <p>
+                    Our supportive and knowledgeable trainers work
+                    <span class="line-break"></span>
+                    with members to provide encouragement.
+                </p>
+
+                <img src="../images/footer-location-map.webp"
+                     alt="Map showing the location of the Core Fitness center in Stockholm" />
+
+                <p>2nd Floor, Wellness Center, Drottninggatan 118, Stockholm</p>
+            </section>
+
+            <section class="site-footer__section site-footer__section--right">
+                <h3>Working Hours</h3>
+                <p>Mon - Fri: 06:00 - 18:00</p>
+                <p>Saturday: 10:00 - 18:00</p>
+
+                <h3>Opening Hours</h3>
+                <p>Mon - Sun: 04:00 - 23:00</p>
+            </section>
+        </div>
+
+        <hr class="primary" />
+
+        <p class="site-footer__copyright">
+            &copy; @DateTime.UtcNow.Year @site.CompanyName. @site.Copyright.
+        </p>
     </div>
 </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

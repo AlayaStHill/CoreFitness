@@ -1,2 +1,41 @@
-﻿body {
+﻿.site-footer {
+    margin: 1rem;
+    border-radius: 20px;
+    background-color: var(--footer-bg-color);
+    background-image: url("../img/dark-section-img.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--footer-text-color);
+    padding: 2.5rem 1.5rem;
+}
+
+/* __ = namngivningskonvention kallat BEM - Block Element Modifier: -block__element--modifier 
+site-footer är komponenten (block), site-footer__copy är ett element inne i blocket*/
+.site-footer__heading {
+    margin: 0;
+    text-align: right;
+}
+
+.site-footer__sections {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 1.5rem;
+}
+
+.site-footer__copyright {
+    margin: 0;
+    text-align: center;
+    opacity: 0.9;
+    padding-top: 2.5rem;
+}
+
+@media (width >= 992px) {
+    .site-footer__sections {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+
+    .site-footer__section--right {
+        text-align: right;
+    }
 }
