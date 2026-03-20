@@ -2,7 +2,7 @@
     var site = SiteSettings.Value;
 
     string language = string.IsNullOrWhiteSpace(site.Language) ? "en" : site.Language;
-    string siteName = string.IsNullOrWhiteSpace(site.SiteName) ? "Gymleco" : site.SiteName;
+    string siteName = string.IsNullOrWhiteSpace(site.SiteName) ? "CoreFitness" : site.SiteName;
     string? pageTitle = ViewData["Title"]?.ToString();
 
     string title = string.IsNullOrWhiteSpace(pageTitle) ? $"{siteName} | {site.Slogan}" : $"{pageTitle} | {siteName}";

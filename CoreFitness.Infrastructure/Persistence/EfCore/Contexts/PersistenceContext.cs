@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 
-public class DataContext(DbContextOptions<DataContext> options) : DbContext(options), IUnitOfWork
+public class PersistenceContext(DbContextOptions<PersistenceContext> options) : DbContext(options), IUnitOfWork
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersistenceContext).Assembly);
     }
 
     /* Add entities below: */

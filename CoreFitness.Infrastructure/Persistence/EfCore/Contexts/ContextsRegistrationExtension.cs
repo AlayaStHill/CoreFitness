@@ -26,7 +26,7 @@ public static class ContextsRegistrationExtension
                 return connection;
             });
 
-            services.AddDbContext<DataContext>((serviceProvider, options) =>
+            services.AddDbContext<PersistenceContext>((serviceProvider, options) =>
             {
                 SqliteConnection connection = serviceProvider.GetRequiredService<SqliteConnection>();
                 options.UseSqlite(connection);
@@ -34,7 +34,7 @@ public static class ContextsRegistrationExtension
         }
         else
         {
-            services.AddDbContext<DataContext>((serviceProvider, options) =>
+            services.AddDbContext<PersistenceContext>((serviceProvider, options) =>
             {
                 IDomainLogger logger = serviceProvider.GetRequiredService<IDomainLogger>();
 

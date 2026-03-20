@@ -16,7 +16,7 @@ public static class PersistenceRegistrationExtension
 
         services.AddEfCoreContexts(configuration, environment);
         // IUnitOfWork --> DataContext
-        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<DataContext>());
+        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<PersistenceContext>());
 
         return services;
     }

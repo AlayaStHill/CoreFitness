@@ -15,14 +15,14 @@ public static class PersistenceDatabaseInitializer
         if (environment.IsDevelopment())
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataContext context = scope.ServiceProvider.GetRequiredService<DataContext>();
+            PersistenceContext context = scope.ServiceProvider.GetRequiredService<PersistenceContext>();
             // om databasen inte finns, skapa den
             await context.Database.EnsureCreatedAsync();
         }
         else
         {
             using IServiceScope scope = serviceProvider.CreateScope();
-            DataContext context = scope.ServiceProvider.GetRequiredService<DataContext>();
+            PersistenceContext context = scope.ServiceProvider.GetRequiredService<PersistenceContext>();
             // Finns det en migrering som inte har körts så kör den, annars gör den inget
             await context.Database.MigrateAsync();
         }
