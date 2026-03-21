@@ -34,16 +34,18 @@ app.UseGlobalExceptionHandling();
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.UseRouting();
+
+app.MapStaticAssets();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=CustomerService}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
