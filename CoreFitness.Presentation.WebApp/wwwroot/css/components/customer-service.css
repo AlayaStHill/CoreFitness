@@ -108,6 +108,18 @@ address {
     font-size: 1rem;
 }
 
+/*=======================================
+    Contact Form
+=======================================*/
+.contact-form {
+    grid-template-areas:
+        "firstname lastname"
+        "email phone"
+        "message message"
+        "na submit";
+}
+
+
 
 /*=======================================
     Faq section

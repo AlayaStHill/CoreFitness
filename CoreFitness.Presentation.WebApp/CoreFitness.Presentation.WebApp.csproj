@@ -11,8 +11,4 @@
     <ProjectReference Include="..\CoreFitness.Infrastructure\CoreFitness.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
