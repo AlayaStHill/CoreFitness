@@ -12,15 +12,18 @@
 
 .contact-card {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1fr 1.15fr;
     background-color: var(--white-color);
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     overflow: hidden;
+    min-height: 720px;
 }
 
 .contact-image {
     /* referenspunkt för absoluta barn, som placeras relativt.. */
     position: relative;
+    height: 100%;
+    display: block;
 }
 
 .contact-image img {
@@ -30,10 +33,10 @@
 }
 
 .contact-content {
-    padding: 3.5rem;
+    padding: 5rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+
     justify-content: center;
 }
 
@@ -61,7 +64,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     background: var(--dark-color-alpha-75);
     align-items: center;
-    gap: var(--space-xxl);
+    gap: var(--space-xl);
     padding: var(--space-lg) 2.25rem;
     border-radius: var(--radius-lg);
     backdrop-filter: blur(10px);
@@ -120,9 +123,105 @@ address {
 /*=======================================
     Contact Form
 =======================================*/
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+}
+
+.form-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1rem;
+    gap: var(--space-xs);
+}
+
+label {
+    font-family: var(--title-font);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--form-label-text-color);
+}
+
+textarea.form-input {
+    resize: none;
+    min-height: 140px;
+}
 
 
+.form-input {
+    width: 100%;
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    background-color: var(--form-input-bg-color);
+    border: none;
+    font-family: var(--default-font);
+}
 
+.form-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/*Full bredd*/
+.form-group--message {
+    grid-area: message;
+}
+
+.form-submit {
+    grid-area: submit;
+    border: 1px solid transparent;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.form-submit:hover {
+    background-color: var(--white-color);
+    color: var(--dark-color);
+    border-color: var(--dark-color);
+}
+
+.field-validation-error {
+    display: block;
+    color: var(--form-error-text-color);
+    font-size: 0.8em;
+    padding-left: var(--space-sm);
+}
+
+.form-input:invalid {
+    box-shadow: 0 0 0 2px red;
+}
+
+@media (min-width: 1400px) {
+    .contact-form {
+        grid-template-columns: 1fr 1fr;
+        column-gap: var(--space-lg);
+        grid-template-areas:
+            "firstname lastname"
+            "email phone"
+            "message message"
+            "submit .";
+    }
+    .form-group--first-name {
+        grid-area: firstname;
+    }
+
+    .form-group--last-name {
+        grid-area: lastname;
+    }
+
+    .form-group--email {
+        grid-area: email;
+    }
+
+    .form-group--phone {
+        grid-area: phone;
+    }
+    .form-submit {
+        grid-area: submit;
+        justify-self: start;
+    }
+}
 
 /*=======================================
     Faq section

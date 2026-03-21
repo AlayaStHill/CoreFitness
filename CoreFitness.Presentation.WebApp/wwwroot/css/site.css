@@ -34,6 +34,14 @@
     --primary-button-hover-text-color: var(--white-color);
     --primary-button-hover-offset-bg-color: var(--white-color);
     --primary-button-hover-offset-text-color: var(--dark-color);
+    --form-label-text-color: var(--dark-color);
+    --form-input-bg-color: var(--light-color);
+    --form-input-border-color: var(--light-color);
+    --form-input-error-bg-color: var(--light-color);
+    --form-input-error-border-color: var(--light-color);
+    --form-input-error-text-color: var(--dark-color);
+    --form-error-text-color: var(--error-color);
+    --form-placeholder-text-color: var(--lightgray-color);
     --section-spacing-sm: 5rem; /* 80px */
     --section-spacing-md: 6rem; /* 96px */
     --section-spacing-lg: 8rem; /* 128px */
@@ -45,6 +53,7 @@
     --space-lg: 2rem;
     --space-xl: 2.5rem;
     --space-xxl: 3rem;
+    --radius-sm: 10px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 20px;
