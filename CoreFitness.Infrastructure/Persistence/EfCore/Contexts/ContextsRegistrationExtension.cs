@@ -1,5 +1,4 @@
 ﻿using CoreFitness.Domain.Abstractions.Loggings;
-using CoreFitness.Domain.Exceptions.Custom;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;

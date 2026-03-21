@@ -1,8 +1,117 @@
-﻿/* Contact Section */
+﻿/*=======================================
+    Contact Section
+=======================================*/
 .customer-service-contact {
+    padding-block: var(--section-spacing-sm) var(--section-spacing-lg);
 }
 
-/* FAQ Section */
+.page-title {
+    text-align: center;
+    padding-top: var(--section-spacing-sm);
+}
+
+.contact-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    background-color: var(--white-color);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.contact-image {
+    /* referenspunkt för absoluta barn, som placeras relativt.. */
+    position: relative;
+}
+
+.contact-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contact-content {
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.contact-content h2,
+.contact-content p {
+    max-width: 28rem;
+    /* behåll vänsterjusterad text */
+    text-align: left;
+}
+
+.contact-content h2 {
+    margin-bottom: 1rem;
+}
+
+.contact-content p {
+    margin-bottom: 2rem;
+}
+
+.contact-overlay {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    right: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    background: var(--dark-color-alpha-75);
+    color: var(--white-color);
+}
+
+.contact-overlay__column {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.contact-overlay__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 0;
+}
+
+address {
+    font-style: normal;
+}
+
+.contact-overlay__icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+.contact-overlay__label,
+.contact-overlay__value {
+    line-height: 1.2;
+}
+
+.contact-overlay__label {
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.contact-overlay__value {
+    font-size: 1rem;
+}
+
+
+/*=======================================
+    Faq section
+=======================================*/
 .customer-service-faq {
 }
 
