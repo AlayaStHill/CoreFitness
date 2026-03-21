@@ -44,40 +44,44 @@
     text-align: left;
 }
 
-.contact-content h2 {
-    margin-bottom: 1rem;
-}
+    .contact-content h2 {
+        margin-bottom: var(--space-sm);
+    }
 
-.contact-content p {
-    margin-bottom: 2rem;
-}
+    .contact-content p {
+        margin-bottom: var(--space-lg);
+    }
 
 .contact-overlay {
     position: absolute;
-    bottom: 2.5rem;
-    left: 2.5rem;
-    right: 2.5rem;
+    bottom: var(--space-xl);
+    left: var(--space-xl);
+    right: var(--space-xl);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-    border-radius: 12px;
     background: var(--dark-color-alpha-75);
+    align-items: center;
+    gap: var(--space-xxl);
+    padding: var(--space-lg) 2.25rem;
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
     color: var(--white-color);
 }
 
 .contact-overlay__column {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: var( --space-sm);
     min-width: 0;
 }
 
 .contact-overlay__text {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    min-width: 0;
+    justify-content: center; 
+    gap: 0.35rem;
 }
 
 address {
@@ -85,13 +89,13 @@ address {
 }
 
 .contact-overlay__icon {
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    flex: 0 0 3.25rem;
+    display: grid;
+    place-items: center;
     background-color: var(--primary-color);
-    border-radius: 50%;
+    border-radius: 999px;
 }
 
 .contact-overlay__label,
@@ -100,24 +104,23 @@ address {
 }
 
 .contact-overlay__label {
-    font-weight: 600;
-    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.15rem;
+    line-height: 1.2;
 }
 
 .contact-overlay__value {
+    margin: 0;
     font-size: 1rem;
+    line-height: 1.2;
+    opacity: 0.95;
 }
 
 /*=======================================
     Contact Form
 =======================================*/
-.contact-form {
-    grid-template-areas:
-        "firstname lastname"
-        "email phone"
-        "message message"
-        "na submit";
-}
+
 
 
 

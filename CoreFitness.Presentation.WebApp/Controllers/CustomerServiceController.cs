@@ -9,14 +9,18 @@ public class CustomerServiceController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        return View(new ContactForm());
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Index(ContactForm form)
+    public IActionResult Index(ContactForm form, CancellationToken ct = default)
     {
-        return View();
+        if (!ModelState.IsValid)
+            return View(form);
+
+        TempData["ContactFormMessage"] = "Your message has been sent.";
+        return RedirectToAction(nameof(Index));
     }
 
 }

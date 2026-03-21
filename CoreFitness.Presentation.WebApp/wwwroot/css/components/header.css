@@ -1,19 +1,19 @@
 ﻿.site-header {
-margin: 1rem;
-padding: 1.5rem 1rem;
-border-radius: 20px;
-background-color: var(--header-bg-color);
-background-image: url("../../images/dark-section-img.webp");
-background-repeat: no-repeat;
-background-size: 100%;
-color: var(--header-text-color);
+    margin: var( --space-sm);
+    padding: var(--space-md) var(--space-sm);
+    border-radius: var(--radius-xl);
+    background-color: var(--header-bg-color);
+    background-image: url("../../images/dark-section-img.webp");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: var(--header-text-color);
 }
 
 .site-header .header-layout {
 display: grid;
 grid-template-columns: auto 1fr auto;
 align-items: center;
-gap: 2rem;
+gap: var(--space-lg);
 }
 
 /* =========================
@@ -65,7 +65,7 @@ font-weight: 500;
     color: var(--menu-item-text-color);
     text-decoration: none;
     transition: color 150ms cubic-bezier(.4, 0, .2, 1);
-    padding: 0.35rem 0;
+    padding: var(--space-xxs) 0;
     font-weight: inherit;
 }
 
@@ -100,10 +100,10 @@ font-weight: 500;
 .site-header .menu .menu-item.dropdown .dropdown-trigger {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: var(--space-xs);
     background: transparent;
     border: 0;
-    padding: 0.35rem 0;
+    padding: var(--space-xxs) 0;
     font: inherit;
     font-weight: inherit;
     color: inherit;
@@ -147,7 +147,7 @@ font-weight: 500;
 }
 
 .site-header .menu .menu-item.dropdown .dropdown-item {
-    padding: 0.6rem 1rem;
+    padding: var(--space-xs) var(--space-sm);
     color: var(--menu-dropdown-item-text-color);
     text-decoration: none;
     transition: background-color 150ms cubic-bezier(.4, 0, .2, 1), color 150ms cubic-bezier(.4, 0, .2, 1);
@@ -167,7 +167,7 @@ justify-content: flex-end;
 }
 
 .site-header .account-navigation .menu {
-    gap: 2rem;
+    gap: var(--space-lg);
 }
 
 /* =========================
@@ -178,7 +178,7 @@ justify-content: flex-end;
     .site-header .header-layout {
         grid-template-columns: 1fr;
         justify-items: center;
-        gap: 1rem;
+        gap: var(--space-sm);
     }
 
     .site-header .primary-navigation,
