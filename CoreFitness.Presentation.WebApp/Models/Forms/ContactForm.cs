@@ -5,13 +5,13 @@ namespace CoreFitness.Presentation.WebApp.Models.Forms;
 public class ContactForm
 {
     [Required(ErrorMessage = "You must enter a first name")]
-    [StringLength(20, MinimumLength = 2, ErrorMessage = "Minimum {2} characters")]
+    [StringLength(20, MinimumLength = 2, ErrorMessage = "Must be between {2} and {1} characters")]
     [Display(Name = "First Name")]
     public string FirstName { get; set; } = string.Empty;
 
 
     [Required(ErrorMessage = "You must enter a last name")]
-    [StringLength(20, MinimumLength = 2, ErrorMessage = "Minimum {2} characters")]
+    [StringLength(20, MinimumLength = 2, ErrorMessage = "Must be between {2} and {1} characters")]
     [Display(Name = "Last Name")]
     public string LastName { get; set; } = string.Empty;
 
@@ -27,7 +27,7 @@ public class ContactForm
 
 
     [Required(ErrorMessage = "You must enter a message")]
-    [StringLength(4000, MinimumLength = 5, ErrorMessage = "Minimum {2} characters")]
+    [StringLength(2000, MinimumLength = 10, ErrorMessage = "Must be between {2} and {1} characters")]
     [Display(Name = "Message")]
     public string Message { get; set; } = string.Empty;
 }

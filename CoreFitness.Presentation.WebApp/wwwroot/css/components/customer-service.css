@@ -58,7 +58,7 @@
 .contact-overlay {
     position: absolute;
     bottom: var(--space-xl);
-    left: var(--space-xl);
+    left: var(--space-lg);
     right: var(--space-xl);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -76,7 +76,7 @@
 .contact-overlay__column {
     display: flex;
     align-items: center;
-    gap: var( --space-sm);
+    gap: var(--space-sm);
     min-width: 0;
 }
 
