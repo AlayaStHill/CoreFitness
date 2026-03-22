@@ -57,8 +57,8 @@ public abstract class RepositoryBase<TModel, TId, TDbContext>(TDbContext context
 
     public virtual async Task<IReadOnlyList<TModel>> GetAllAsync(CancellationToken ct = default)
     {
+        // ToList returnerar en tom lista om data inte finns
         List<TModel>? entities = await Set.AsNoTracking().ToListAsync(ct);
-        // .. spread operator, [...] collection expression - ta varje element i entities och skapa en ny lista av TModel
         return entities;
     }
 }
