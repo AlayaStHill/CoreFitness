@@ -11,15 +11,17 @@ public sealed class ContactRequest
     public const int MessageMaxLength = 2000;
     public const int MessageMinLength = 5;
 
-    public string Id { get; }
-    public string FirstName { get; }
-    public string LastName { get; }
-    public EmailAddress Email { get; }
-    public PhoneNumber? PhoneNumber { get; }
-    public string Message { get; }
-    public DateTimeOffset CreatedAt { get; }
+    public string Id { get; private set; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public EmailAddress Email { get; private set; }
+    public PhoneNumber? PhoneNumber { get; private set; }
+    public string Message { get; private set; }
+    public DateTimeOffset CreatedAt { get; private set; }
     public bool MarkedAsRead { get; private set; }
 
+    // EF behöver en parameterlös konstruktor
+    private ContactRequest() { }
     private ContactRequest(string id, string firstName, string lastName, EmailAddress email, PhoneNumber? phoneNumber, string message, DateTimeOffset createdAt, bool markedAsRead)
     {
         Id = id;

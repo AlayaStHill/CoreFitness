@@ -8,7 +8,10 @@ public class PhoneNumber : ValueObject
     public const int PhoneNumberMaxLength = 16;
     public const int PhoneNumberMinLength = 8;
 
-    public string Phone { get; }
+    public string Phone { get; private set; }
+
+    // För EF
+    private PhoneNumber() { }
 
     private PhoneNumber(string phoneNumber)
     {

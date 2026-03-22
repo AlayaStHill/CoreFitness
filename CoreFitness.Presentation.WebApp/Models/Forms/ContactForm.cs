@@ -27,7 +27,7 @@ public class ContactForm
 
 
     [Required(ErrorMessage = "You must enter a message")]
-    [StringLength(2000, MinimumLength = 10, ErrorMessage = "Must be between {2} and {1} characters")]
+    [StringLength(2000, MinimumLength = 5, ErrorMessage = "Must be between {2} and {1} characters")]
     [Display(Name = "Message")]
     public string Message { get; set; } = string.Empty;
 }

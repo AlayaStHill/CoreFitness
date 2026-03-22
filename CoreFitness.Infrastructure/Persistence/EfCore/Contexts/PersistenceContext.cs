@@ -1,4 +1,5 @@
 ﻿using CoreFitness.Application.Shared;
+using CoreFitness.Domain.Aggregates.CustomerService;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
@@ -14,7 +15,7 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
     public override Task<int> SaveChangesAsync(CancellationToken ct)
     => base.SaveChangesAsync(ct);
 
-    /* Add entities below: */
+    public DbSet<ContactRequest> ContactRequests => Set<ContactRequest>();
 
 
 

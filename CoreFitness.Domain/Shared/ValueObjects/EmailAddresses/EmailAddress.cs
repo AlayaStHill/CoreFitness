@@ -7,7 +7,10 @@ public class EmailAddress : ValueObject
 {
     public const int EmailMaxLength = 254;
 
-    public string Email { get; }
+    public string Email { get; private set; }
+
+    // För EF 
+    private EmailAddress() { }
 
     private EmailAddress(string email)
     {
