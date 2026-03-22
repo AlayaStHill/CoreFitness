@@ -1,10 +1,15 @@
 ﻿@model ContactForm
 
 @* Success message *@
-@if (TempData["ContactFormMessage"] != null)
+@{
+    // undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel
+    string? message = TempData["ContactFormMessage"] as string;
+}
+
+@if (!string.IsNullOrWhiteSpace(message))
 {
     <div class="form-success" role="status" aria-live="polite">
-        @TempData["ContactFormMessage"]
+        @message
     </div>
 }
 

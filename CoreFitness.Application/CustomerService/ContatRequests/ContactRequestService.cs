@@ -5,7 +5,7 @@ using CoreFitness.Domain.Aggregates.CustomerService;
 
 namespace CoreFitness.Application.CustomerService.ContatRequests;
 
-public sealed class ContactRequestService(IContactRequestRepository _repository, IUnitOfWork _iUnitOfWork) : IContactRequestService
+public sealed class ContactRequestService(IContactRequestRepository repository, IUnitOfWork iUnitOfWork) : IContactRequestService
 {
     public async Task<Result> CreateContactRequestAsync(ContactRequestInput input, CancellationToken ct = default)
     {
@@ -14,8 +14,8 @@ public sealed class ContactRequestService(IContactRequestRepository _repository,
 
         ContactRequest request = ContactRequest.Create(input.FirstName, input.LastName, input.Email, input.PhoneNumber, input.Message);
 
-        await _repository.AddAsync(request, ct);
-        await _iUnitOfWork.SaveChangesAsync(ct);
+        await repository.AddAsync(request, ct);
+        await iUnitOfWork.SaveChangesAsync(ct);
         return Result.Success();
     }
 
@@ -24,19 +24,19 @@ public sealed class ContactRequestService(IContactRequestRepository _repository,
         if (string.IsNullOrWhiteSpace(id))
             return Result.Fail(ErrorTypes.BadRequest, "Id must be provided");
 
-        bool isRemoved = await _repository.RemoveAsync(id, ct);
+        bool isRemoved = await repository.RemoveAsync(id, ct);
 
         if (!isRemoved)
             return Result.Fail(ErrorTypes.NotFound, $"Contact request with ID {id} not found.");
 
-        await _iUnitOfWork.SaveChangesAsync(ct);
+        await iUnitOfWork.SaveChangesAsync(ct);
 
         return Result.Success();
     }
 
     public async Task<Result<IReadOnlyList<ContactRequest>>> GetAllContactRequestsAsync(CancellationToken ct = default)
     {
-        IReadOnlyList<ContactRequest> contactRequests = await _repository.GetAllAsync(ct);
+        IReadOnlyList<ContactRequest> contactRequests = await repository.GetAllAsync(ct);
 
         return Result<IReadOnlyList<ContactRequest>>.Success(contactRequests);
     }
@@ -46,7 +46,7 @@ public sealed class ContactRequestService(IContactRequestRepository _repository,
         if (string.IsNullOrWhiteSpace(id))
             return Result<ContactRequest>.Fail(ErrorTypes.BadRequest, "Contact request id must be provided.");
 
-        ContactRequest? contactRequest = await _repository.GetByIdAsync(id, ct);
+        ContactRequest? contactRequest = await repository.GetByIdAsync(id, ct);
 
         return contactRequest is null
             ? Result<ContactRequest>.Fail(ErrorTypes.NotFound, $"Contact request with ID {id} not found.")
@@ -69,7 +69,7 @@ public sealed class ContactRequestService(IContactRequestRepository _repository,
 
         // spara bara om den inte var läs innnan
         if (!wasRead)
-            await _iUnitOfWork.SaveChangesAsync(ct);
+            await iUnitOfWork.SaveChangesAsync(ct);
 
         return Result.Success();
     }
@@ -89,7 +89,7 @@ public sealed class ContactRequestService(IContactRequestRepository _repository,
         contactRequest.MarkAsUnread();
 
         if (wasRead)
-            await _iUnitOfWork.SaveChangesAsync(ct);
+            await iUnitOfWork.SaveChangesAsync(ct);
 
         return Result.Success();
     }
@@ -99,7 +99,7 @@ public sealed class ContactRequestService(IContactRequestRepository _repository,
         if (string.IsNullOrWhiteSpace(id))
             return Result<ContactRequest>.Fail(ErrorTypes.BadRequest, "Id must be provided");
 
-        ContactRequest? contactRequest = await _repository.GetByIdAsync(id, ct);
+        ContactRequest? contactRequest = await repository.GetByIdAsync(id, ct);
 
         return contactRequest is null
             ? Result<ContactRequest>.Fail(ErrorTypes.NotFound, $"Contact request with ID {id} not found.")

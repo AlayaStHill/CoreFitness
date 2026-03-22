@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CoreFitness.Application.CustomerService.ContatRequests;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extensions;
 
@@ -10,6 +11,7 @@ public static class ServiceRegistrationExtension
           När aspnet skapar builder skapas en instans av IServiceCollection (builder.Services), som denna metod anropas på (services är aldrig null) */
         ArgumentNullException.ThrowIfNull(services);
 
+        services.AddScoped<IContactRequestService, ContactRequestService>();
 
         return services;
     }
