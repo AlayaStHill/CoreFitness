@@ -20,24 +20,22 @@ public sealed class ContactRequest
     public DateTimeOffset CreatedAt { get; }
     public bool MarkedAsRead { get; private set; }
 
-    private ContactRequest(string id, string firstName, string lastName, EmailAddress email, string? phoneNumber, string message, DateTimeOffset createdAt, bool markedAsRead)
+    private ContactRequest(string id, string firstName, string lastName, EmailAddress email, PhoneNumber? phoneNumber, string message, DateTimeOffset createdAt, bool markedAsRead)
     {
         Id = id;
-        FirstName = DomainValidator.RequiredWithLength(firstName, NameMinLength, NameMaxLength, ContactRequestErrors.FirstNameRequired, ContactRequestErrors.FirstNameTooShort, ContactRequestErrors.FirstNameTooLong);
-        LastName = DomainValidator.RequiredWithLength(lastName, NameMinLength, NameMaxLength, ContactRequestErrors.LastNameRequired, ContactRequestErrors.LastNameTooShort, ContactRequestErrors.LastNameTooLong);
+        FirstName = DomainValidator.RequiredWithLength(firstName, NameMinLength, NameMaxLength, ContactRequestErrors.FirstNameRequired, ContactRequestErrors.FirstNameTooShort(NameMinLength), ContactRequestErrors.FirstNameTooLong(NameMaxLength));
+        LastName = DomainValidator.RequiredWithLength(lastName, NameMinLength, NameMaxLength, ContactRequestErrors.LastNameRequired, ContactRequestErrors.LastNameTooShort(NameMinLength), ContactRequestErrors.LastNameTooLong(NameMaxLength));
         Email = email;
-        PhoneNumber = string.IsNullOrWhiteSpace(phoneNumber)
-       ? null
-       : PhoneNumber.Create(phoneNumber);
-        Message = DomainValidator.RequiredWithLength(message, MessageMinLength, MessageMaxLength, ContactRequestErrors.MessageRequired, ContactRequestErrors.MessageTooShort, ContactRequestErrors.MessageTooLong);
+        PhoneNumber = phoneNumber;
+        Message = DomainValidator.RequiredWithLength(message, MessageMinLength, MessageMaxLength, ContactRequestErrors.MessageRequired, ContactRequestErrors.MessageTooShort(MessageMinLength), ContactRequestErrors.MessageTooLong(MessageMaxLength));
         CreatedAt = createdAt;
         MarkedAsRead = markedAsRead;
     }
 
-    public ContactRequest Create(string firstName, string lastName, EmailAddress email, string? phoneNumber, string message)
-        => new(Guid.NewGuid().ToString(), firstName, lastName, email, phoneNumber, message, DateTimeOffset.UtcNow, false);
+    public static ContactRequest Create(string firstName, string lastName, string email, string? phoneNumber, string message)
+        => new(Guid.NewGuid().ToString(), firstName, lastName, EmailAddress.Create(email), string.IsNullOrWhiteSpace(phoneNumber) ? null : PhoneNumber.Create(phoneNumber), message, DateTimeOffset.UtcNow, false);
 
-    public static ContactRequest Rehydrate(string id, string firstName, string lastName, EmailAddress email, string? phoneNumber, string message, DateTimeOffset createdAt, bool markedAsRead)
+    public static ContactRequest Rehydrate(string id, string firstName, string lastName, EmailAddress email, PhoneNumber? phoneNumber, string message, DateTimeOffset createdAt, bool markedAsRead)
         => new(id, firstName, lastName, email, phoneNumber, message, createdAt, markedAsRead);
 
     public void MarkAsRead()

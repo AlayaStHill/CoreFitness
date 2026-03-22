@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories;
+namespace CoreFitness.Infrastructure.Extensions;
 
 public static class RepositoryRegistrationExtensions
 {

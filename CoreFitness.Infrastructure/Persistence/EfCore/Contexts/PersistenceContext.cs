@@ -10,6 +10,10 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersistenceContext).Assembly);
     }
 
+    //DbContext har redan en egen SaveChangesAsync. Implementerar IUnitOfWork genom att overridea DbContext.SaveChangesAsync och delegera till EF Core (base.SaveChangesAsync).
+    public override Task<int> SaveChangesAsync(CancellationToken ct)
+    => base.SaveChangesAsync(ct);
+
     /* Add entities below: */
 
 

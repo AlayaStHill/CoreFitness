@@ -1,5 +1,4 @@
 ﻿using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
-using CoreFitness.Infrastructure.Persistence.EfCore.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
