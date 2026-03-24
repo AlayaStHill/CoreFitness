@@ -1,12 +1,12 @@
 ﻿<section class="customer-service-contact">
     <div class="container">
-        <div class="contact-card">
-            <div class="contact-image">
+        <div class="customer-service-card">
+            <figure class="customer-service-card-image">
                 <img src="/images/contact-us-image.webp"
                      alt="Woman training in gym" />
 
-                <div class="contact-overlay">
-                    <address class="contact-overlay__column">
+                <address class="contact-overlay">
+                    <div class="contact-overlay__item">
                         <div class="contact-overlay__icon" aria-hidden="true">
                             <div class="contact-icon">
                                 <img src="/icons/phone.svg" alt="" />
@@ -14,11 +14,13 @@
                         </div>
                         <div class="contact-overlay__text">
                             <p class="contact-overlay__label">Phone Number</p>
-                            <p class="contact-overlay__value">+(46) 8 410 521 00</p>
+                            <a href="tel:+46841052100" class="contact-overlay__value">
+                                +(46) 8 410 521 00
+                            </a>
                         </div>
-                    </address>
+                    </div>
 
-                    <address class="contact-overlay__column">
+                    <div class="contact-overlay__item">
                         <div class="contact-overlay__icon" aria-hidden="true">
                             <div class="contact-icon">
                                 <img src="/icons/envelope.svg" alt="" />
@@ -26,13 +28,16 @@
                         </div>
                         <div class="contact-overlay__text">
                             <p class="contact-overlay__label">Email Address</p>
-                            <p class="contact-overlay__value">info@corefitness.se</p>
+                            <a href="mailto:info@corefitness.se"
+                                   class="contact-overlay__value">
+                                info@corefitness.se
+                            </a>
                         </div>
-                    </address>
-                </div>
-            </div>
+                    </div>
+                </address>
+            </figure>
 
-            <div class="contact-content">
+            <div class="customer-service-card__content">
                 <h2>Contact Us Today</h2>
                 <p>
                     Ready to begin your fitness journey? Contact us today and let
