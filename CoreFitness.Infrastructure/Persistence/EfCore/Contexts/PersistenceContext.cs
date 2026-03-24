@@ -1,4 +1,5 @@
 ﻿using CoreFitness.Application.Shared;
+using CoreFitness.Domain.Aggregates.CustomerService;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
@@ -10,7 +11,11 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersistenceContext).Assembly);
     }
 
-    /* Add entities below: */
+    //DbContext har redan en egen SaveChangesAsync. Implementerar IUnitOfWork genom att overridea DbContext.SaveChangesAsync och delegera till EF Core (base.SaveChangesAsync).
+    public override Task<int> SaveChangesAsync(CancellationToken ct)
+    => base.SaveChangesAsync(ct);
+
+    public DbSet<ContactRequest> ContactRequests => Set<ContactRequest>();
 
 
 

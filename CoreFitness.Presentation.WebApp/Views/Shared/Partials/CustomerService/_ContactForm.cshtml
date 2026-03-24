@@ -1,0 +1,57 @@
+﻿@model ContactForm
+
+
+
+<!-- CONTACTFORM -->
+<div class="contact-form-wrapper">
+    <form class="contact-form" asp-controller="CustomerService" asp-action="Index" method="post" novalidate>
+        @Html.AntiForgeryToken()
+
+        @* Sammanställning av fel från ModelState, inte kopplat till ett specifikt fält - if (!ModelState.IsValid). Role alert - screen reader läsaer upp direkt *@
+        <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+
+        <div class="form-group form-group--first-name">
+            <label class="form-label" asp-for="FirstName"></label>
+            <input class="form-input" asp-for="FirstName" placeholder="Enter First Name" />
+            <span class="field-validation" asp-validation-for="FirstName"></span>
+        </div>
+
+        <div class="form-group form-group--last-name">
+            <label class="form-label" asp-for="LastName"></label>
+            <input class="form-input" asp-for="LastName" placeholder="Enter Last Name" />
+            <span class="field-validation" asp-validation-for="LastName"></span>
+        </div>
+
+        <div class="form-group form-group--email">
+            <label class="form-label" asp-for="Email"></label>
+            <input type="email" class="form-input" asp-for="Email" placeholder="name@example.com" />
+            <span class="field-validation" asp-validation-for="Email"></span>
+        </div>
+
+        <div class="form-group form-group--phone">
+            <label class="form-label" asp-for="PhoneNumber"></label>
+            <input type="tel" class="form-input" asp-for="PhoneNumber" placeholder="Enter Phone Number" />
+            <span class="field-validation" asp-validation-for="PhoneNumber"></span>
+        </div>
+
+        <div class="form-group form-group--message">
+            <label class="form-label" asp-for="Message"></label>
+            <textarea class="form-input" asp-for="Message" placeholder="Message..."></textarea>
+            <span class="field-validation" asp-validation-for="Message"></span>
+        </div>
+
+        @* Success message *@
+        @{
+            // undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel
+            string? message = TempData["ContactFormMessage"] as string;
+        }
+
+        @if (!string.IsNullOrWhiteSpace(message))
+        {
+            <div class="form-success" role="status" aria-live="polite">
+                @message
+            </div>
+        }
+        <button class="primary-button form-submit" type="submit">Submit Message</button>
+    </form>
+</div>

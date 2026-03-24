@@ -3,6 +3,7 @@ using CoreFitness.Domain.Exceptions;
 using CoreFitness.Domain.Exceptions.Custom;
 using CoreFitness.Presentation.WebApp.Contracts;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 
@@ -98,6 +99,10 @@ public static class ExceptionHandlingExtensions
                         statusCode = StatusCodes.Status400BadRequest;
                         message = "Invalid JSON payload.";
 
+                        break;
+
+                    case DbUpdateException:
+                        statusCode = StatusCodes.Status409Conflict;
                         break;
 
                     // Alla andra okända fel

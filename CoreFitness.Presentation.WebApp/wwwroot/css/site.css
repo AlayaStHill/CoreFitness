@@ -14,6 +14,7 @@
     --light-color: #F7F7F7;
     --white-color: #FFFFFF;
     --error-color: #AB281F;
+    --success-color: #2e7d32;
     --default-bg-color: var(--light-color);
     --default-text-color: var(--dark-color);
     --border-color: var(--gray-color);
@@ -34,6 +35,30 @@
     --primary-button-hover-text-color: var(--white-color);
     --primary-button-hover-offset-bg-color: var(--white-color);
     --primary-button-hover-offset-text-color: var(--dark-color);
+    --form-label-text-color: var(--dark-color);
+    --form-input-bg-color: var(--light-color);
+    --form-input-border-color: var(--light-color);
+    --form-input-error-bg-color: var(--light-color);
+    --form-input-error-border-color: var(--light-color);
+    --form-input-error-text-color: var(--dark-color);
+    --form-error-text-color: var(--error-color);
+    --form-placeholder-text-color: var(--lightgray-color);
+    --section-spacing-sm: 5rem; /* 80px */
+    --section-spacing-md: 6rem; /* 96px */
+    --section-spacing-lg: 8rem; /* 128px */
+
+    --space-xxs: 0.35rem;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 2.5rem;
+    --space-xxl: 3rem;
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-pill: 999px;
 }
 
 /*=======================================
@@ -87,20 +112,22 @@ h3,
 h4,
 h5,
 h6 {
-    margin-top: 1.5rem;
+    margin: 0;
+    padding: 0;
     font-family: var(--title-font);
     font-weight: 500;
     font-style: normal;
 }
 
 h1 {
-    font-size: 3.375rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 500;
 }
 
 h2 {
-    font-size: 3rem;
-    line-height: 3.75rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+    /*line-height: 3.75rem;*/
 }
 
 

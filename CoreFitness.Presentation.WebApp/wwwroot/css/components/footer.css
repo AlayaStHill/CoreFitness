@@ -2,7 +2,7 @@
     margin: 1rem;
     border-radius: 20px;
     background-color: var(--footer-bg-color);
-    background-image: url("../img/dark-section-img.webp");
+    background-image: url("../../images/dark-section-img.webp");
     background-repeat: no-repeat;
     background-size: cover;
     color: var(--footer-text-color);

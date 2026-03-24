@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ContactForm
+
+@{
     ViewData["Title"] = "Customer Service";
 }
 
@@ -8,31 +10,14 @@
     </div>
 </section>
 
-@* CONTACT *@
-<section class="customer-service-contact">
-    <div class="container">
-
-        <div class="contact-layout">
-            <div class="contact-image">
-                <img src="/images/contact-us-image.webp" alt="Woman training in gym" />
-            </div>
-
-            <h2>Contact Us Today</h2>
-            <p>
-                Ready to begin your fitness journey? Contact us today and let our
-                expert trainers guide you with the right program and support.
-            </p>
-
-            <!-- FORM KOMMER SENARE -->
-            <div class="contact-form-placeholder"></div>
-        </div>
-    </div> 
-</section>
-
+@* CONTACT + contact form*@
+<partial name="~/Views/Shared/Partials/CustomerService/_ContactSection.cshtml" model="Model" />
 
 @* FAQ *@
-<section class="customer-service-faq">
-    <div class="container">
-        <h2>Common questions about gym and training</h2>
-    </div>
-</section>
+<partial name="~/Views/Shared/Partials/CustomerService/_FaqSection.cshtml" model="Model" />
+
+
+
+@section Scripts {
+    <script src="~/js/contact-form.js" asp-append-version="true"></script>
+}
