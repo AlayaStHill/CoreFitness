@@ -5,7 +5,7 @@ using CoreFitness.Presentation.WebApp.Configurations;
 using CoreFitness.Presentation.WebApp.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddControllersWithViews();
 

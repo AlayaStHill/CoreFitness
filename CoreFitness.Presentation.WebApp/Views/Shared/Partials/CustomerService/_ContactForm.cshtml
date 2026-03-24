@@ -1,17 +1,6 @@
 ﻿@model ContactForm
 
-@* Success message *@
-@{
-    // undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel
-    string? message = TempData["ContactFormMessage"] as string;
-}
 
-@if (!string.IsNullOrWhiteSpace(message))
-{
-    <div class="form-success" role="status" aria-live="polite">
-        @message
-    </div>
-}
 
 <!-- CONTACTFORM -->
 <div class="contact-form-wrapper">
@@ -51,6 +40,18 @@
             <span class="field-validation" asp-validation-for="Message"></span>
         </div>
 
+        @* Success message *@
+        @{
+            // undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel
+            string? message = TempData["ContactFormMessage"] as string;
+        }
+
+        @if (!string.IsNullOrWhiteSpace(message))
+        {
+            <div class="form-success" role="status" aria-live="polite">
+                @message
+            </div>
+        }
         <button class="primary-button form-submit" type="submit">Submit Message</button>
     </form>
 </div>

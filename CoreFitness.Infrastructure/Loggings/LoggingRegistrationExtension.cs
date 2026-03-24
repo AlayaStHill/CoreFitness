@@ -5,7 +5,7 @@ namespace CoreFitness.Infrastructure.Loggings;
 
 public static class LoggingRegistrationExtension
 {
-    public static IServiceCollection AddLogging(this IServiceCollection services)
+    public static IServiceCollection AddLogger(this IServiceCollection services)
     {
         services.AddScoped<IDomainLogger, Logger>();
 

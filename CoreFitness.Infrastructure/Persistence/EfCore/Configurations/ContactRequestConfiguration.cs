@@ -3,7 +3,6 @@ using CoreFitness.Domain.Shared.ValueObjects.EmailAddresses;
 using CoreFitness.Domain.Shared.ValueObjects.PhoneNumbers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Net;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Configurations;
 
@@ -32,7 +31,7 @@ public class ContactRequestConfiguration : IEntityTypeConfiguration<ContactReque
 
         builder.Property(e => e.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()"); // SYSUTCDATETIME???
+            .HasDefaultValueSql("SYSUTCDATETIME()"); 
 
         builder.Property(e => e.MarkedAsRead)
             .IsRequired()

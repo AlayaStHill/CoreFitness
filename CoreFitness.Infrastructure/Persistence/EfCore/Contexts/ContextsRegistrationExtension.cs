@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 // Hanterar kopplingen med databasen och konfigurationen av DbContext beroende på miljö (utveckling eller produktion).
 public static class ContextsRegistrationExtension

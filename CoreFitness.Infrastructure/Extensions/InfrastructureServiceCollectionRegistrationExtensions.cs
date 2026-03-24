@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CoreFitness.Infrastructure.Loggings;
 
 namespace CoreFitness.Infrastructure.Extensions;
 
@@ -13,7 +14,7 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(environment);
 
-        services.AddLogging();
+        services.AddLogger();
         services.AddPersistence(configuration, environment);
         services.AddEfCoreContexts(configuration, environment);
         services.AddRepositories();
