@@ -32,7 +32,7 @@ public class ContactRequestConfiguration : IEntityTypeConfiguration<ContactReque
 
         builder.Property(e => e.CreatedAt)
             .IsRequired()
-            .HasDefaultValueSql("GETUTCDATE()");
+            .HasDefaultValueSql("GETUTCDATE()"); // SYSUTCDATETIME???
 
         builder.Property(e => e.MarkedAsRead)
             .IsRequired()
