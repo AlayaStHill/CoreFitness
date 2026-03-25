@@ -1,4 +1,5 @@
 ﻿using CoreFitness.Infrastructure.Persistence;
+using Infrastructure.Identity.Data;
 using Microsoft.Extensions.Hosting;
 
 namespace CoreFitness.Infrastructure;
@@ -10,8 +11,9 @@ public class InfrastructureInitializer
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(environment);
 
-        await PersistenceDatabaseInitializer.InitializeDatabaseAsync(serviceProvider, environment); 
+        await PersistenceDatabaseInitializer.InitializeDatabaseAsync(serviceProvider, environment);
 
-
+        await IdentityInitializer.InitializeDefaultRolesAsync(serviceProvider);
+        await IdentityInitializer.InitializeDefaultAdminAccountsAsync(serviceProvider);
     }
 }
