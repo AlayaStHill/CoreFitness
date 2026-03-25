@@ -1,4 +1,4 @@
-﻿using Application.Extensions;
+﻿using CoreFitness.Application.CustomerService.ContatRequests;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreFitness.Application.Extensions;
@@ -7,7 +7,9 @@ public static class ApplicationServiceCollectionRegistrationExtensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddServices();
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.AddScoped<IContactRequestService, ContactRequestService>();
 
         return services;
     }

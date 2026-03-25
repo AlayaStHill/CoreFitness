@@ -3,17 +3,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CoreFitness.Infrastructure;
+namespace CoreFitness.Infrastructure.Persistence;
 
-public static class PersistenceDatabaseInitializer
+// behöver vara async eftersom infrastructureinitializer är async?
+// måste hämtas ut från ett scope?
+internal static class PersistenceDatabaseInitializer
 {
-    public static async Task InitializeAsync(IServiceProvider serviceProvider, IHostEnvironment environment)
+    public static async Task InitializeDatabaseAsync(IServiceProvider serviceProvider, IHostEnvironment environment)
     {
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(environment);
 
+        
         if (environment.IsDevelopment())
         {
+            // För att DbContext är scoped, få en instans av context som är scoped
             using IServiceScope scope = serviceProvider.CreateScope();
             PersistenceContext context = scope.ServiceProvider.GetRequiredService<PersistenceContext>();
             // om databasen inte finns, skapa den
@@ -30,3 +34,4 @@ public static class PersistenceDatabaseInitializer
 
 
 }
+

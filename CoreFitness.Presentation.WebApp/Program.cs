@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 
 // Alla URL:er som ASP.NET genererar kommer vara små bokstäver. SEO föredrar
 builder.Services.AddRouting(options =>
@@ -27,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Kör databasinitiering beroende på aktuell miljö
-await PersistenceDatabaseInitializer.InitializeAsync(app.Services, app.Environment);
+await InfrastructureInitializer.InitializeAsync(app.Services, app.Environment);
 
 app.UseHsts();
 app.UseGlobalExceptionHandling();
@@ -40,6 +41,7 @@ app.UseRouting();
 
 app.MapStaticAssets();
 
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 

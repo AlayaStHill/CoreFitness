@@ -2,7 +2,7 @@
 using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.CustomerService;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreFitness.Infrastructure.Extensions;
+namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories;
 
 public static class RepositoryRegistrationExtensions
 {

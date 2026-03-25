@@ -8,6 +8,9 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // identity använder 
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersistenceContext).Assembly);
     }
 
