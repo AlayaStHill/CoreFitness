@@ -16,7 +16,7 @@ public sealed class Booking
     internal static Booking Create(WorkoutSessionId workoutSessionId, MemberId memberId)
     {
         DomainValidator.RequiredGuid(workoutSessionId.Value, BookingErrors.WorkoutSessionIdRequired);
-        DomainValidator.RequiredGuid(memberId.Value, BookingErrors.UserIdRequired);
+        DomainValidator.RequiredGuid(memberId.Value, BookingErrors.MemberIdRequired);
 
         return new(workoutSessionId, memberId);
     }

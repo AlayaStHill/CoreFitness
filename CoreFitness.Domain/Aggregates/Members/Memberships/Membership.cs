@@ -6,17 +6,20 @@ namespace CoreFitness.Domain.Aggregates.Members.Memberships;
 
 public sealed class Membership
 {
+    public MembershipId Id { get; private set; } = default!;
     public MemberId MemberId { get; private set; } = default!;
     public MembershipTypeId MembershipTypeId { get; private set; } = default!;
     public DateOnly StartDate { get; private set; }
     public MembershipStatus Status { get; private set; }
 
     private Membership(
+        MembershipId id,
         MemberId memberId,
         MembershipTypeId membershipTypeId,
         DateOnly startDate,
         MembershipStatus status)
     {
+        Id = id;
         MemberId = memberId;
         MembershipTypeId = membershipTypeId;
         StartDate = startDate;
@@ -25,21 +28,16 @@ public sealed class Membership
 
     private Membership() { }
 
-    internal static Membership Create(
-        MemberId memberId,
-        MembershipTypeId membershipTypeId,
-        DateOnly startDate)
+    internal static Membership Create(MemberId memberId, MembershipTypeId membershipTypeId)
     {
         DomainValidator.RequiredGuid(memberId.Value, MembershipErrors.MemberIdRequired);
         DomainValidator.RequiredGuid(membershipTypeId.Value, MembershipErrors.MembershipTypeIdRequired);
 
-        if (startDate < DateOnly.FromDateTime(DateTime.UtcNow))
-            throw new ValidationDomainException(MembershipErrors.StartDateCannotBeInThePast);
-
         return new Membership(
+            MembershipId.Create(),
             memberId,
             membershipTypeId,
-            startDate,
+            DateOnly.FromDateTime(DateTime.UtcNow),
             MembershipStatus.Active);
     }
 
@@ -83,17 +81,7 @@ public sealed class Membership
         Status = MembershipStatus.Cancelled;
     }
 
-    internal bool IsActive()
-    {
-        return Status == MembershipStatus.Active;
-    }
-
-    public bool IsPaused()
-    {
-        return Status == MembershipStatus.Paused;
-    }
-    public bool IsCancelled()
-    {
-        return Status == MembershipStatus.Cancelled;
-    }
+    public bool IsActive() => Status == MembershipStatus.Active;
+    public bool IsPaused() => Status == MembershipStatus.Paused;
+    public bool IsCancelled() => Status == MembershipStatus.Cancelled;
 }

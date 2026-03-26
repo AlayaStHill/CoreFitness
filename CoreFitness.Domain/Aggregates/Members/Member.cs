@@ -10,31 +10,31 @@ public sealed class Member
     private readonly List<Membership> _memberships = [];
 
     public MemberId Id { get; private set; } = default!;
-    public string IdentityUserId { get; private set; } = null!;
+    public string UserId { get; private set; } = null!;
 
     public IReadOnlyCollection<Membership> Memberships => _memberships.AsReadOnly();
 
-    private Member(MemberId id, string identityUserId)
+    private Member(MemberId id, string userId)
     {
         Id = id;
-        IdentityUserId = identityUserId;
+        UserId = userId;
     }
 
     private Member() { }
 
-    public static Member Create(string identityUserId)
+    public static Member Create(string userId)
     {
-        DomainValidator.RequiredString(identityUserId, MemberErrors.IdentityUserIdRequired);
+        DomainValidator.RequiredString(userId, MemberErrors.UserIdRequired);
 
-        return new Member(MemberId.Create(), identityUserId);
+        return new Member(MemberId.Create(), userId);
     }
 
-    public void StartMembership(MembershipTypeId membershipTypeId, DateOnly startDate)
+    public void StartMembership(MembershipTypeId membershipTypeId)
     {
         if (_memberships.Any(x => x.IsActive()))
-            throw new ValidationDomainException(MemberErrors.MemberAlreadyHasMembership);
+            throw new ValidationDomainException(MemberErrors.MemberAlreadyHasActiveMembership);
 
-        var membership = Membership.Create(Id, membershipTypeId, startDate);
+        var membership = Membership.Create(Id, membershipTypeId);
         _memberships.Add(membership);
     }
 
@@ -52,13 +52,10 @@ public sealed class Member
 
     public void ActivatePausedMembership()
     {
-        var pausedMembership = _memberships.FirstOrDefault(x => x.IsPaused());
-
-        if (pausedMembership is null)
-            throw new ValidationDomainException(MemberErrors.MemberHasNoMembership);
+        var pausedMembership = GetPausedMembershipOrThrow();
 
         if (_memberships.Any(x => x.IsActive()))
-            throw new ValidationDomainException(MemberErrors.MemberAlreadyHasMembership);
+            throw new ValidationDomainException(MemberErrors.MemberAlreadyHasActiveMembership);
 
         pausedMembership.Activate();
     }
@@ -85,6 +82,16 @@ public sealed class Member
 
         if (membership is null)
             throw new ValidationDomainException(MemberErrors.MemberHasNoMembership);
+
+        return membership;
+    }
+
+    private Membership GetPausedMembershipOrThrow()
+    {
+        var membership = _memberships.FirstOrDefault(x => x.IsPaused());
+
+        if (membership is null)
+            throw new ValidationDomainException(MemberErrors.MemberHasNoPausedMembership);
 
         return membership;
     }

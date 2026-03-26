@@ -61,13 +61,13 @@ public sealed class WorkoutSession
 
     internal void Book(MemberId memberId)
     {
-        DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.UserIdRequired);
+        DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.MemberIdRequired);
 
         if (StartsAt <= DateTimeOffset.UtcNow)
             throw new ValidationDomainException(WorkoutSessionErrors.BookingNotAllowedForStartedSession);
 
         if (_bookings.Any(b => b.MemberId == memberId))
-            throw new ValidationDomainException(WorkoutSessionErrors.UserAlreadyBooked);
+            throw new ValidationDomainException(WorkoutSessionErrors.MemberAlreadyBooked);
 
         if (_bookings.Count >= Capacity)
             throw new ValidationDomainException(WorkoutSessionErrors.SessionIsFull);
@@ -77,7 +77,7 @@ public sealed class WorkoutSession
 
     public void CancelBooking(MemberId memberId)
     {
-        DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.UserIdRequired);
+        DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.MemberIdRequired);
 
         var booking = _bookings.FirstOrDefault(b => b.MemberId == memberId);
 
