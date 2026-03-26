@@ -1,7 +1,7 @@
 ﻿using corefitness.domain.shared.validators;
 using CoreFitness.Domain.Exceptions.Custom;
 
-namespace CoreFitness.Domain.Aggregates.Members.MembershipTypes;
+namespace CoreFitness.Domain.Aggregates.Memberships.MembershipTypes;
 
 public sealed class MembershipType
 {

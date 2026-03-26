@@ -1,4 +1,4 @@
-﻿namespace CoreFitness.Domain.Aggregates.Members.MembershipTypes;
+﻿namespace CoreFitness.Domain.Aggregates.Memberships.MembershipTypes;
 
 public sealed record MembershipTypeId(Guid Value)
 {
