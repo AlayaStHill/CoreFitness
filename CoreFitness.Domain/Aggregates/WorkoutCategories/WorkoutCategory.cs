@@ -1,6 +1,6 @@
 ﻿using corefitness.domain.shared.validators;
 
-namespace CoreFitness.Domain.Aggregates.Workouts.WorkoutCategories;
+namespace CoreFitness.Domain.Aggregates.WorkoutCategories;
 
 public sealed class WorkoutCategory
 {
@@ -16,5 +16,10 @@ public sealed class WorkoutCategory
     {
         var normalizedTitle = DomainValidator.RequiredString(title, WorkoutCategoryErrors.TitleRequired);
         return new(WorkoutCategoryId.Create(), normalizedTitle);
+    }
+
+    public void Rename(string title)
+    {
+        Title = DomainValidator.RequiredString(title, WorkoutCategoryErrors.TitleRequired);
     }
 }

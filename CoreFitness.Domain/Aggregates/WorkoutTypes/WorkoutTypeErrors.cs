@@ -1,4 +1,4 @@
-﻿namespace CoreFitness.Domain.Aggregates.Workouts.WorkoutTypes;
+﻿namespace CoreFitness.Domain.Aggregates.WorkoutTypes;
 
 public class WorkoutTypeErrors
 {

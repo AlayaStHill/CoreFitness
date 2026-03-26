@@ -1,6 +1,7 @@
 ﻿using corefitness.domain.shared.validators;
-using CoreFitness.Domain.Aggregates.Workouts.WorkoutTypes;
+using CoreFitness.Domain.Aggregates.Members;
 using CoreFitness.Domain.Aggregates.WorkoutSessions.Bookings;
+using CoreFitness.Domain.Aggregates.WorkoutTypes;
 using CoreFitness.Domain.Exceptions.Custom;
 
 namespace CoreFitness.Domain.Aggregates.WorkoutSessions;
@@ -58,27 +59,27 @@ public sealed class WorkoutSession
             capacity);
     }
 
-    public void Book(string userId)
+    public void Book(MemberId memberId)
     {
-        DomainValidator.RequiredString(userId, WorkoutSessionErrors.UserIdRequired);
+        DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.UserIdRequired);
 
         if (StartsAt <= DateTimeOffset.UtcNow)
             throw new ValidationDomainException(WorkoutSessionErrors.BookingNotAllowedForStartedSession);
 
-        if (_bookings.Any(b => b.UserId == userId))
+        if (_bookings.Any(b => b.MemberId == memberId))
             throw new ValidationDomainException(WorkoutSessionErrors.UserAlreadyBooked);
 
         if (_bookings.Count >= Capacity)
             throw new ValidationDomainException(WorkoutSessionErrors.SessionIsFull);
 
-        _bookings.Add(Booking.Create(Id, userId));
+        _bookings.Add(Booking.Create(Id, memberId));
     }
 
-    public void CancelBooking(string userId)
+    public void CancelBooking(MemberId memberId)
     {
-        DomainValidator.RequiredString(userId, WorkoutSessionErrors.UserIdRequired);
+        DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.UserIdRequired);
 
-        var booking = _bookings.FirstOrDefault(b => b.UserId == userId);
+        var booking = _bookings.FirstOrDefault(b => b.MemberId == memberId);
 
         if (booking is null)
             throw new ValidationDomainException(WorkoutSessionErrors.BookingNotFound);

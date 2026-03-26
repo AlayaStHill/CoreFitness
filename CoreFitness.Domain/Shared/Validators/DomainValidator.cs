@@ -50,4 +50,9 @@ public static class DomainValidator
     {
         throw new NotImplementedException();
     }
+
+    internal static void RequiredString(string identityUserId, object identityUserIdRequired)
+    {
+        throw new NotImplementedException();
+    }
 }

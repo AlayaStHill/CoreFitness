@@ -1,4 +1,4 @@
-﻿namespace CoreFitness.Domain.Aggregates.Memberships;
+﻿namespace CoreFitness.Domain.Aggregates.Members.Memberships;
 
 public enum MembershipStatus
 {

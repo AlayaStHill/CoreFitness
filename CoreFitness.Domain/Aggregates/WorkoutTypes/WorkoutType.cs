@@ -1,7 +1,7 @@
 ﻿using corefitness.domain.shared.validators;
-using CoreFitness.Domain.Aggregates.Workouts.WorkoutCategories;
+using CoreFitness.Domain.Aggregates.WorkoutCategories;
 
-namespace CoreFitness.Domain.Aggregates.Workouts.WorkoutTypes;
+namespace CoreFitness.Domain.Aggregates.WorkoutTypes;
 
 public sealed class WorkoutType
 {
@@ -23,5 +23,16 @@ public sealed class WorkoutType
         DomainValidator.RequiredGuid(workoutCategoryId.Value, WorkoutTypeErrors.WorkoutCategoryIdRequired);
 
         return new(WorkoutTypeId.Create(), normalizedTitle, workoutCategoryId);
+    }
+
+    public void Rename(string title)
+    {
+        Title = DomainValidator.RequiredString(title, WorkoutTypeErrors.TitleRequired);
+    }
+
+    public void ChangeCategory(WorkoutCategoryId workoutCategoryId)
+    {
+        DomainValidator.RequiredGuid(workoutCategoryId.Value, WorkoutTypeErrors.WorkoutCategoryIdRequired);
+        WorkoutCategoryId = workoutCategoryId;
     }
 }
