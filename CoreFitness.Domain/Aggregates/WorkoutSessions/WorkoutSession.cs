@@ -59,7 +59,7 @@ public sealed class WorkoutSession
             capacity);
     }
 
-    public void Book(MemberId memberId)
+    internal void Book(MemberId memberId)
     {
         DomainValidator.RequiredGuid(memberId.Value, WorkoutSessionErrors.UserIdRequired);
 
