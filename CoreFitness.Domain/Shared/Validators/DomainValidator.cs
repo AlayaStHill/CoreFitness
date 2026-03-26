@@ -1,4 +1,4 @@
-﻿using CoreFitness.Domain.Exceptions.Custom;
+﻿  using CoreFitness.Domain.Exceptions.Custom;
 
 namespace corefitness.domain.shared.validators;
 

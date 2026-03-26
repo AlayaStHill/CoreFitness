@@ -1,4 +1,6 @@
-﻿using CoreFitness.Infrastructure.Identity.Models;
+﻿using CoreFitness.Application.Abstractions.Authentication;
+using CoreFitness.Infrastructure.Identity.Models;
+using CoreFitness.Infrastructure.Identity.Services;
 using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +43,7 @@ public static class IdentityRegistrationExtension
             options.SlidingExpiration = true;
         });
 
-        //services.AddScopes<IdentityAuthService, IAuthService> ();   
+        services.AddScoped<IAuthService, IdentityAuthService>();
 
         return services;
     }
