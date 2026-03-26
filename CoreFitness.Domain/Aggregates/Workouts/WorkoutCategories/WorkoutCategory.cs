@@ -1,0 +1,20 @@
+﻿using corefitness.domain.shared.validators;
+
+namespace CoreFitness.Domain.Aggregates.Workouts.WorkoutCategories;
+
+public sealed class WorkoutCategory
+{
+    public WorkoutCategoryId Id { get; private set; } = default!;
+    public string Title { get; private set; } = null!;
+    private WorkoutCategory(WorkoutCategoryId id, string title)
+    {
+        Id = id;
+        Title = title;
+    }
+    public static WorkoutCategory Create(string title)
+    {
+        var normalizedTitle = DomainValidator.RequiredString(title, WorkoutCategoryErrors.TitleRequired);
+        return new(WorkoutCategoryId.Create(), normalizedTitle);
+    }
+    public static WorkoutCategory Rehydrate(string id, string title) => new(new WorkoutCategoryId(new Guid(id)), title);
+}
