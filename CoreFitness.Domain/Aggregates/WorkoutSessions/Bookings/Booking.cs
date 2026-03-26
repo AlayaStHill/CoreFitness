@@ -12,7 +12,7 @@ public sealed class Booking
         UserId = userId;
     }
     private Booking() { }
-    public static Booking Create(WorkoutSessionId workoutSessionId, string userId)
+    internal static Booking Create(WorkoutSessionId workoutSessionId, string userId)
     {
         DomainValidator.RequiredGuid(workoutSessionId.Value, BookingErrors.WorkoutSessionIdRequired);
         DomainValidator.RequiredString(userId, BookingErrors.UserIdRequired);

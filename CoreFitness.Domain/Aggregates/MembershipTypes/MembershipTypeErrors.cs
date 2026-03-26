@@ -1,4 +1,4 @@
-﻿namespace CoreFitness.Domain.Aggregates.Memberships.MembershipTypes;
+﻿namespace CoreFitness.Domain.Aggregates.MembershipTypes;
 
 public class MembershipTypeErrors
 {
