@@ -1,10 +1,13 @@
 ﻿using CoreFitness.Application.Shared;
 using CoreFitness.Domain.Aggregates.CustomerService;
+using CoreFitness.Infrastructure.Identity.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 
-public class PersistenceContext(DbContextOptions<PersistenceContext> options) : DbContext(options), IUnitOfWork
+public class PersistenceContext(DbContextOptions<PersistenceContext> options) : IdentityDbContext<ApplicationUser, IdentityRole, string>(options), IUnitOfWork
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CoreFitness.Presentation.WebApp.Models.Forms;
+namespace CoreFitness.Presentation.WebApp.Models.CustomerService;
 
 public class ContactForm
 {

@@ -208,6 +208,11 @@ textarea.form-input {
     margin-bottom: var(--space-sm);
 }
 
+.form-error {
+    color: var(--error-color);
+    margin-bottom: var(--space-sm);
+}
+
 @media (min-width: 1400px) {
     .contact-form {
         grid-template-columns: 1fr 1fr;

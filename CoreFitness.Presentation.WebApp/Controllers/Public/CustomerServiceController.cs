@@ -1,10 +1,10 @@
 ﻿using CoreFitness.Application.CustomerService.ContatRequests;
 using CoreFitness.Application.CustomerService.ContatRequests.Inputs;
 using CoreFitness.Application.Shared.Results;
-using CoreFitness.Presentation.WebApp.Models.Forms;
+using CoreFitness.Presentation.WebApp.Models.CustomerService;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreFitness.Presentation.WebApp.Controllers;
+namespace CoreFitness.Presentation.WebApp.Controllers.Public;
 
 
 public class CustomerServiceController(IContactRequestService contactRequestService) : Controller
@@ -33,10 +33,17 @@ public class CustomerServiceController(IContactRequestService contactRequestServ
 
         Result result = await contactRequestService.CreateContactRequestAsync(contactRequestInput, ct);
 
-        TempData["ContactFormMessage"] = result.IsSuccess
-            ? "Your message has been sent."
-            : "Your message could not be sent. Please try again later.";
-
+        if (result.IsFailure)
+        {
+            TempData["ErrorMessage"] = result.Error?.Message
+            ?? "Your message could not be sent. Please try again later.";
+        }
+        else
+        {
+            TempData["SuccessMessage"] = "Your message has been sent.";
+        }
+        
+        // alltid Get-versionen av Index
         return RedirectToAction(nameof(Index));
     }
 
