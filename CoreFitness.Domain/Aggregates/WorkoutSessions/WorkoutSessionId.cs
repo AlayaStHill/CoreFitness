@@ -1,4 +1,4 @@
-﻿namespace CoreFitness.Domain.Aggregates.Workouts.WorkoutSessions;
+﻿namespace CoreFitness.Domain.Aggregates.WorkoutSessions;
 
 public sealed record WorkoutSessionId(Guid Value)
 {

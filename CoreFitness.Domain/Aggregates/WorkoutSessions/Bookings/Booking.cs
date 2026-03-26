@@ -1,7 +1,6 @@
 ﻿using corefitness.domain.shared.validators;
-using CoreFitness.Domain.Aggregates.Workouts.WorkoutSessions;
 
-namespace CoreFitness.Domain.Aggregates.Bookings;
+namespace CoreFitness.Domain.Aggregates.WorkoutSessions.Bookings;
 
 public sealed class Booking
 {

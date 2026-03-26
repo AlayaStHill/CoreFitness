@@ -1,4 +1,4 @@
-﻿namespace CoreFitness.Domain.Aggregates.Bookings;
+﻿namespace CoreFitness.Domain.Aggregates.WorkoutSessions.Bookings;
 
 internal class BookingErrors
 {
