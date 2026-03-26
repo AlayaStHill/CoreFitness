@@ -1,4 +1,5 @@
 ﻿using corefitness.domain.shared.validators;
+using CoreFitness.Domain.Aggregates.Workouts.WorkoutCategories;
 
 namespace CoreFitness.Domain.Aggregates.Workouts.WorkoutTypes;
 
@@ -6,7 +7,7 @@ public sealed class WorkoutType
 {
     public WorkoutTypeId Id { get; private set; } = default!;
     public string Title { get; private set; } = null!;
-    public WorkoutCategoryId WorkoutCategoryId { get; private set; }
+    public WorkoutCategoryId WorkoutCategoryId { get; private set; } = default!;
 
     private WorkoutType(WorkoutTypeId id, string title, WorkoutCategoryId workoutCategoryId)
     {
@@ -14,6 +15,7 @@ public sealed class WorkoutType
         Title = title;
         WorkoutCategoryId = workoutCategoryId;
     }
+    private WorkoutType() { }
 
     public static WorkoutType Create(string title, WorkoutCategoryId workoutCategoryId)
     {
@@ -22,5 +24,4 @@ public sealed class WorkoutType
 
         return new(WorkoutTypeId.Create(), normalizedTitle, workoutCategoryId);
     }
-    public static WorkoutType Rehydrate(string id, string title, string workoutCategoryId) => new(new WorkoutTypeId(new Guid(id)), title, workoutCategoryId);
 }

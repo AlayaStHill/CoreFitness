@@ -11,10 +11,10 @@ public sealed class WorkoutCategory
         Id = id;
         Title = title;
     }
+    private WorkoutCategory() { }
     public static WorkoutCategory Create(string title)
     {
         var normalizedTitle = DomainValidator.RequiredString(title, WorkoutCategoryErrors.TitleRequired);
         return new(WorkoutCategoryId.Create(), normalizedTitle);
     }
-    public static WorkoutCategory Rehydrate(string id, string title) => new(new WorkoutCategoryId(new Guid(id)), title);
 }

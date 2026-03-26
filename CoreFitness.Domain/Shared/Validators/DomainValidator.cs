@@ -45,4 +45,9 @@ public static class DomainValidator
 
         return value.Trim();
     }
+
+    internal static void RequiredGuid(Guid value, object workoutTypeIdRequired)
+    {
+        throw new NotImplementedException();
+    }
 }
