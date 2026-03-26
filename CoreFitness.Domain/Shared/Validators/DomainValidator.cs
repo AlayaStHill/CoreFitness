@@ -4,7 +4,7 @@ namespace corefitness.domain.shared.validators;
 
 public static class DomainValidator
 {
-    public static string Required(string? value, string errorMessage)
+    public static string RequiredString(string? value, string errorMessage)
     {
         string normalizedValue = value?.Trim() ?? string.Empty;
 
@@ -12,6 +12,14 @@ public static class DomainValidator
             throw new ValidationDomainException(errorMessage);
 
         return normalizedValue;
+    }
+
+    public static void RequiredGuid(Guid value, string errorMessage)
+    {
+        if (value == Guid.Empty)
+        {
+            throw new ValidationDomainException(errorMessage);
+        }
     }
 
     public static string RequiredWithLength(string? value, int minLength, int maxLength, string requiredErrorMessage, string tooShortErrorMessage, string tooLongErrorMessage)
