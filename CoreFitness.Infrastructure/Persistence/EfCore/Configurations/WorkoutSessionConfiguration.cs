@@ -51,10 +51,7 @@ public sealed class WorkoutSessionConfiguration : IEntityTypeConfiguration<Worko
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Navigation(x => x.Bookings)
-            .UsePropertyAccessMode(PropertyAccessMode.Field);
-
-        builder.Metadata
-            .FindNavigation(nameof(WorkoutSession.Bookings))!
-            .SetField("_bookings");
+        .HasField("_bookings")
+        .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }
