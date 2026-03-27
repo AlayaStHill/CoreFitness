@@ -1,6 +1,7 @@
 ﻿using CoreFitness.Application.Shared;
 using CoreFitness.Domain.Aggregates.CustomerService;
 using CoreFitness.Domain.Aggregates.Members;
+using CoreFitness.Domain.Aggregates.Members.Memberships;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
@@ -18,6 +19,7 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
 
     public DbSet<ContactRequest> ContactRequests => Set<ContactRequest>();
     public DbSet<Member> Members => Set<Member>();
+    public DbSet<Membership> Memberships => Set<Membership>();
 
 
 
