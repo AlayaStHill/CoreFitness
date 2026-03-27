@@ -6,7 +6,7 @@ using CoreFitness.Presentation.WebApp.Models.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreFitness.Presentation.WebApp.Controllers.Athentication;
+namespace CoreFitness.Presentation.WebApp.Controllers.Authentication;
 
 public class AuthenticationController(IAuthService identityAuthService) : Controller
 {
@@ -23,16 +23,17 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
 
     // spara email i session så att den kan användas i nästa steg (set-password) 
     [HttpPost("sign-up")]
+    // för Cross-Site Request Forgery, en attacker skickaren post-request från en annan sida. ValidateAntiForgeryToken --> krävs att en giltig anti-forgery token skickas med i requesten
     [ValidateAntiForgeryToken]
     [AllowAnonymous]
-    public IActionResult SignUp(SignUpRequest signUpRequest)
+    public IActionResult SignUp(SignUpRequest request)
     {
         if (!ModelState.IsValid)
         {
-            return View(signUpRequest);
+            return View(request);
         }
 
-        HttpContext.Session.SetString(SignUpEmailSessionKey, signUpRequest.Email);
+        HttpContext.Session.SetString(SignUpEmailSessionKey, request.Email);
 
         return RedirectToAction(nameof(SetPassword));
     }
@@ -46,42 +47,42 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         if (string.IsNullOrWhiteSpace(email))
             return RedirectToAction(nameof(SignUp));
 
-        return View();
+        return View(new SetPasswordRequest());
     }
 
     [HttpPost("set-password")]
     [ValidateAntiForgeryToken]
-    [Authorize]
-    public async Task<IActionResult> SetPassword(SetPasswordRequest passwordRequest)
+    [AllowAnonymous]
+    public async Task<IActionResult> SetPassword(SetPasswordRequest request, CancellationToken ct = default)
     {
         string? email = HttpContext.Session.GetString(SignUpEmailSessionKey);
         if (string.IsNullOrWhiteSpace(email))
             return RedirectToAction(nameof(SignUp));
 
         if (!ModelState.IsValid)
-            return View(passwordRequest);
+            return View(request);
 
         SignUpUserInput input = new
         (
             email,
-            passwordRequest.Password
+            request.Password
         );
 
-        return View();
+        Result result = await identityAuthService.SignUpUserAsync(input, ct);
+
+        if (result.IsFailure)
+        {
+            //string.Empty används för att lägga till ett globalt fel, inte kopplat till ett specifikt fält
+            ModelState.AddModelError(string.Empty, result.Error?.Message 
+                ?? "An error occurred while signing up.");
+
+            return View(request);
+        }
+
+        TempData["SuccessMessage"] = "Your account has been created successfully. Please sign in.";
+
+        HttpContext.Session.Remove(SignUpEmailSessionKey);
+        return RedirectToAction(nameof(SignIn));
     }
 
 }
-
-
-
-//        Result result = await identityAuthService.SignUpUserAsync(input);
-
-//        if (result.IsFailure)
-//        {
-//            ModelState.AddModelError(string.Empty, result.Error?.Message ?? "An error occurred while signing up.");
-//            return View(request);
-//        }
-
-//        TempData["SuccessMessage"] = "Account created. Please sign in.";
-
-//return RedirectToAction(nameof(SignIn));

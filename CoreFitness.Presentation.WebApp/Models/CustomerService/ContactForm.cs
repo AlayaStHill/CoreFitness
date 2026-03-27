@@ -18,11 +18,13 @@ public class ContactForm
 
     [Required(ErrorMessage = "You must enter an email address")]
     [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email address format")]
+    [DataType(DataType.EmailAddress)]
     [Display(Name = "Email Address", Prompt = "username@example.com")]
     public string Email { get; set; } = string.Empty;
 
     [Phone(ErrorMessage = "Invalid phone number")]
-    [RegularExpression(@"^[0-9+\-\s()]*$", ErrorMessage = "Invalid phone number format")]
+    [RegularExpression(@"^[0-9+\-\s()]*$", ErrorMessage = "Invalid phone number format")];
+    [DataType(DataType.PhoneNumber)]
     [Display(Name = "Phone Number", Prompt = "Enter Phone Number")]
     public string? PhoneNumber { get; set; }
 
