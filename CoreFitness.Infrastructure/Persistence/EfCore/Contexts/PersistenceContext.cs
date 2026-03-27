@@ -4,6 +4,7 @@ using CoreFitness.Domain.Aggregates.Members;
 using CoreFitness.Domain.Aggregates.Members.Memberships;
 using CoreFitness.Domain.Aggregates.MembershipTypes;
 using CoreFitness.Domain.Aggregates.WorkoutCategories;
+using CoreFitness.Domain.Aggregates.WorkoutSessions;
 using CoreFitness.Domain.Aggregates.WorkoutSessions.Bookings;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,7 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
     public DbSet<MembershipType> MembershipTypes => Set<MembershipType>();
     public DbSet<WorkoutCategory> WorkoutCategories => Set<WorkoutCategory>();
     public DbSet<Booking> Bookings => Set<Booking>();
+    public DbSet<WorkoutSession> WorkoutSessions => Set<WorkoutSession>();
 
 
 
