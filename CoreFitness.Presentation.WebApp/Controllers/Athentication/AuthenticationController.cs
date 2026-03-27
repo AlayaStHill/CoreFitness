@@ -10,9 +10,10 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Athentication;
 
 public class AuthenticationController(IAuthService identityAuthService) : Controller
 {
-    // key (namnet) som används i session och innehåller email (value)
+    // key (behållaren/identifiraren) som används i session och innehåller email (value/datan)
     private const string SignUpEmailSessionKey = "SignUpEmailSessionKey";
 
+    // visa sign-up vyn
     [HttpGet("sign-up")]
     [AllowAnonymous]
     public IActionResult SignUp()
@@ -20,22 +21,25 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         return View();
     }
 
+    // spara email i session så att den kan användas i nästa steg (set-password) 
     [HttpPost("sign-up")]
     [ValidateAntiForgeryToken]
     [AllowAnonymous]
-    public IActionResult SignUp(SignUpRequest request)
+    public IActionResult SignUp(SignUpRequest signUpRequest)
     {
         if (!ModelState.IsValid)
         {
-            return View(request);
+            return View(signUpRequest);
         }
 
-        HttpContext.Session.SetString(SignUpEmailSessionKey, request.Email);
+        HttpContext.Session.SetString(SignUpEmailSessionKey, signUpRequest.Email);
 
         return RedirectToAction(nameof(SetPassword));
     }
 
+    // hämta email från session och visa set-password vyn
     [HttpGet("set-password")]
+    [AllowAnonymous]
     public IActionResult SetPassword()
     {
         string? email = HttpContext.Session.GetString(SignUpEmailSessionKey);
@@ -45,19 +49,26 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         return View();
     }
 
-    //[HttpPost("set-password")]
-    //[Authorize]
-    //public async Task<IActionResult> SetPassword(/*SetPasswordRequest request*/)
-    //{
+    [HttpPost("set-password")]
+    [ValidateAntiForgeryToken]
+    [Authorize]
+    public async Task<IActionResult> SetPassword(SetPasswordRequest passwordRequest)
+    {
+        string? email = HttpContext.Session.GetString(SignUpEmailSessionKey);
+        if (string.IsNullOrWhiteSpace(email))
+            return RedirectToAction(nameof(SignUp));
 
-    //    //SignUpUserInput input = new
-    //    //(
-    //    //    request.Email,
-    //    //    request.Password
-    //    //);
+        if (!ModelState.IsValid)
+            return View(passwordRequest);
 
-    //    return View();
-    //}
+        SignUpUserInput input = new
+        (
+            email,
+            passwordRequest.Password
+        );
+
+        return View();
+    }
 
 }
 

@@ -7,6 +7,9 @@ using CoreFitness.Domain.Aggregates.WorkoutCategories;
 using CoreFitness.Domain.Aggregates.WorkoutSessions;
 using CoreFitness.Domain.Aggregates.WorkoutSessions.Bookings;
 using CoreFitness.Domain.Aggregates.WorkoutTypes;
+using CoreFitness.Infrastructure.Identity.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
