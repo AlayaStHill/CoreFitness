@@ -31,10 +31,7 @@ public sealed class MemberConfiguration : IEntityTypeConfiguration<Member>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Navigation(x => x.Memberships)
+            .HasField("_memberships")
             .UsePropertyAccessMode(PropertyAccessMode.Field);
-
-        builder.Metadata
-            .FindNavigation(nameof(Member.Memberships))!
-            .SetField("_memberships");
     }
 }

@@ -3,6 +3,7 @@ using CoreFitness.Domain.Aggregates.CustomerService;
 using CoreFitness.Domain.Aggregates.Members;
 using CoreFitness.Domain.Aggregates.Members.Memberships;
 using CoreFitness.Domain.Aggregates.MembershipTypes;
+using CoreFitness.Domain.Aggregates.MembershipTypes.MembershipBenefits;
 using CoreFitness.Domain.Aggregates.WorkoutCategories;
 using CoreFitness.Domain.Aggregates.WorkoutSessions;
 using CoreFitness.Domain.Aggregates.WorkoutSessions.Bookings;
@@ -36,6 +37,7 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
     public DbSet<Booking> Bookings => Set<Booking>();
     public DbSet<WorkoutSession> WorkoutSessions => Set<WorkoutSession>();
     public DbSet<WorkoutType> WorkoutTypes => Set<WorkoutType>();
+    public DbSet<MembershipBenefit> MembershipBenefits => Set<MembershipBenefit>();
 
 
 

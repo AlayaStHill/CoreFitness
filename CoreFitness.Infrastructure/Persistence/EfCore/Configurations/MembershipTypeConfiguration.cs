@@ -28,5 +28,9 @@ public sealed class MembershipTypeConfiguration : IEntityTypeConfiguration<Membe
 
         builder.HasIndex(x => x.Name)
             .IsUnique();
+
+        builder.Navigation(x => x.Benefits)
+            .HasField("_benefits")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }
