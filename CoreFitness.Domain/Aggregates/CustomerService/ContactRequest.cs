@@ -11,12 +11,12 @@ public sealed class ContactRequest
     public const int MessageMaxLength = 2000;
     public const int MessageMinLength = 5;
 
-    public string Id { get; private set; }
-    public string FirstName { get; private set; }
-    public string LastName { get; private set; }
-    public EmailAddress Email { get; private set; }
+    public string Id { get; private set; } = null!;
+    public string FirstName { get; private set; } = null!;
+    public string LastName { get; private set; } = null!;
+    public EmailAddress Email { get; private set; } = null!;
     public PhoneNumber? PhoneNumber { get; private set; }
-    public string Message { get; private set; }
+    public string Message { get; private set; } = null!;
     public DateTimeOffset CreatedAt { get; private set; }
     public bool MarkedAsRead { get; private set; }
 
@@ -36,9 +36,6 @@ public sealed class ContactRequest
 
     public static ContactRequest Create(string firstName, string lastName, string email, string? phoneNumber, string message)
         => new(Guid.NewGuid().ToString(), firstName, lastName, EmailAddress.Create(email), string.IsNullOrWhiteSpace(phoneNumber) ? null : PhoneNumber.Create(phoneNumber), message, DateTimeOffset.UtcNow, false);
-
-    public static ContactRequest Rehydrate(string id, string firstName, string lastName, EmailAddress email, PhoneNumber? phoneNumber, string message, DateTimeOffset createdAt, bool markedAsRead)
-        => new(id, firstName, lastName, email, phoneNumber, message, createdAt, markedAsRead);
 
     public void MarkAsRead()
     {
