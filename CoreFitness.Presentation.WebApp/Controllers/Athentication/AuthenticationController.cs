@@ -1,4 +1,5 @@
-﻿using CoreFitness.Application.Abstractions.Authentication;
+﻿using Azure.Core;
+using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Abstractions.Authentication.Inputs;
 using CoreFitness.Application.Shared.Results;
 using CoreFitness.Presentation.WebApp.Models.Authentication;
@@ -9,6 +10,9 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Athentication;
 
 public class AuthenticationController(IAuthService identityAuthService) : Controller
 {
+    // key (namnet) som används i session och innehåller email (value)
+    private const string SignUpEmailSessionKey = "SignUpEmailSessionKey";
+
     [HttpGet("sign-up")]
     [AllowAnonymous]
     public IActionResult SignUp()
@@ -19,30 +23,54 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
     [HttpPost("sign-up")]
     [ValidateAntiForgeryToken]
     [AllowAnonymous]
-    public async Task<IActionResult> SignUp(SignUpRequest request)
+    public IActionResult SignUp(SignUpRequest request)
     {
         if (!ModelState.IsValid)
         {
             return View(request);
         }
 
-        SignUpUserInput input = new
-        (
-            request.Email,
-            request.Password
-        );
+        HttpContext.Session.SetString(SignUpEmailSessionKey, request.Email);
 
-        Result result = await identityAuthService.SignUpUserAsync(input);
-
-        if (result.IsFailure)
-        {
-            ModelState.AddModelError(string.Empty, result.Error?.Message ?? "An error occurred while signing up.");
-            return View(request);
-        }
-
-        TempData["SuccessMessage"] = "Account created. Please sign in.";
-
-        return RedirectToAction(nameof(SignIn));
+        return RedirectToAction(nameof(SetPassword));
     }
-          
+
+    [HttpGet("set-password")]
+    public IActionResult SetPassword()
+    {
+        string? email = HttpContext.Session.GetString(SignUpEmailSessionKey);
+        if (string.IsNullOrWhiteSpace(email))
+            return RedirectToAction(nameof(SignUp));
+
+        return View();
+    }
+
+    //[HttpPost("set-password")]
+    //[Authorize]
+    //public async Task<IActionResult> SetPassword(/*SetPasswordRequest request*/)
+    //{
+
+    //    //SignUpUserInput input = new
+    //    //(
+    //    //    request.Email,
+    //    //    request.Password
+    //    //);
+
+    //    return View();
+    //}
+
 }
+
+
+
+//        Result result = await identityAuthService.SignUpUserAsync(input);
+
+//        if (result.IsFailure)
+//        {
+//            ModelState.AddModelError(string.Empty, result.Error?.Message ?? "An error occurred while signing up.");
+//            return View(request);
+//        }
+
+//        TempData["SuccessMessage"] = "Account created. Please sign in.";
+
+//return RedirectToAction(nameof(SignIn));

@@ -4,6 +4,7 @@ namespace CoreFitness.Presentation.WebApp.Models.CustomerService;
 
 public class ContactForm
 {
+    // string.empty kopplatt till AddModelError i controller, så att det inte blir null och därmed inte kraschar när man försöker visa valideringsfel i vyn
     [Required(ErrorMessage = "You must enter a first name")]
     [StringLength(20, MinimumLength = 2, ErrorMessage = "Must be between {2} and {1} characters")]
     [Display(Name = "First Name")]
