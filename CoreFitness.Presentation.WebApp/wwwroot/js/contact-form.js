@@ -1,13 +1,13 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.querySelector(".contact-form");
-
     const inputs = form.querySelectorAll("input, textarea");
 
+    // state för email
+    let emailHasBeenValid = false;
+
     inputs.forEach(input => {
-        /*skriver i fältet - realtidsfeedback*/
         input.addEventListener("input", handleEvent);
-        /*lämnar fältet*/
         input.addEventListener("blur", handleEvent);
     });
 
@@ -15,14 +15,38 @@
         const input = event.target;
         const value = input.value.trim();
         const errorSpan = form.querySelector(`[data-valmsg-for="${input.name}"]`);
+        const isBlur = event.type === "blur";
 
+        // SPECIALLOGIK för email 
+        if (input.name === "Email") {
+
+            const errorMessage = validateField("Email", value);
+            const isValid = !errorMessage;
+
+            // har det varit giltigt någon gång?
+            if (isValid) {
+                emailHasBeenValid = true;
+            }
+
+            // visa fel: vid blur om ogiltigt eller input går från giltigt --> ogiltigt 
+            const shouldShowError = (isBlur && !isValid) || (emailHasBeenValid && !isValid);
+
+            if (errorSpan) {
+                errorSpan.textContent = shouldShowError ? errorMessage : "";
+            }
+
+            input.classList.toggle("input-error", shouldShowError);
+
+            return;
+        }
+
+        // resten av fälten
         const errorMessage = validateField(input.name, value);
 
         if (errorSpan) {
             errorSpan.textContent = errorMessage;
         }
 
-        /*lägg till klassen om errorMessage inte är tom(true), annars ta bort den(false).*/
         input.classList.toggle("input-error", Boolean(errorMessage));
     }
 
@@ -47,7 +71,7 @@
                 return "";
 
             case "PhoneNumber":
-                if (!value) return ""; // inte required
+                if (!value) return "";
 
                 const phoneRegex = /^[0-9+\-\s()]*$/;
                 if (!phoneRegex.test(value)) return "Invalid phone number";
@@ -63,7 +87,6 @@
         }
     }
 
-    // Validera hela formuläret vid submit
     form.addEventListener("submit", (event) => {
 
         let isValid = true;
