@@ -1,8 +1,37 @@
-﻿@* @model SignUpForm
+﻿@model SignUpRequest
 
 @{
     ViewData["Title"] = "Sign Up";
+    Layout = "Layouts/_AuthLayout";
 }
 
+<section class="become-member">
+    <div class="container">
+        <div class="signup-card">
+            <h1 class="page-title__become-member">Become a Member</h1>
+            <p class="signup-card__p">
+                Sign up to continue your fitness journey with full access to your
+                customized program, training history, and progress tracking. Stay
+                consistent, monitor your development, and keep moving forward with
+                the structure and support built into your account.
+            </p>
 
- *@
+            <figure class="github-login">
+              <a class="github-login__link" href="auth/github" aria-label="Continue with GitHub"
+                ><img src="icons/github.svg" alt="" aria-hidden="true"/>
+            </a>
+            </figure>
+            <p class="signup-divider">OR CONTINUE WITH</p>
+
+
+    <partial name="Partials/Authentication/_SignUpForm" model="Model" />
+
+    <p class="become-member__p">We will send a verification code to your email address.</p>
+
+    </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/signup-form.js" asp-append-version="true"></script>
+}

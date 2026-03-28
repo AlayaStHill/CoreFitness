@@ -25,20 +25,19 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components/header.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/components/footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components/buttons.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/components/customer-service.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/forms.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/sign-up.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CoreFitness.Presentation.WebApp.styles.css" asp-append-version="true" />
  
 </head>
 <body class="app-layout">
     <partial name="Partials/_Header" />
 
-   <main>
-    @RenderBody()
-   </main>
+    <main>
+        @RenderBody()
+    </main>
 
-    <partial name="Partials/_Footer.cshtml" />
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

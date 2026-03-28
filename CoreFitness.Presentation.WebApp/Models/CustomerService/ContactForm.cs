@@ -23,7 +23,7 @@ public class ContactForm
     public string Email { get; set; } = string.Empty;
 
     [Phone(ErrorMessage = "Invalid phone number")]
-    [RegularExpression(@"^[0-9+\-\s()]*$", ErrorMessage = "Invalid phone number format")];
+    [RegularExpression(@"^[0-9+\-\s()]*$", ErrorMessage = "Invalid phone number format")]
     [DataType(DataType.PhoneNumber)]
     [Display(Name = "Phone Number", Prompt = "Enter Phone Number")]
     public string? PhoneNumber { get; set; }

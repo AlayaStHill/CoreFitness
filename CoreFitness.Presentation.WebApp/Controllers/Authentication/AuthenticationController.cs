@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using CoreFitness.Application.Abstractions.Authentication;
+﻿using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Abstractions.Authentication.Inputs;
 using CoreFitness.Application.Shared.Results;
 using CoreFitness.Presentation.WebApp.Models.Authentication;

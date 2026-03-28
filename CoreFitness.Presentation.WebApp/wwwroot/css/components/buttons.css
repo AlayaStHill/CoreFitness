@@ -1,8 +1,8 @@
 ﻿.primary-button {
     display: inline-block;
-    padding: 1rem 1.5rem;
+    padding: var(--space-sm) var(--space-md);
     border: none;
-    border-radius: 25px;
+    border-radius: var(--radius-pill);
     background-color: var(--primary-button-bg-color);
     color: var(--primary-button-text-color);
     text-decoration: none;
@@ -14,8 +14,8 @@
     &::after {
         content: "\f054";
         font-family: "Font Awesome 7 Pro";
-        font-size: 1em;
-        margin-left: 0.5rem;
+        font-size: 1rem;
+        margin-left: var(--space-xs);
         transform: translateX(0);
     }
 

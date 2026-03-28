@@ -23,14 +23,14 @@
         </div>
 
         <div class="form-group form-group--email">
-            <label class="form-label" asp-for="Email"></label>
-            <input class="form-input" asp-for="Email" />
+            <label class="form-label" asp-for="Email" ></label>
+            <input class="form-input" asp-for="Email" autocomplete="email" />
             <span class="field-validation" asp-validation-for="Email"></span>
         </div>
 
         <div class="form-group form-group--phone">
             <label class="form-label" asp-for="PhoneNumber"></label>
-            <input class="form-input" asp-for="PhoneNumber" />
+            <input class="form-input" asp-for="PhoneNumber" autocomplete="tel" />
             <span class="field-validation" asp-validation-for="PhoneNumber"></span>
         </div>
 

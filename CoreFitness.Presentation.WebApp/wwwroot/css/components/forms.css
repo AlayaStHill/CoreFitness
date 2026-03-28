@@ -1,0 +1,84 @@
+﻿
+.form-group {
+    display: grid;
+    grid-template-rows: auto auto 1rem;
+    gap: var(--space-xs);
+}
+
+.form-label {
+    font-family: var(--title-font);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--form-label-text-color);
+}
+
+textarea.form-input {
+    resize: none;
+    min-height: 140px;
+}
+
+.form-input {
+    width: 100%;
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    background-color: var(--form-input-bg-color);
+    border: none;
+    font-family: var(--default-font);
+    color: var(--default-text-color);
+}
+
+.form-input::placeholder {
+    color: var(--form-placeholder-text-color);
+    /* vissa browsers sänker opacity annars */
+    opacity: 1;
+}
+
+.form-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+/*Full bredd*/
+.form-group--message {
+    grid-area: message;
+}
+
+.form-submit {
+    grid-area: submit;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.form-submit:hover {
+    background-color: var(--primary-button-hover-bg-color);
+    color: var(--primary-button-hover-text-color);
+    border-color: var(--dark-color);
+}
+
+.field-validation {
+    display: block;
+    color: var(--form-error-text-color);
+    font-size: 0.85rem;
+    padding-left: var(--space-sm);
+    line-height: 1.3;
+    min-height: 1rem;
+}
+
+.form-input.input-error:focus {
+    box-shadow: 0 0 0 1px var(--form-error-text-color);
+}
+
+.form-input.input-error {
+    border: 1px solid var(--form-error-text-color);
+}
+
+.form-success {
+    color: var(--success-color);
+    margin-bottom: var(--space-sm);
+}
+
+.form-error {
+    color: var(--error-color);
+    margin-bottom: var(--space-sm);
+}
+
