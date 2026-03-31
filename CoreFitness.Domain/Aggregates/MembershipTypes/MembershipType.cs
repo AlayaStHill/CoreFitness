@@ -10,29 +10,53 @@ public sealed class MembershipType
 
     public MembershipTypeId Id { get; private set; } = default!;
     public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
     public decimal PricePerMonth { get; private set; }
+    public int ClassesPerMonth { get; private set; }
 
     public IReadOnlyCollection<MembershipBenefit> Benefits => _benefits.AsReadOnly();
 
-    private MembershipType(MembershipTypeId id, string name, decimal price)
+    private MembershipType(
+        MembershipTypeId id,
+        string name,
+        string description,
+        decimal pricePerMonth,
+        int classesPerMonth)
     {
         Id = id;
         Name = name;
-        PricePerMonth = price;
+        Description = description;
+        PricePerMonth = pricePerMonth;
+        ClassesPerMonth = classesPerMonth;
     }
 
     private MembershipType() { }
 
-    public static MembershipType Create(string name, decimal price)
+    public static MembershipType Create(
+        string name,
+        string description,
+        decimal pricePerMonth,
+        int classesPerMonth)
     {
         DomainValidator.RequiredString(name, MembershipTypeErrors.NameRequired);
+        DomainValidator.RequiredString(description, MembershipTypeErrors.DescriptionRequired);
 
-        if (price < 0)
+        if (pricePerMonth < 0)
         {
             throw new ValidationDomainException(MembershipTypeErrors.PriceMustBePositive);
         }
 
-        return new MembershipType(MembershipTypeId.Create(), name, price);
+        if (classesPerMonth < 0)
+        {
+            throw new ValidationDomainException(MembershipTypeErrors.ClassesPerMonthMustBePositive);
+        }
+
+        return new MembershipType(
+            MembershipTypeId.Create(),
+            name,
+            description,
+            pricePerMonth,
+            classesPerMonth);
     }
 
     public void AddBenefit(string text)
@@ -49,6 +73,8 @@ public sealed class MembershipType
 
     public void UpdateBenefit(MembershipBenefitId benefitId, string text)
     {
+        DomainValidator.RequiredString(text, MembershipBenefitErrors.TextRequired);
+
         var benefit = _benefits.FirstOrDefault(x => x.Id == benefitId);
 
         if (benefit is null)
