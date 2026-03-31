@@ -1,7 +1,7 @@
 ﻿/*=======================================
     Contact Section
 =======================================*/
-.customer-service-contact {
+.customer-service-contact-section {
     padding-block: var(--section-spacing-sm) var(--section-spacing-lg);
 }
 
@@ -39,19 +39,15 @@
     justify-content: center;
 }
 
-.card-content h2,
-.card-content p {
+.customer-service-card__title,
+.customer-service-card__description {
     max-width: 28rem;
     /* behåll vänsterjusterad text */
     text-align: left;
 }
 
-.card-content h2 {
-    margin-bottom: var(--space-sm);
-}
-
-.card-content p {
-    margin-bottom: var(--space-lg);
+.customer-service-card__description {
+    margin-bottom: var(--space-xl);
 }
 
 .contact-overlay {
@@ -129,14 +125,9 @@ address {
 /*=======================================
     Contact Form
 =======================================*/
-.contact-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-}
 
 @media (min-width: 1400px) {
-    .contact-form {
+    .form-layout--two-columns {
         grid-template-columns: 1fr 1fr;
         column-gap: var(--space-lg);
         grid-template-areas:
@@ -162,7 +153,7 @@ address {
         grid-area: phone;
     }
 
-    .form-submit {
+    .form-layout__submit--left {
         grid-area: submit;
         justify-self: start;
     }
@@ -171,12 +162,12 @@ address {
 /*=======================================
     Faq section
 =======================================*/
-.customer-service-faq {
+.customer-service-faq-section {
     padding-bottom: var(--section-spacing-lg);
 }
 
 /* FAQ ska inte skriva över Contact-kortets styling */
-.customer-service-faq .customer-service-card {
+.customer-service-faq-section .customer-service-card {
     background-color: var(--light-color);
     grid-template-columns: 1fr 1.15fr;
 }
@@ -196,7 +187,7 @@ address {
     max-width: none;
 }
 
-.section-label {
+.faq-section-label {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
@@ -211,7 +202,7 @@ address {
 }
 
 /* Punkten före texten */
-.section-label::before {
+.faq-section-label::before {
     content: "";
     width: 0.45rem;
     height: 0.45rem;

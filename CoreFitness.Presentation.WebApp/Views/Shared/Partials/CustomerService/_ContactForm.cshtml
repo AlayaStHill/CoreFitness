@@ -1,10 +1,9 @@
 ﻿@model ContactForm
 
 
-
 <!-- CONTACTFORM -->
 <div class="contact-form-wrapper">
-    <form class="contact-form" asp-controller="CustomerService" asp-action="Index" method="post" novalidate>
+    <form class="form-layout form-layout--two-columns" asp-controller="CustomerService" asp-action="Index" method="post" novalidate>
         @Html.AntiForgeryToken()
 
         @* Sammanställning av fel från ModelState, inte kopplat till ett specifikt fält - if (!ModelState.IsValid). Role alert - screen reader läser upp direkt *@
@@ -65,6 +64,6 @@
             </div>
         }
 
-        <button class="primary-button form-submit" type="submit">Submit Message</button>
+        <button class="primary-button form-layout__submit--left" type="submit">Submit Message</button>
     </form>
 </div>

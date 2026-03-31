@@ -1,4 +1,13 @@
-﻿
+﻿.form-layout {
+    display: grid;
+    gap: var(--space-sm);
+}
+
+.contact-form {
+    display: grid;
+    gap: var(--space-sm);
+}
+
 .form-group {
     display: grid;
     grid-template-rows: auto auto 1rem;
@@ -44,12 +53,11 @@ textarea.form-input {
     grid-area: message;
 }
 
-.form-submit {
-    grid-area: submit;
+.form-layout__submit {
     transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
 }
 
-.form-submit:hover {
+.form-layout__submit:hover {
     background-color: var(--primary-button-hover-bg-color);
     color: var(--primary-button-hover-text-color);
     border-color: var(--dark-color);

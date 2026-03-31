@@ -5,6 +5,7 @@ using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
 
 namespace CoreFitness.Infrastructure.Identity;
 
@@ -41,6 +42,8 @@ public static class IdentityRegistrationExtension
             options.Cookie.Name = configuration.GetValue<string>("AppCookieSettings:CookieName") ?? "CoreFitnessAppCookie";
             options.ExpireTimeSpan = TimeSpan.FromDays(configuration.GetValue<int>("AppCookieSettings:ExpiresInDays"));
             options.SlidingExpiration = true;
+            // sätter nödvändiga cookies för att hemsidan ska fungera korrekt - essential-delar som rör exempelvis inloggning - dessa blir inte valbara
+            options.Cookie.IsEssential = true;
         });
 
         services.AddScoped<IAuthService, IdentityAuthService>();

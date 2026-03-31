@@ -10,11 +10,11 @@ internal static class IdentityInitializer
     private const string AdminPassword = "Password123!";
     private const string AdminRole = "Admin";
 
-    // behandlas som konstant
+    // behandlas som konstant PascalCase
     private static readonly string[] DefaultRoles = { "Admin", "Member" };
 
     public static async Task InitializeDefaultRolesAsync(IServiceProvider serviceProvider)
-    {
+    { 
         await using AsyncServiceScope scope = serviceProvider.CreateAsyncScope();
         RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 

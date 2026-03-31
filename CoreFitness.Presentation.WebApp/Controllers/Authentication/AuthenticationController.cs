@@ -34,6 +34,8 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
 
         HttpContext.Session.SetString(SignUpEmailSessionKey, request.Email);
 
+        //ViewBag.ReturnUrl = returnUrl;
+
         return RedirectToAction(nameof(SetPassword));
     }
 
@@ -81,7 +83,17 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         TempData["SuccessMessage"] = "Your account has been created successfully. Please sign in.";
 
         HttpContext.Session.Remove(SignUpEmailSessionKey);
+
         return RedirectToAction(nameof(SignIn));
+        /* Eller inloggad direkt:
+        var signedIn = await authService.SignInUserASync(email, password)
+        return signedId.Succededed
+            ? Redirect("/me")
+            : RedirectToAction(nameof(SignIp));
+        */
     }
 
+  
+
 }
+
