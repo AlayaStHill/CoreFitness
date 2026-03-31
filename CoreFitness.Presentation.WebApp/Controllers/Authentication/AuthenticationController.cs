@@ -1,6 +1,7 @@
 ﻿using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Abstractions.Authentication.Inputs;
 using CoreFitness.Application.Shared.Results;
+using CoreFitness.Presentation.WebApp.Filters;
 using CoreFitness.Presentation.WebApp.Models.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,16 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
 {
     // key (behållaren/identifiraren) som används i session och innehåller email (value/datan)
     private const string SignUpEmailSessionKey = "SignUpEmailSessionKey";
+    private const string ReturnUrlSessionKey = "ReturnUrl";
 
     // visa sign-up vyn
     [HttpGet("sign-up")]
     [AllowAnonymous]
-    public IActionResult SignUp()
+    [RedirectIfAuthenticated]
+    public IActionResult SignUp(string? returnUrl = null)
     {
+        ViewBag.ReturnUrl = returnUrl;
+
         return View();
     }
 
@@ -25,7 +30,7 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
     // för Cross-Site Request Forgery, en attacker skickaren post-request från en annan sida. ValidateAntiForgeryToken --> krävs att en giltig anti-forgery token skickas med i requesten
     [ValidateAntiForgeryToken]
     [AllowAnonymous]
-    public IActionResult SignUp(SignUpRequest request)
+    public IActionResult SignUp(SignUpRequest request, string? returnUrl = null)
     {
         if (!ModelState.IsValid)
         {
@@ -34,7 +39,12 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
 
         HttpContext.Session.SetString(SignUpEmailSessionKey, request.Email);
 
-        //ViewBag.ReturnUrl = returnUrl;
+        // IsLocalUrl används för att kontrollera att returnUrl är en lokal URL, vilket är viktigt för att förhindra open redirect-attacker. Om returnUrl inte är en lokal URL, kommer den inte att sparas i sessionen och användaren kommer att omdirigeras till set-password-sidan utan en returnUrl.
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)) 
+        { 
+            HttpContext.Session.SetString("ReturnUrl", returnUrl);
+        }
+                
 
         return RedirectToAction(nameof(SetPassword));
     }
@@ -80,20 +90,17 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
             return View(request);
         }
 
+        string? returnUrl = HttpContext.Session.GetString("ReturnUrl");
+
         TempData["SuccessMessage"] = "Your account has been created successfully. Please sign in.";
 
         HttpContext.Session.Remove(SignUpEmailSessionKey);
+        HttpContext.Session.Remove("ReturnUrl");
 
-        return RedirectToAction(nameof(SignIn));
-        /* Eller inloggad direkt:
-        var signedIn = await authService.SignInUserASync(email, password)
-        return signedId.Succededed
-            ? Redirect("/me")
-            : RedirectToAction(nameof(SignIp));
-        */
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return Redirect(returnUrl);
+
+        return RedirectToAction("Index", "Account");
     }
-
-  
-
 }
 

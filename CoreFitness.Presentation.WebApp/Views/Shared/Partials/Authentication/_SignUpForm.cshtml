@@ -1,6 +1,8 @@
 ﻿@model SignUpRequest
 
 <form id="signup-form" method="post" asp-action="SignUp" asp-controller="Authentication" novalidate>
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
     @Html.AntiForgeryToken()
     <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
 

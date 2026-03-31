@@ -5,7 +5,6 @@ using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net;
 
 namespace CoreFitness.Infrastructure.Identity;
 
@@ -33,6 +32,7 @@ public static class IdentityRegistrationExtension
         // tokens för ex. autentisering
         .AddDefaultTokenProviders();
 
+        // Används för autentisering. Konfigurerar hur claims lagras och skickas mellan requests. När en användare loggar in, skapas en cookie som innehåller information om användarens identitet och roller (claims). Denna cookie skickas sedan med varje efterföljande request, vilket gör att systemet kan identifiera användaren och ge tillgång till resurser baserat på deras roller och behörigheter.
         services.ConfigureApplicationCookie(options =>
         {
             options.LoginPath = configuration.GetValue<string>("AppCookieSettings:LoginPath") ?? "/Identity/Account/Login";

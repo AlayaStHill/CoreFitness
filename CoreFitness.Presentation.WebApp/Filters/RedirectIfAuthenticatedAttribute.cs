@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoreFitness.Domain.Shared;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
@@ -14,21 +15,23 @@ public sealed class RedirectIfAuthenticatedAttribute : ActionFilterAttribute
 
         if (user.Identity?.IsAuthenticated == true)
         {
-            if (user.IsInRole("Admin"))
+            if (user.IsInRole(Roles.Admin))
             {
-                // stoppar execution och gör redirect
-                context.Result = new RedirectResult("/admin");
+                // stoppar execution och gör redirect, action: Index, controller: Admin, null = route values (extra data som skickas till routingen (URL:en))
+                context.Result = new RedirectToActionResult("Index", "Admin", null);
                 return;
             }
 
-            if (user.IsInRole("Member"))
+            if (user.IsInRole(Roles.Member))
             {
-                context.Result = new RedirectResult("/account");
+                context.Result = new RedirectToActionResult("Index", "Account", null);
                 return;
             }
 
-            context.Result = new RedirectResult("/");
+            context.Result = new RedirectToActionResult("Index", "Home", null);
         }
     }
 }
+
+
 
