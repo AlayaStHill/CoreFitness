@@ -1,4 +1,5 @@
 ﻿using CoreFitness.Domain.Aggregates.Members;
+using CoreFitness.Infrastructure.Identity.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -33,5 +34,11 @@ public sealed class MemberConfiguration : IEntityTypeConfiguration<Member>
         builder.Navigation(x => x.Memberships)
             .HasField("_memberships")
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.HasOne<ApplicationUser>()
+            .WithOne()
+            .HasForeignKey<Member>(x => x.UserId)
+            .HasPrincipalKey<ApplicationUser>(x => x.Id)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
