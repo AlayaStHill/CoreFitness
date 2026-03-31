@@ -1,18 +1,9 @@
-﻿.auth-page {
-    min-height: 100dvh;
-    display: grid;
-    place-items: center;
-    height: 100%;
-}
-
-.auth-card {
+﻿.auth-card {
     display: grid;
     background-color: var(--white-color);
     border-radius: var(--radius-xl);
     padding-inline: var(--section-spacing-sm);
     padding-block: var(--space-xxl);
-    width: min(100%, 730px);
-    margin-inline: auto;
 }
 
 .auth-card__title {

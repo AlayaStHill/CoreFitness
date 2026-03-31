@@ -44,4 +44,6 @@ public sealed class IdentityAuthService(UserManager<ApplicationUser> userManager
         return Result.Success();
 
     }
+
+
 }

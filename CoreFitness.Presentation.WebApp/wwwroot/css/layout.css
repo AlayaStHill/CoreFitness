@@ -11,8 +11,7 @@
     width: 100%;
     max-width: 100%;
     margin-inline: auto;
-    padding-inline: 1rem;
-
+    padding-inline: var(--space-sm);
     /*Om viewportens bredd är 768px eller större --> begränsa innehållets maxbredd till 720px.*/
     @media (width >= 768px) {
         max-width: 720px;
@@ -29,7 +28,6 @@
     @media (width >= 1400px) {
         max-width: 1320px;
     }
-
     /*ingen maxbreddsbegränsning*/
     &.full {
         width: 100%;
@@ -40,15 +38,25 @@
 /*=======================================
     Auth-layout
 =======================================*/
+.auth-layout {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    height: 100%;
+}
 
+.container-narrow {
+    width: min(100%, 730px);
+    margin-inline: auto;
+}
 
 
 /*=======================================
 Footer
 =======================================*/
 footer {
-    margin: 1rem;
-    padding: 1.563rem 2rem;
+    margin: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
     border-radius: 20px;
     background-color: var(--footer-bg-color);
     /*laddar bilden som bakgrund i footern*/
@@ -62,7 +70,7 @@ footer {
 footer {
     background-color: var(--footer-bg-color);
     color: var(--footer-text-color);
-    border-radius: 1.25rem;
-    padding: 1rem;
+    border-radius: var(--radius-xl);
+    padding: var(--space-sm);
 }
 
