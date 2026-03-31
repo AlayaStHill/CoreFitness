@@ -33,6 +33,9 @@ public sealed class MembershipTypeConfiguration : IEntityTypeConfiguration<Membe
         builder.Property(x => x.ClassesPerMonth)
             .IsRequired();
 
+        builder.Property(x => x.IsFeatured)
+            .IsRequired();
+
         builder.HasIndex(x => x.Name)
             .IsUnique();
 
