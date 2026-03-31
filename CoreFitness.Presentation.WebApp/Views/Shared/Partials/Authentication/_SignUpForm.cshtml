@@ -4,7 +4,6 @@
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
 
     @Html.AntiForgeryToken()
-    <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
 
     <div class="form-group">
         <label class="form-label" asp-for="Email"></label>
@@ -12,17 +11,21 @@
         <span class="field-validation" asp-validation-for="Email"></span>
     </div>
 
-    @* Success message *@
-    @{
-        string? successMessage = TempData["SuccessMessage"] as string;
-    }
-    @if (!string.IsNullOrWhiteSpace(successMessage))
-    {
-        // avbryter inte annat som läses upp av screen reader. Polite är egentligen implicit med role="status
-        <div class="form-success" role="status" aria-live="polite">
-            @successMessage
+    <div class="form-submit-group">
+        <button class="primary-button primary-button--full form-submit" type="submit">Continue to set password</button>
+        <div class="form-feedback">
+        @* Success message *@
+        @{
+            string? successMessage = TempData["SuccessMessage"] as string;
+        }
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            // avbryter inte annat som läses upp av screen reader. Polite är egentligen implicit med role="status
+            <div class="form-success" role="status" aria-live="polite">
+                @successMessage
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
         </div>
-    }
-
-    <button class="primary-button primary-button--full form-submit" type="submit">Continue to set password</button>
+    </div>
 </form>

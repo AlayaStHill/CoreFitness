@@ -18,5 +18,8 @@ public class SetPasswordRequest
     [DataType(DataType.Password)]
     [Display(Name = "Confirm Password", Prompt = "Confirm Password")]
     public string ConfirmPassword { get; set; } = string.Empty;
+
+    [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
+    public bool TermsAndConditions { get; set; }
 }
 

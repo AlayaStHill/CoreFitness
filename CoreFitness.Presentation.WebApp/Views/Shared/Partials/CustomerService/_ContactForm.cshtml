@@ -6,9 +6,6 @@
     <form class="form-layout form-layout--two-columns" asp-controller="CustomerService" asp-action="Index" method="post" novalidate>
         @Html.AntiForgeryToken()
 
-        @* Sammanställning av fel från ModelState, inte kopplat till ett specifikt fält - if (!ModelState.IsValid). Role alert - screen reader läser upp direkt *@
-        <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
-
         <div class="form-group form-group--first-name">
             <label class="form-label" asp-for="FirstName"></label>
             <input class="form-input" asp-for="FirstName" />
@@ -39,31 +36,37 @@
             <span class="field-validation" asp-validation-for="Message"></span>
         </div>
 
-        @* Success message *@
-        @* undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel *@
-        @{
-        string? successMessage = TempData["SuccessMessage"] as string;
-        }
-        @if (!string.IsNullOrWhiteSpace(successMessage))
-        {
-            // avbryter inte annat som läses upp av screen reader. Polite är egentligen implicit med role="status
-            <div class="form-success" role="status" aria-live="polite">
-                @successMessage
-            </div>
-        }
-
-        @* Error message *@
-        @{
-            string? errorMessage = TempData["ErrorMessage"] as string;
-        }
-        @if (!string.IsNullOrWhiteSpace(errorMessage))
-        {
-            // avbryter direkt annat som läses upp av screen reader
-            <div class="form-error" role="alert" aria-live="assertive">
-                @errorMessage
-            </div>
-        }
-
+      
+        <div class="form-submit-group">
         <button class="primary-button form-layout__submit--left" type="submit">Submit Message</button>
+        <div class="form-feedback">
+                @* Success message *@
+                @* undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel *@
+                @{
+                    string? successMessage = TempData["SuccessMessage"] as string;
+                }
+                @if (!string.IsNullOrWhiteSpace(successMessage))
+                {
+                    // avbryter inte annat som läses upp av screen reader. Polite är egentligen implicit med role="status
+                    <div class="form-success" role="status" aria-live="polite">
+                        @successMessage
+                    </div>
+                }
+
+                @* Error message *@
+                @{
+                    string? errorMessage = TempData["ErrorMessage"] as string;
+                }
+                @if (!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    // avbryter direkt annat som läses upp av screen reader
+                    <div class="form-error" role="alert" aria-live="assertive">
+                        @errorMessage
+                    </div>
+                }
+                 @* Sammanställning av fel från ModelState, inte kopplat till ett specifikt fält - if (!ModelState.IsValid). Role alert - screen reader läser upp direkt *@
+                <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+            </div>
+        </div>
     </form>
 </div>

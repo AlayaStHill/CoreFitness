@@ -134,7 +134,7 @@ address {
             "firstname lastname"
             "email phone"
             "message message"
-            "submit .";
+            "submit submit"
     }
 
     .form-group--firstname {
@@ -153,9 +153,24 @@ address {
         grid-area: phone;
     }
 
-    .form-layout__submit--left {
+    .form-submit-group {
         grid-area: submit;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-self: stretch; 
+        width: 100%;
+    }
+
+    .form-layout__submit--left {
+        margin-bottom:var(--space-xs);
         justify-self: start;
+    }
+
+    .form-feedback {
+        justify-self: stretch;
+        width: 100%;
+        text-align: center;
+        justify-items: center;
     }
 }
 

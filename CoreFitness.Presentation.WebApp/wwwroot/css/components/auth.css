@@ -39,7 +39,6 @@
 }
 
 .auth-card__supporting-text {
-    padding-top: var(--space-md);
     font-size: 0.875rem;
     color: var(--form-label-text-color);
     text-align: center;

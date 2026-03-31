@@ -82,11 +82,23 @@ textarea.form-input {
 
 .form-success {
     color: var(--success-color);
-    margin-bottom: var(--space-sm);
 }
 
 .form-error {
     color: var(--error-color);
-    margin-bottom: var(--space-sm);
 }
 
+.form-submit-group {
+    display: grid;
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+.form-feedback {
+    display: grid;
+    gap: 0.25rem;
+    min-height: 1.2rem;
+    width: 100%;
+    text-align: left;
+    justify-items: center;
+}
