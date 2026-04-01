@@ -13,6 +13,7 @@ public sealed class MembershipType
     public string Description { get; private set; } = null!;
     public decimal PricePerMonth { get; private set; }
     public int ClassesPerMonth { get; private set; }
+    public bool IsFeatured { get; private set; }
 
     public IReadOnlyCollection<MembershipBenefit> Benefits => _benefits.AsReadOnly();
 
@@ -21,13 +22,15 @@ public sealed class MembershipType
         string name,
         string description,
         decimal pricePerMonth,
-        int classesPerMonth)
+        int classesPerMonth,
+        bool isFeatured)
     {
         Id = id;
         Name = name;
         Description = description;
         PricePerMonth = pricePerMonth;
         ClassesPerMonth = classesPerMonth;
+        IsFeatured = isFeatured;
     }
 
     private MembershipType() { }
@@ -36,7 +39,8 @@ public sealed class MembershipType
         string name,
         string description,
         decimal pricePerMonth,
-        int classesPerMonth)
+        int classesPerMonth,
+        bool isFeatured = false)
     {
         DomainValidator.RequiredString(name, MembershipTypeErrors.NameRequired);
         DomainValidator.RequiredString(description, MembershipTypeErrors.DescriptionRequired);
@@ -56,7 +60,13 @@ public sealed class MembershipType
             name,
             description,
             pricePerMonth,
-            classesPerMonth);
+            classesPerMonth,
+            isFeatured);
+    }
+
+    public void SetFeatured(bool isFeatured)
+    {
+        IsFeatured = isFeatured;
     }
 
     public void AddBenefit(string text)

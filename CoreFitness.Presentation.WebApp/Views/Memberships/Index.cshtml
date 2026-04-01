@@ -1,0 +1,21 @@
+﻿@using CoreFitness.Presentation.WebApp.Models.Memberships
+@model MembershipsIndexViewModel
+
+@{
+    ViewData["Title"] = "Our Memberships";
+}
+
+<div class="our-memberships-page container">
+    <section class="page-title">
+        <div class="container">
+            <h1>Our Membership Offers</h1>
+        </div>
+    </section>
+
+    @if(Model.Memberships != null && Model.Memberships.Count >= 2)
+    {
+        <partial name="~/Views/Shared/Partials/Memberships/_OurMembershipOffersSection.cshtml" model="Model" />
+    }
+
+    <partial name="~/Views/Shared/Partials/CustomerService/_FaqSection.cshtml" />
+</div>

@@ -19,7 +19,8 @@ public static class MembershipTypeInitializer
                 "Standard Membership",
                 "With the Standard Membership, get access to our full range of gym facilities.",
                 495,
-                20);
+                20,
+                true);
 
             standardMembership.AddBenefit("Standard Locker");
             standardMembership.AddBenefit("High-energy group fitness classes");
@@ -34,7 +35,8 @@ public static class MembershipTypeInitializer
                 "Premium Membership",
                 "With the Premium Membership, get access to our full range of gym facilities.",
                 595,
-                20);
+                20,
+                true);
 
             premiumMembership.AddBenefit("Priority Support & Premium Locker");
             premiumMembership.AddBenefit("High-energy group fitness classes");
