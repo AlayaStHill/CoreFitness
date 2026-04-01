@@ -1,4 +1,7 @@
-﻿@{
+﻿@using CoreFitness.Presentation.WebApp.Models.Memberships
+@model MembershipsIndexViewModel
+
+@{
     ViewData["Title"] = "Our Memberships";
 }
 
@@ -11,68 +14,39 @@
     </section>
     <section class="our-memberships-section">
         <div class="our-membership-offers">
-            <div class="membership-card">
-                <div class="content-wrapper">
-                    <img class="icon" src="icons/dumbell.svg" alt="dumbell icon">
-                    <h3 class="membership-title">Standard Membership</h3>
-                    <hr>
-                    <p>
-                        With the Standard Membership, get access
-                        to our full range of gym facilities.
-                    </p>
-                    <ul class="membership-includes">
-                        <li><img src="icons/check-bot.svg" alt="Check icon">Access to all gym equipment</li>
-                        <li><img src="icons/check-bot.svg" alt="Check icon">Locker room access</li>
-                        <li><img src="icons/check-bot.svg" alt="Check icon">Free Wi-Fi</li>
-                    </ul>
-                </div>
-
-                <div class="price-info-section">
-                    <div class="upper">
-                        <div class="price-info">
-                            <p class="price">495.00 <span>/monthly</span></p>
-                            <p class="price-description">* Monthly 20 Classes</p>
-                        </div>
-                        <a href="/signup" class="primary-button">
-                            Join now
-                        </a>
+            @for(int i = 0; i < 2; i++)
+            {
+                <div class="membership-card">
+                    <div class="content-wrapper">
+                        <img class="icon" src="icons/dumbell.svg" alt="dumbell icon">
+                        <h3 class="membership-title">Standard Membership</h3>
+                        <hr>
+                        <p>
+                            @Model.Memberships[i].Description
+                        </p>
+                        <ul class="membership-includes">
+                            <li><img src="icons/check-bot.svg" alt="Check icon">Access to all gym equipment</li>
+                            <li><img src="icons/check-bot.svg" alt="Check icon">Locker room access</li>
+                            <li><img src="icons/check-bot.svg" alt="Check icon">Free Wi-Fi</li>
+                        </ul>
                     </div>
-                    <hr>
 
-                    <p class="try-free">Try Any Membership Free for 1 Week</p>
-                </div>
-            </div>
-            <div class="membership-card">
-                <div class="content-wrapper">
-                    <img class="icon" src="icons/dumbell.svg" alt="dumbell icon">
-                    <h3 class="membership-title">Standard Membership</h3>
-                    <hr>
-                    <p>
-                        With the Standard Membership, get access
-                        to our full range of gym facilities.
-                    </p>
-                    <ul class="membership-includes">
-                        <li><img src="icons/check-bot.svg" alt="Check icon">Access to all gym equipment</li>
-                        <li><img src="icons/check-bot.svg" alt="Check icon">Locker room access</li>
-                        <li><img src="icons/check-bot.svg" alt="Check icon">Free Wi-Fi</li>
-                    </ul>
-                </div>
-
-                <div class="price-info-section">
-                    <div class="upper">
-                        <div class="price-info">
-                            <p class="price">495.00 <span>/monthly</span></p>
-                            <p class="price-description">* Monthly 20 Classes</p>
+                    <div class="price-info-section">
+                        <div class="upper">
+                            <div class="price-info">
+                                <p class="price">495.00 <span>/monthly</span></p>
+                                <p class="price-description">* Monthly 20 Classes</p>
+                            </div>
+                            <a href="/signup" class="primary-button">
+                                Join now
+                            </a>
                         </div>
-                        <a href="/signup" class="primary-button">
-                            Join now
-                        </a>
-                    </div>
-                    <hr>
+                        <hr>
 
-                    <p class="try-free">Try Any Membership Free for 1 Week</p>
+                        <p class="try-free">Try Any Membership Free for 1 Week</p>
+                    </div>
                 </div>
-            </div>
+            }
             <div class="call-us-card">
                 <div class="title">
                     <h3>Get Your Membership</h3>
