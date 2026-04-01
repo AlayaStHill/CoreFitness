@@ -7,5 +7,5 @@ public sealed class MembershipTypeFeaturedOutput
     public string Description { get; init; } = string.Empty;
     public decimal PricePerMonth { get; init; }
     public int ClassesPerMonth { get; init; }
-    public IReadOnlyCollection<string> Benefits { get; init; } = [];
+    public IReadOnlyList<string> Benefits { get; init; } = [];
 }

@@ -4,5 +4,5 @@ namespace CoreFitness.Presentation.WebApp.Models.Memberships;
 
 public sealed class MembershipsIndexViewModel
 {
-    public IReadOnlyCollection<MembershipTypeFeaturedOutput> Memberships { get; init; } = [];
+    public IReadOnlyList<MembershipTypeFeaturedOutput> Memberships { get; init; } = [];
 }

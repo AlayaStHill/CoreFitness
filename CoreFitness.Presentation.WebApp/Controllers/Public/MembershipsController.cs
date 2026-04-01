@@ -9,15 +9,22 @@ public class MembershipsController(IMembershipTypeService memberTypeService) : C
     public async Task<IActionResult> Index()
     {
         var result = await memberTypeService.GetFeaturedMembershipTypesAsync();
+
         if (result.IsFailure)
         {
-            return View("Error");
+            var viewModel = new MembershipsIndexViewModel
+            {
+                Memberships = []
+            };
+
+            return View(viewModel);
         }
 
-        var viewModel = new MembershipsIndexViewModel()
+        var successViewModel = new MembershipsIndexViewModel
         {
             Memberships = result.Value
         };
-        return View(viewModel);
+
+        return View(successViewModel);
     }
 }

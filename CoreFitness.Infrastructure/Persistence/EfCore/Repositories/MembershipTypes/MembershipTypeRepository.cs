@@ -7,7 +7,7 @@ namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories.MembershipT
 
 public sealed class MembershipTypeRepository(PersistenceContext context) : IMembershipTypeRepository
 {
-    public async Task<IReadOnlyCollection<MembershipTypeFeaturedOutput>> GetFeaturedAsync(CancellationToken ct)
+    public async Task<IReadOnlyList<MembershipTypeFeaturedOutput>> GetFeaturedAsync(CancellationToken ct)
     {
         return await context.MembershipTypes
             .AsNoTracking()

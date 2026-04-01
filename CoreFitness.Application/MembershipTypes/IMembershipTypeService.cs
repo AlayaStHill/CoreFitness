@@ -5,5 +5,5 @@ namespace CoreFitness.Application.MembershipTypes;
 
 public interface IMembershipTypeService
 {
-    Task<Result<IReadOnlyCollection<MembershipTypeFeaturedOutput>>> GetFeaturedMembershipTypesAsync(CancellationToken ct = default);
+    Task<Result<IReadOnlyList<MembershipTypeFeaturedOutput>>> GetFeaturedMembershipTypesAsync(CancellationToken ct = default);
 }

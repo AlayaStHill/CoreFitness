@@ -5,12 +5,12 @@ namespace CoreFitness.Application.MembershipTypes;
 
 public sealed class MembershipTypeService(IMembershipTypeRepository membershipTypes) : IMembershipTypeService
 {
-    public async Task<Result<IReadOnlyCollection<MembershipTypeFeaturedOutput>>> GetFeaturedMembershipTypesAsync(CancellationToken ct = default)
+    public async Task<Result<IReadOnlyList<MembershipTypeFeaturedOutput>>> GetFeaturedMembershipTypesAsync(CancellationToken ct = default)
     {
         var featuredMembershipTypes = await membershipTypes.GetFeaturedAsync(ct);
         if (featuredMembershipTypes == null)
-            return Result<IReadOnlyCollection<MembershipTypeFeaturedOutput>>.Fail(ErrorTypes.Error, "Something went wrong");
+            return Result<IReadOnlyList<MembershipTypeFeaturedOutput>>.Fail(ErrorTypes.Error, "Something went wrong");
 
-        return Result<IReadOnlyCollection<MembershipTypeFeaturedOutput>>.Success(featuredMembershipTypes);
+        return Result<IReadOnlyList<MembershipTypeFeaturedOutput>>.Success(featuredMembershipTypes);
     }
 }
