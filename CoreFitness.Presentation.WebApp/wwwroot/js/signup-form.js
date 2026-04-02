@@ -4,7 +4,7 @@
     if (!form) return;
     const input = form.querySelector('input[name="Email"]');
 
-    function validateField(value) {
+    function getValidationResult(value) {
         if (!value)
         // object-literal/anonymt objekt
         return { status: "invalid", message: "You must enter an email address" };
@@ -27,42 +27,41 @@
         input.classList.toggle("input-error", Boolean(errorMessage));
     }
 
+
+    // blir true efter blur/submit
     let touched = false;
-    let hasBeenValid = false;
-    let prevStatus = "invalid";
-    function validateInput(input) {
+    function validateAndDisplay(input, eventType) {
         const value = input.value.trim();
-        const result = validateField(value);
+        const result = getValidationResult(value);
 
-        const becameInvalidAfterValid = hasBeenValid && prevStatus === "valid" && result.status === "invalid";
-        const leftInvalid = touched && result.status === "invalid";
-
-        // visa fel endast om man går från giltigt till ogiltigt under input, eller man har lämnat fältet ogiltigt
-        if (becameInvalidAfterValid || leftInvalid)
-        {
-            showError(input, result.message);
-        } else if (result.status === "valid" && touched) {
+        // Innan blur/submit: visa inga fel, men rensa om det råkar ligga kvar något
+        if (!touched) {
             showError(input, "");
+            return result.status === "valid";
         }
 
-        // sparar nuvarande status, så att becameInvalid fungerar korrekt när det blir ogiltigt nästa gång 
-        prevStatus = result.status;
+        // Efter blur/submit: visa fel tills det blir valid
+        if (result.status === "valid") {
+            showError(input, "");
+            return true;
+        }
 
-        // om status är exakt valid- returnera true, pending och invalid = false
-        return result.status === "valid";
+        showError(input, result.message);
+        return false;
+
     }
 
-    input.addEventListener("input", () => validateInput(input));
+    input.addEventListener("input", () => validateAndDisplay(input, "input"));
 
     input.addEventListener("blur", () => {
         touched = true;
-        validateInput(input);
+        validateAndDisplay(input);
     });
 
     form.addEventListener("submit", (event) => {
         touched = true; // gör att submit beter sig som blur när det gäller att visa felmeddelanden
 
-        const isValid = validateInput(input);
+        const isValid = validateAndDisplay(input, "submit");
 
         if (!isValid) {
             event.preventDefault();

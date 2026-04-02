@@ -4,66 +4,47 @@
     if (!form) return;
     const inputs = form.querySelectorAll("input, textarea");
 
-    // state för email
-    let emailHasBeenValid = false;
+    // blir true efter blur/submit
+    let touched = false;
 
     inputs.forEach(input => {
-        input.addEventListener("input", handleEvent);
-        input.addEventListener("blur", handleEvent);
+        input.addEventListener("input", validateAndDisplay);
+        input.addEventListener("blur", (event) => {
+            touched = true;
+            validateAndDisplay(event);
+        });
     });
 
-    function handleEvent(event) {
+    function validateAndDisplay(event) {
         const input = event.target;
         const value = input.value.trim();
-        const errorSpan = form.querySelector(`[data-valmsg-for="${input.name}"]`);
-        const isBlur = event.type === "blur";
+        // hitta rätt errorspan
+        const errorSpan =
+            form.querySelector(`[data-valmsg-for="${input.name}"]`) ||
+            form.querySelector(`#${input.id}__validationMessage`);
 
-        // SPECIALLOGIK för email 
-        if (input.name === "Email") {
-
-            const errorMessage = validateField("Email", value);
-            const isValid = !errorMessage;
-
-            // har det varit giltigt någon gång?
-            if (isValid) {
-                emailHasBeenValid = true;
-            }
-
-            // visa fel: vid blur om ogiltigt eller input går från giltigt --> ogiltigt 
-            const shouldShowError = (isBlur && !isValid) || (emailHasBeenValid && !isValid);
-
-            if (errorSpan) {
-                errorSpan.textContent = shouldShowError ? errorMessage : "";
-            }
-
-            input.classList.toggle("input-error", shouldShowError);
-
-            return;
-        }
-
-        // resten av fälten
-        const errorMessage = validateField(input.name, value);
+        const errorMessage = getValidationResult(input.name, value);
         const isValid = !errorMessage;
 
-        // rensa fel direkt om giltigt
-        if (isValid) {
-            if (errorSpan) {
-                errorSpan.textContent = "";
-            }
-
+        // Innan blur/submit: visa inga errors / rensa om något ligger kvar
+        if (!touched) {
+            if (errorSpan) errorSpan.textContent = "";
             input.classList.remove("input-error");
             return;
         }
 
-        // visa fel annars
-        if (errorSpan) {
-            errorSpan.textContent = errorMessage;
+        // Efter blur/submit: visa errors tills giltig
+        if (isValid) {
+            if (errorSpan) errorSpan.textContent = "";
+            input.classList.remove("input-error");
+            return;
         }
 
-        input.classList.add("input-error");
+        if (errorSpan) errorSpan.textContent = errorMessage;
+        input.classList.add("input-error"); 
     }
 
-    function validateField(name, value) {
+    function getValidationResult(name, value) {
         switch (name) {
 
             case "FirstName":
@@ -101,14 +82,16 @@
     }
 
     form.addEventListener("submit", (event) => {
-
-        let isValid = true;
+        touched = true;
+        let allValid = true;
 
         inputs.forEach(input => {
             const value = input.value.trim();
-            const errorMessage = validateField(input.name, value);
+            const errorMessage = getValidationResult(input.name, value);
 
-            const errorSpan = form.querySelector(`[data-valmsg-for="${input.name}"]`);
+            const errorSpan =
+                form.querySelector(`[data-valmsg-for="${input.name}"]`) ||
+                form.querySelector(`#${input.id}__validationMessage`);
 
             if (errorSpan) {
                 errorSpan.textContent = errorMessage;
@@ -117,11 +100,11 @@
             input.classList.toggle("input-error", Boolean(errorMessage));
 
             if (errorMessage) {
-                isValid = false;
+                allValid = false;
             }
         });
 
-        if (!isValid) {
+        if (!allValid) {
             event.preventDefault();
         }
     });
