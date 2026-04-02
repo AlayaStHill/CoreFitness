@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreFitness.Presentation.WebApp.Controllers.Authentication;
 
-public class AuthenticationController(IAuthService identityAuthService) : Controller
+public class SignUpController(IAuthService identityAuthService) : Controller
 {
     // key (behållaren/identifiraren) som används i session och innehåller email (value/datan)
     private const string SignUpEmailSessionKey = "SignUpEmailSessionKey";
@@ -40,11 +40,11 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         HttpContext.Session.SetString(SignUpEmailSessionKey, request.Email);
 
         // IsLocalUrl används för att kontrollera att returnUrl är en lokal URL, vilket är viktigt för att förhindra open redirect-attacker. Om returnUrl inte är en lokal URL, kommer den inte att sparas i sessionen och användaren kommer att omdirigeras till set-password-sidan utan en returnUrl.
-        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)) 
-        { 
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+        {
             HttpContext.Session.SetString("ReturnUrl", returnUrl);
         }
-                
+
 
         return RedirectToAction(nameof(SetPassword));
     }
@@ -84,7 +84,7 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         if (result.IsFailure)
         {
             //string.Empty används för att lägga till ett globalt fel, inte kopplat till ett specifikt fält
-            ModelState.AddModelError(string.Empty, result.Error?.Message 
+            ModelState.AddModelError(string.Empty, result.Error?.Message
                 ?? "An error occurred while signing up.");
 
             return View(request);
@@ -103,4 +103,3 @@ public class AuthenticationController(IAuthService identityAuthService) : Contro
         return RedirectToAction("Index", "Account");
     }
 }
-

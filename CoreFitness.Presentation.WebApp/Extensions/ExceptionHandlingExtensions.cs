@@ -4,6 +4,7 @@ using CoreFitness.Domain.Exceptions.Custom;
 using CoreFitness.Presentation.WebApp.Contracts;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System.Text.Json;
 
 
@@ -38,12 +39,29 @@ public static class ExceptionHandlingExtensions
                     logger.Log(exception);
                 }
 
-                // Alla svar ska vara JSON
+                /* 
+                Avgör om anropet vill ha JSON (kommer från JavaScript/API) eller HTML (från en vanlig webbsida)
+                - Om det är en webbsida → redirecta till en HTML-felsida (/error)
+                - Om det är ett API/JS-anrop → returnera JSON istället */
+                bool isApi = context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase);
+                bool wantsJsonHeader = context.Request.Headers.Accept.Any(a => a?.Contains("application/json", StringComparison.OrdinalIgnoreCase) == true);
+                bool isAjax = string.Equals(context.Request.Headers["X-Requested-With"].ToString(), "XMLHttpRequest", StringComparison.OrdinalIgnoreCase);
+
+                bool wantsJson = isApi || wantsJsonHeader || isAjax;
+
+                if (!wantsJson)
+                {
+                    context.Response.Clear();
+                    context.Response.Redirect("/error");
+                    return;
+                }
+
+                // Vilket format klienten vill ha i response (för API/JS-anrop) -> JSON
                 context.Response.ContentType = "application/json";
+
 
                 // default om inget annat matchar
                 int statusCode = StatusCodes.Status500InternalServerError;
-
                 // Standardmeddelande
                 string message = "An unexpected error occurred.";
 
