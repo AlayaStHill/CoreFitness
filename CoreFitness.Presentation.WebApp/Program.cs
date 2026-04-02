@@ -8,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+
 
 // Alla URL:er som ASP.NET genererar kommer vara små bokstäver. SEO föredrar
 builder.Services.AddRouting(options =>

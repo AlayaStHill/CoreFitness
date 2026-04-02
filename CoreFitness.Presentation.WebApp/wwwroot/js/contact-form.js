@@ -1,6 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.querySelector(".contact-form");
+    if (!form) return;
     const inputs = form.querySelectorAll("input, textarea");
 
     // state för email
@@ -42,12 +43,24 @@
 
         // resten av fälten
         const errorMessage = validateField(input.name, value);
+        const isValid = !errorMessage;
 
+        // rensa fel direkt om giltigt
+        if (isValid) {
+            if (errorSpan) {
+                errorSpan.textContent = "";
+            }
+
+            input.classList.remove("input-error");
+            return;
+        }
+
+        // visa fel annars
         if (errorSpan) {
             errorSpan.textContent = errorMessage;
         }
 
-        input.classList.toggle("input-error", Boolean(errorMessage));
+        input.classList.add("input-error");
     }
 
     function validateField(name, value) {

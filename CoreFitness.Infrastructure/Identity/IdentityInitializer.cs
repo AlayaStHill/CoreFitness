@@ -17,7 +17,8 @@ internal static class IdentityInitializer
     { 
         await using AsyncServiceScope scope = serviceProvider.CreateAsyncScope();
         RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
+        
+        //try catch? lägga till exception???
         foreach (string role in DefaultRoles)
         {
             if (await roleManager.RoleExistsAsync(role))
@@ -34,24 +35,21 @@ internal static class IdentityInitializer
         UserManager<ApplicationUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        ApplicationUser? existingUser = await userManager.FindByEmailAsync(AdminEmail);
+        ApplicationUser? existingUser = await userManager.FindByEmailAsync(AdminEmail); 
         if (existingUser is not null)
             return;
 
-        ApplicationUser adminUser = new()
-        {
-            UserName = AdminEmail,
-            Email = AdminEmail,
-            EmailConfirmed = true
-        };
+        // denna istället för nedan??????
+        ApplicationUser user = ApplicationUser.Create(AdminEmail);
+        user.EmailConfirmed = true;
 
-        IdentityResult result = await userManager.CreateAsync(adminUser, AdminPassword);
+        IdentityResult result = await userManager.CreateAsync(user, AdminPassword);
         if (!result.Succeeded)
             return;
 
         if (await roleManager.RoleExistsAsync(AdminRole))
         {
-            await userManager.AddToRoleAsync(adminUser, AdminRole);
+            await userManager.AddToRoleAsync(user, AdminRole);
         }
     }
 }

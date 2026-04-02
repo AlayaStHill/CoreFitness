@@ -1,7 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.querySelector("#signup-form");
-    const input = form.querySelector("input");
+    if (!form) return;
+    const input = form.querySelector('input[name="Email"]');
 
     function validateField(value) {
         if (!value)

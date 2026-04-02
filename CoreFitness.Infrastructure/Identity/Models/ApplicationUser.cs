@@ -13,4 +13,32 @@ public class ApplicationUser : IdentityUser
 
     public string? ImageUrl { get; set; }
 
+
+    public static ApplicationUser Create(string email)
+    {
+        return new ApplicationUser
+        {
+            UserName = email.Trim().ToLowerInvariant(),
+            Email = email.Trim().ToLowerInvariant(),
+        };
+    }
+
+    // phonenumber från IdentityUser
+    public static ApplicationUser UpdateDetails(ApplicationUser user, string? firstName, string? lastName, string? imageUrl, string? phoneNumber)
+    {
+        if (user.FirstName != firstName)
+            user.FirstName = firstName;
+
+        if (user.LastName != lastName)
+            user.LastName = lastName;
+
+        if (user.ImageUrl != imageUrl)
+            user.ImageUrl = imageUrl;
+
+        if (user.PhoneNumber != phoneNumber)
+            user.PhoneNumber = phoneNumber;
+        
+        return user;
+    }
 }
+
