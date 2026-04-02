@@ -23,6 +23,7 @@
     margin-bottom: var(--space-xl);
     font-size: 1rem;
     letter-spacing: 0.04em;
+    border: none;
 }
 
 .auth-divider::before,
