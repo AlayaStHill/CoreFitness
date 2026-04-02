@@ -1,4 +1,5 @@
 ﻿using CoreFitness.Infrastructure.Persistence;
+using CoreFitness.Infrastructure.Persistence.EfCore.Seed.MembershipTypes;
 using Infrastructure.Identity.Data;
 using Microsoft.Extensions.Hosting;
 
@@ -15,5 +16,6 @@ public class InfrastructureInitializer
 
         await IdentityInitializer.InitializeDefaultRolesAsync(serviceProvider);
         await IdentityInitializer.InitializeDefaultAdminAccountsAsync(serviceProvider);
+        await MembershipTypeInitializer.InitializeDefaultAsync(serviceProvider);
     }
 }

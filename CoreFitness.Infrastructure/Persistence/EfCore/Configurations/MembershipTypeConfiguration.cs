@@ -22,11 +22,25 @@ public sealed class MembershipTypeConfiguration : IEntityTypeConfiguration<Membe
             .IsRequired()
             .HasMaxLength(100);
 
+        builder.Property(x => x.Description)
+            .IsRequired()
+            .HasMaxLength(500);
+
         builder.Property(x => x.PricePerMonth)
             .HasPrecision(18, 2)
             .IsRequired();
 
+        builder.Property(x => x.ClassesPerMonth)
+            .IsRequired();
+
+        builder.Property(x => x.IsFeatured)
+            .IsRequired();
+
         builder.HasIndex(x => x.Name)
             .IsUnique();
+
+        builder.Navigation(x => x.Benefits)
+            .HasField("_benefits")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

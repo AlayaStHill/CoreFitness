@@ -1,0 +1,156 @@
+.our-memberships-page {
+  display: grid;
+  gap: var(--section-spacing-md);
+  padding-bottom: var(--section-spacing-md);
+  .our-memberships-section {
+    display: grid;
+    gap: var(--space-xl);
+    .our-membership-offers {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--space-lg);
+
+      .membership-card,
+      .call-us-card {
+        border-radius: var(--radius-lg);
+        padding: var(--space-sm);
+      }
+
+      .primary-button {
+        font-weight: 500;
+
+        &:hover {
+          background-color: var(--white-color);
+
+          color: var(--dark-color);
+        }
+      }
+
+      .membership-card {
+        display: grid;
+        gap: var(--space-xs);
+        background-color: var(--white-color);
+
+        .content-wrapper {
+          padding: var(--space-md);
+
+          .icon {
+            margin-bottom: var(--space-lg);
+          }
+          .membership-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+          }
+
+          hr {
+            opacity: 0.2;
+          }
+
+          .membership-includes {
+            display: grid;
+            gap: var(--space-sm);
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            margin-top: var(--space-lg);
+
+            li {
+              display: flex;
+              align-items: center;
+              gap: var(--space-xs);
+            }
+          }
+        }
+
+        .price-info-section {
+          background-color: var(--dark-color);
+          color: var(--white-color);
+          padding-inline: var(--space-sm);
+          padding-block: var(--space-lg);
+          border-radius: var(--radius-xl);
+
+          display: grid;
+          gap: var(--space-md);
+
+          .upper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .price-info {
+              display: grid;
+              gap: var(--space-xs);
+              p {
+                margin: 0;
+              }
+              .price {
+                font-size: 1.5rem;
+                font-weight: 600;
+
+                span {
+                  font-size: 0.8rem;
+                  font-weight: 400;
+                }
+              }
+
+              .price-description {
+              }
+            }
+          }
+          .try-free {
+            margin: 0;
+          }
+        }
+      }
+
+      .call-us-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-sm);
+        height: 100%;
+        background-color: var(--dark-color);
+        color: var(--white-color);
+        align-items: center;
+        padding: var(--space-xl);
+        background-image: url(../../images/our-pricing-cta-image.png);
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        background-size: 60%;
+        .title {
+          text-align: center;
+          display: grid;
+          margin-bottom: var(--space-xs);
+          gap: var(--space-xs);
+          p {
+            margin: 0;
+          }
+        }
+
+        hr {
+          width: 100%;
+          background-color: var(--white-color);
+          opacity: 0.1;
+        }
+
+        .phone-info {
+          margin-top: var(--space-xs);
+          margin-bottom: var(--space-md);
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .membership-info {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-xxl);
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+    }
+  }
+}

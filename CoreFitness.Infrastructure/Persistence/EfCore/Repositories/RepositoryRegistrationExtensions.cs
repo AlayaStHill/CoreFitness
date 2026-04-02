@@ -1,5 +1,7 @@
 ﻿using CoreFitness.Application.CustomerService.ContatRequests;
+using CoreFitness.Application.MembershipTypes;
 using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.CustomerService;
+using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.MembershipTypes;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories;
@@ -11,6 +13,7 @@ public static class RepositoryRegistrationExtensions
         ArgumentNullException.ThrowIfNull(services);
 
         services.AddScoped<IContactRequestRepository, ContactRequestRepository>();
+        services.AddScoped<IMembershipTypeRepository, MembershipTypeRepository>();
 
         return services;
     }

@@ -4,6 +4,7 @@ using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Migrations
 {
     [DbContext(typeof(PersistenceContext))]
-    partial class PersistenceContextModelSnapshot : ModelSnapshot
+    [Migration("20260331075142_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,17 +133,6 @@ namespace CoreFitness.Infrastructure.Persistence.EfCore.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ClassesPerMonth")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<bool>("IsFeatured")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -497,15 +489,6 @@ namespace CoreFitness.Infrastructure.Persistence.EfCore.Migrations
                         .IsRequired();
 
                     b.Navigation("PhoneNumber");
-                });
-
-            modelBuilder.Entity("CoreFitness.Domain.Aggregates.Members.Member", b =>
-                {
-                    b.HasOne("CoreFitness.Infrastructure.Identity.Models.ApplicationUser", null)
-                        .WithOne()
-                        .HasForeignKey("CoreFitness.Domain.Aggregates.Members.Member", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CoreFitness.Domain.Aggregates.Members.Memberships.Membership", b =>

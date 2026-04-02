@@ -1,0 +1,34 @@
+﻿@using CoreFitness.Application.MembershipTypes.Outputs
+@model MembershipTypeFeaturedOutput 
+
+<div class="membership-card">
+    <div class="content-wrapper">
+        <img class="icon" src="icons/dumbell.svg" alt="dumbell icon">
+        <h3 class="membership-title">@Model.Name</h3>
+        <hr>
+        <p>
+            @Model.Description
+        </p>
+        <ul class="membership-includes">
+            @for (int y = 0; y < 3; y++)
+            {
+                <li><img src="icons/check-bot.svg" alt="Check icon">@Model.Benefits[y]</li>
+            }
+        </ul>
+    </div>
+
+    <div class="price-info-section">
+        <div class="upper">
+            <div class="price-info">
+                <p class="price">@Model.PricePerMonth <span>/monthly</span></p>
+                <p class="price-description">* Monthly @Model.ClassesPerMonth Classes</p>
+            </div>
+            <a href="/signup" class="primary-button">
+                Join now
+            </a>
+        </div>
+        <hr>
+
+        <p class="try-free">Try Any Membership Free for 1 Week</p>
+    </div>
+</div>
