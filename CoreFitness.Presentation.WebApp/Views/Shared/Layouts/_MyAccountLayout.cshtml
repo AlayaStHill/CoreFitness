@@ -1,5 +1,10 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout.cshtml";
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
 }
 
 <div class="my-account-page container">
@@ -19,8 +24,8 @@
                 <h4 class="menu-title">Menu Options</h4>
                 <nav class="account-menu" aria-label="Account menu">
                     <ul class="menu">
-                        <li class="menu-item active">
-                            <a class="menu-link" href="/myaccount/about-me">About Me</a>
+                        <li class="menu-item @(isAboutMeActive ? "active" : "")">
+                            <a class="menu-link" asp-controller="MyAccount" asp-action="AboutMe">About Me</a>
                         </li>
                         <li class="menu-item">
                             <a class="menu-link" href="/myaccount/membership">My Memberships</a>
@@ -42,3 +47,5 @@
 
 
 </div>
+
+@RenderSection("Scripts", required: false)

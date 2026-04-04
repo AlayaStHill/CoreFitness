@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/Layouts/_MyAccountLayout.cshtml";
+}
+
+<div class="about-me card">
+    <h2>About Me</h2>
+    <form class="form-layout about-me-form" novalidate>
+        <div class="form-group">
+            <label for="FirstName" class="form-label">First Name</label>
+            <input id="FirstName" name="FirstName" type="text" class="form-input"
+                   placeholder="Enter First Name" />
+            <span class="field-validation field-validation-error"
+                  data-valmsg-for="FirstName"></span>
+
+        </div>
+        <div class="form-group">
+            <label for="LastName" class="form-label">Last Name</label>
+            <input id="LastName" name="LastName" type="text" class="form-input"
+                   placeholder="Enter Last Name" />
+            <span class="field-validation field-validation-error"
+                  data-valmsg-for="LastName"></span>
+
+
+        </div>
+        <div class="form-group">
+            <label for="Email" class="form-label">Email Address *</label>
+            <input id="Email" name="Email" type="email" class="form-input"
+                   placeholder="username@domain.com" />
+            <span class="field-validation field-validation-error"
+                  data-valmsg-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <label for="PhoneNumber" class="form-label">Phone Number</label>
+            <input id="PhoneNumber" name="PhoneNumber" type="tel" class="form-input"
+                   placeholder="Enter Phone Number" />
+            <span class="field-validation field-validation-error"
+                  data-valmsg-for="PhoneNumber"></span>
+
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="profile-image" class="form-label">Profile image</label>
+            <input id="profile-image" name="profileImage" type="file" class="file-input-native"
+                   accept="image/*" />
+            <label for="profile-image" class="file-input">
+                <span class="file-input__placeholder">Upload Profile image</span>
+                <span class="file-input__button">Browse</span>
+            </label>
+        </div>
+
+        <div class="submit-btn">
+            <button class="primary-button" type="submit">Save</button>
+        </div>
+    </form>
+
+</div>
+
+
+@section Scripts {
+    <script src="~/js/about-me-form.js" type="module" asp-append-version="true"></script>
+}
