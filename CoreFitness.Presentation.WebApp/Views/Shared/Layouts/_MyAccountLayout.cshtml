@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="my-account-page container">
+
+    <section class="page-title">
+        <div class="container">
+            <h1>My Account</h1>
+        </div>
+    </section>
+
+    <div class="my-account">
+        <aside class="account-sidebar">
+            <div class="img-wrapper">
+                <img src="~/images/trainer-1.webp" alt="profile picture" />
+            </div>
+            <div class="menu-section">
+                <h4 class="menu-title">Menu Options</h4>
+                <nav class="account-menu" aria-label="Account menu">
+                    <ul class="menu">
+                        <li class="menu-item active">
+                            <a class="menu-link" href="/myaccount/about-me">About Me</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="/myaccount/membership">My Memberships</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="/myaccount/training">My Bookings</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" href="/myaccount/store">Sign Out</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <section class="account-content">
+           @RenderBody()
+        </section>
+    </div>
+
+
+</div>
