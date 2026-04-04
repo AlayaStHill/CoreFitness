@@ -22,5 +22,6 @@ public class SetPasswordRequest
     [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions")]
     [Display(Name = "Accept user terms and conditions")]
     public bool TermsAndConditions { get; set; }
+
 }
 

@@ -48,6 +48,8 @@ public static class IdentityRegistrationExtension
 
         services.AddScoped<IAuthService, IdentityAuthService>();
 
+        services.AddExternalIdentity(configuration);
+
         return services;
     }
 }
