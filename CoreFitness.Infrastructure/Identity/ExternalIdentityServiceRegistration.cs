@@ -30,6 +30,7 @@ public static class ExternalIdentityServiceRegistration
                 // URL dit GitHub skickar användaren efter login
                 options.CallbackPath = "/signin-github";
 
+                // ==== info från github som lagras i Cookie av aspnet ===
                 // hämta med e-postadressen för användaren
                 options.Scope.Add("user:email");
 

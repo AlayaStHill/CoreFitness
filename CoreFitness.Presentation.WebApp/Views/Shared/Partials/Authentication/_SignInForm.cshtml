@@ -1,0 +1,8 @@
+﻿@model SignInRequest
+
+<form method="post" asp-controller="SignIn" asp-action="ExternalLogin">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="provider" value="GitHub" />
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+    <button type="submit">Sign In With GitHub</button>
+</form> 
