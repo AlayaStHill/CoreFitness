@@ -60,3 +60,71 @@
     min-height: 1rem;
     padding-bottom: var(--space-xs);
 }
+
+/*=======================================
+    External login GitHub
+=======================================*/
+.github-login__link {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    line-height: 0; /* tar bort extra “luft” runt bilden */
+}
+
+.github-login__link:focus {
+    outline: none;
+}
+
+.github-login__link:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary-color);
+    border-radius: var(--radius-pill);
+}
+
+
+.github-login__link:hover {
+    filter: invert(1); /* invertera färgerna */
+}
+
+.github-login__link:focus {
+    outline: none;
+}
+
+.github-login__link:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary-color);
+    border-radius: var(--radius-pill);
+}
+
+/*=======================================
+    ModelOnly Message
+=======================================*/
+
+.validation-summary {
+    color: var(--form-error-text-color);
+    font-size: 0.85rem;
+    line-height: 1.3;
+    min-height: 1rem;
+    width: 100%;
+    justify-self: start; 
+}
+
+
+.validation-summary.validation-summary-errors {
+    /* valfritt: lite mer “alert”-känsla */
+}
+
+/* Nollställ list-styling från <ul> */
+.validation-summary ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.validation-summary li {
+    margin: 0;
+}

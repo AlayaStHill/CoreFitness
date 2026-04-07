@@ -7,4 +7,6 @@ public class IdentityAuthErrors
     public const string EmailIsRequired = "Email address must be provided";
 
     public const string PasswordIsRequired = "Password must be provided";
+
+    public const string ExternalLoginInfoMissing = "Could not load external login information";
 }
