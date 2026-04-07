@@ -202,30 +202,6 @@ address {
     max-width: none;
 }
 
-.faq-section-label {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-pill);
-    background-color: var(--dark-color);
-    color: var(--white-color);
-    font-size: 0.9rem;
-    font-weight: 500;
-    align-self: flex-start;
-    margin-bottom: var(--space-md);
-}
-
-/* Punkten före texten */
-.faq-section-label::before {
-    content: "";
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    display: block;
-}
-
 .faq-accordion {
     display: flex;
     flex-direction: column;

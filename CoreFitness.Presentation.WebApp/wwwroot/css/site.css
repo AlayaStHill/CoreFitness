@@ -8,7 +8,8 @@
     /*transparent version, t, t2*/
     --dark-color-alpha-30: #27252f4d;
     --dark-color-alpha-75: rgba(64,64,64,0.75);
-    --gray-color: #6F6F6F;
+    --dark-gray-color: #6F6F6F;
+    --gray-color: #D9D9D9;
     --lightgray-color: #A7A7A7;
     --primary-color: #D6EB31;
     --light-color: #F7F7F7;
@@ -59,6 +60,22 @@
     --radius-lg: 16px;
     --radius-xl: 20px;
     --radius-pill: 999px;
+    --equipment-bg-color: var(--primary-color);
+    --equipment-text-color: var(--dark-color);
+    --programs-bg-color: var(--white-color);
+    --programs-text-color: var(--dark-color);
+    --programs-link-color: var(--dark-color);
+    --quote-bg-color: var(--white-color);
+    --quote-text-color: var(--dark-color);
+    /* HOMEPAGE*/
+    --text-color: var(--dark-gray-color);
+    --link-color: var(--text-color);
+    --link-hover-color: var(--gray-color);
+    --section-title-dot-color: var(--primary-color);
+    --section-background-color: var(--white-color);
+    --section-text-color: var(--dark-gray);
+    --section-title-bg-color: var(--dark-color);
+    --section-title-text-color: var(--white-color);
 }
 
 /*=======================================
@@ -122,30 +139,66 @@ h6 {
 h1 {
     font-size: 3rem;
     font-weight: 500;
+    /*line-height: 4rem;*/
 }
 
 h2 {
     font-size: 1.75rem;
     font-weight: 600;
-    /*line-height: 3.75rem;*/
+    /*line-height: 4rem;*/
 }
 
+a {
+    color: var(--link-color);
+    font-family: var(--default-font);
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
 
+a:hover {
+    color: var(--link-hover-color);
+}
 
-/*<horizontal rule> - skapar center horisontell skiljelinje*/
+/*<horizontal rule> - skapar center horisontell skiljelinje. Semantiskt nytt innehåll.*/
 hr {
-    margin: 0;
+    width: 100%;
+    margin: 2rem 0;
     border: none;
-    height: 0.0625rem;
-    background: var(--border-color);
-    opacity: 0.4;
-     /*& = det aktuella elementet --> hr, som har klassen primary (hr.primary)*/
-    &.primary {
-        background: var(--border-primary-color);
-        opacity: 0.1;
-    }
+    border: 1px solid var(--border-color);
+    opacity: 0.2;
 }
 
-.line-break {
+hr.accent {
+    border: 1px solid var(--primary-color);
+}
+
+
+/*=======================================
+    Badges / Labels
+=======================================*/
+.ui-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-pill);
+    background-color: var(--section-title-bg-color);
+    color: var(--section-title-text-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    align-self: flex-start;
+    margin-bottom: var(--space-md);
+}
+
+/* Punkten före texten */
+.ui-badge::before {
+    content: "";
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background-color: var(--section-title-dot-color);
     display: block;
-}   
+}

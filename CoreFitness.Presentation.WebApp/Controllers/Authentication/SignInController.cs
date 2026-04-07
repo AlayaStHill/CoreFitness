@@ -51,7 +51,6 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
         if (!string.IsNullOrWhiteSpace(returnUrl))
             return Redirect(returnUrl);
 
-        // mappar till default route
         return RedirectToAction("Index", "Home");
     }
 
