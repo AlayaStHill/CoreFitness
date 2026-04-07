@@ -1,8 +1,30 @@
 ﻿@model SignInRequest
 
-<form method="post" asp-controller="SignIn" asp-action="ExternalLogin">
+
+<form id="signInForm" method="post" asp-controller="SignIn" asp-action="SignIn" aria-describedby="validation-summary" novalidate>
     @Html.AntiForgeryToken()
-    <input type="hidden" name="provider" value="GitHub" />
     <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
-    <button type="submit">Sign In With GitHub</button>
-</form> 
+
+    <div class="form-group">
+        <label class="form-label" asp-for="Email"></label>
+        <input class="form-input" asp-for="Email" autocomplete="email" />
+    </div>
+
+    <div class="form-group">
+        <label class="form-label" asp-for="Password"></label>
+        <input class="form-input" asp-for="Password" autocomplete="current-password" />
+    </div>
+
+    <div class="form-checkbox">
+        <input class="form-checkbox__input" type="checkbox" asp-for="RememberMe" />
+        <label class="form-checkbox__label" asp-for="RememberMe"></label>
+    </div>
+
+    <div class="form-submit-group">
+        <button class="primary-button primary-button--full form-submit" type="submit">Continue to account</button>
+        <div class="form-feedback">
+            <div id="validation-summary" asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive">Här syns errormeddelande</div>
+        </div>
+    </div>
+
+</form>

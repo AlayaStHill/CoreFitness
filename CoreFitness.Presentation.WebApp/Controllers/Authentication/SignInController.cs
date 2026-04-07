@@ -1,10 +1,11 @@
 ﻿using CoreFitness.Application.Abstractions.Authentication;
+using CoreFitness.Application.Abstractions.Authentication.Inputs;
 using CoreFitness.Application.Shared.Results;
 using CoreFitness.Infrastructure.Identity.Models;
 using CoreFitness.Presentation.WebApp.Filters;
+using CoreFitness.Presentation.WebApp.Models.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,10 +23,37 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
         return View(); 
     }
 
+    [HttpPost("sign-in")]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SignIn(SignInRequest request, string? returnUrl = null)
+    {
+        ViewBag.ReturnUrl = returnUrl;
 
+        if (!ModelState.IsValid)
+            return View(request);
 
-    //ModelState.AddModelError(string.Empty, "Incorrect email or password");
+        SignInUserInput input = new
+        (
+            Email: request.Email,
+            Password: request.Password,
+            RememberMe: request.RememberMe
+        );
 
+        Result signInResult = await identityAuthService.SignInUserAsync(input);
+
+        if (signInResult.IsFailure)
+        {
+            ModelState.AddModelError(string.Empty, signInResult.Error?.Message ?? "Incorrect email address or password");
+            return View(request);
+        }
+
+        if (!string.IsNullOrWhiteSpace(returnUrl))
+            return Redirect(returnUrl);
+
+        // mappar till default route
+        return RedirectToAction("Index", "Home");
+    }
 
     // Redirectar användaren till GitHub.
     [HttpPost("external-login")]
@@ -58,14 +86,13 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
         Result signInResult = await identityAuthService.SignInExternalUserAsync("Member");
         if (signInResult.IsFailure)
         {
-            TempData["ErrorMessage"] = signInResult.Error;
+            TempData["ErrorMessage"] = signInResult.Error?.Message ?? "An error occurred while signing in.";
             return RedirectToAction(nameof(SignIn), new { returnUrl });
         }
 
         if (!string.IsNullOrWhiteSpace(returnUrl))
             return Redirect(returnUrl);
 
-        // mappar till default route
-        return Redirect("/");
+        return RedirectToAction("Index", "Home");
     }
 }
