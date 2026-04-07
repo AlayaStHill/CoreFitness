@@ -17,12 +17,9 @@
             </p>
 
             <div class="auth-social">
-              <a class="github-login__link" href="auth/github" aria-label="Sign in with GitHub"
-                ><img src="icons/github.svg" alt="" aria-hidden="true"/>
-            </a>
+                <partial name="Partials/Authentication/_ExternalLoginForm" />
             </div>
             <p class="auth-divider">OR CONTINUE WITH</p>
-
 
     <partial name="Partials/Authentication/_SignUpForm" model="Model" />
 
@@ -35,3 +32,4 @@
 @section Scripts {
     <script src="~/js/signup-form.js" asp-append-version="true"></script>
 }
+

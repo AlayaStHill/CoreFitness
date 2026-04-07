@@ -46,6 +46,8 @@ app.MapStaticAssets();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+// ??
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

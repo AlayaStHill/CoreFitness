@@ -1,0 +1,21 @@
+﻿@* GITHUB LOGIN *@
+<form class="external-login-form" method="post" asp-controller="SignIn" asp-action="ExternalLogin">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="provider" value="GitHub" />
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+    <button type="submit" class="github-login__link" aria-label="Sign in with GitHub">
+        <img src="~/icons/github.svg" alt="" aria-hidden="true" />
+    </button>
+    <div class="form-feedback">
+    @{
+        string? errorMessage = TempData["ErrorMessage"] as string;
+    }
+    @if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="form-error" role="alert" aria-live="assertive">
+            @errorMessage
+        </div>
+    }
+    </div>
+</form> 

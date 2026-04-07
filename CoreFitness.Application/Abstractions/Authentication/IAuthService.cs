@@ -6,6 +6,8 @@ namespace CoreFitness.Application.Abstractions.Authentication;
 public interface IAuthService
 {
     Task<Result> SignUpUserAsync(SignUpUserInput input, CancellationToken ct = default);
+    Task<Result> SignInExternalUserAsync(string? roleName);
+    Task<Result> SignInUserAsync(SignInUserInput request);
 }
 
 
