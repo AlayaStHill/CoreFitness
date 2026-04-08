@@ -4,7 +4,7 @@
 
 <div class="about-me card">
     <h2>About Me</h2>
-    <form class="form-layout about-me-form" novalidate>
+    <form method="post" enctype="multipart/form-data" class="form-layout about-me-form" novalidate>
         <div class="form-group">
             <label for="FirstName" class="form-label">First Name</label>
             <input id="FirstName" name="FirstName" type="text" class="form-input"
@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label for="profile-image" class="form-label">Profile image</label>
-            <input id="profile-image" name="profileImage" type="file" class="file-input-native"
+            <input id="profile-image" name="ProfileImage" type="file" class="file-input-native"
                    accept="image/*" />
             <label for="profile-image" class="file-input">
                 <span class="file-input__placeholder">Upload Profile image</span>
