@@ -140,4 +140,6 @@ public sealed class IdentityAuthService(IMemberRepository memberRepository, IUni
         return Result.Success();
 
     }
+
+    public Task SignOutUserAsync() => signInManager.SignOutAsync();
 }
