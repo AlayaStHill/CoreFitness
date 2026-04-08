@@ -1,6 +1,6 @@
-import { setupFormValidation } from "./formValidation.js";
-import { required, minLength, email, phone, imageFile } from "./validators.js";
-import { initFileUploadField } from "./fileUploadField.js";
+import { setupFormValidation } from "./validations/formValidation.js";
+import { required, minLength, email, phone, imageFile } from "./validations/validators.js";
+import { initFileUploadField } from "./validations/fileUploadField.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     const formSelector = ".about-me-form";

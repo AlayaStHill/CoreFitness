@@ -1,8 +1,10 @@
+using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Extensions;
 using CoreFitness.Infrastructure;
 using CoreFitness.Infrastructure.Extensions;
 using CoreFitness.Presentation.WebApp.Configurations;
 using CoreFitness.Presentation.WebApp.Extensions;
+using CoreFitness.Presentation.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
@@ -10,6 +12,9 @@ builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 
 
 // Alla URL:er som ASP.NET genererar kommer vara små bokstäver. SEO föredrar
