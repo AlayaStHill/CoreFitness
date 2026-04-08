@@ -3,7 +3,7 @@
 =======================================*/
 :root {
     --default-font: "DM Sans", sans-serif;
-    --title-font: "Poppins", sans-serif;
+    --accent-font: "Poppins", sans-serif;
     --dark-color: #27252F;
     /*transparent version, t, t2*/
     --dark-color-alpha-30: #27252f4d;
@@ -76,6 +76,8 @@
     --section-text-color: var(--dark-gray);
     --section-title-bg-color: var(--dark-color);
     --section-title-text-color: var(--white-color);
+    --quote-bg-color: var(--white-color);
+    --quote-text-color: var(--dark-color);
 }
 
 /*=======================================
@@ -131,7 +133,7 @@ h5,
 h6 {
     margin: 0;
     padding: 0;
-    font-family: var(--title-font);
+    font-family: var(--accent-font);
     font-weight: 500;
     font-style: normal;
 }
@@ -139,13 +141,12 @@ h6 {
 h1 {
     font-size: 3rem;
     font-weight: 500;
-    /*line-height: 4rem;*/
+/*    line-height: 4rem;*/
 }
 
 h2 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    /*line-height: 4rem;*/
+    font-size: 3rem;
+    font-weight: 500;
 }
 
 a {

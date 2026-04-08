@@ -50,27 +50,3 @@
     margin-inline: auto;
 }
 
-
-/*=======================================
-Footer
-=======================================*/
-footer {
-    margin: var(--space-sm);
-    padding: var(--space-md) var(--space-lg);
-    border-radius: 20px;
-    background-color: var(--footer-bg-color);
-    /*laddar bilden som bakgrund i footern*/
-    background-image: url(../images/dark-section-img.webp);
-    /*visa bilden en gång i footern, utan att upprepa den (annars upprepas bilden per default för att fylla hela elementet)*/
-    background-repeat: no-repeat;
-    background-size: 100%;
-    color: var(--footer-text-color);
-}
-
-footer {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
-    border-radius: var(--radius-xl);
-    padding: var(--space-sm);
-}
-
