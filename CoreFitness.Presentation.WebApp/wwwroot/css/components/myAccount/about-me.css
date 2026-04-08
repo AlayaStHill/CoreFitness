@@ -1,0 +1,110 @@
+.about-me {
+  display: grid;
+  gap: 1.5rem;
+
+  .file-input-native {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .file-input {
+    width: 100%;
+    min-height: 3.4rem;
+    background-color: var(--form-input-bg-color);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.35rem 0.25rem 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .file-input__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .file-input__remove {
+    border: 0;
+    border-radius: 999px;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e0e0e0;
+    color: var(--default-text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    transition:
+      background-color 160ms ease,
+      transform 160ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: #cfcfcf;
+      transform: translateY(-1px);
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .file-input__placeholder {
+    color: var(--form-placeholder-text-color);
+    line-height: 1;
+    font-weight: 500;
+
+    &.is-selected {
+      color: var(--default-text-color);
+    }
+  }
+
+  .file-input__button {
+    background-color: #d9d9d9;
+    color: var(--default-text-color);
+    border-radius: 0.35rem;
+    padding: 0.95rem 1.8rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .file-input:hover .file-input__button,
+  .file-input:focus-within .file-input__button {
+    background-color: var(--primary-color);
+    transform: translateX(1px);
+  }
+
+  .file-input-native:focus + .file-input {
+    box-shadow: 0 0 0 2px var(--primary-color);
+  }
+
+  hr {
+    opacity: 0.2;
+    margin-block: 1.8rem;
+  }
+
+  .form-group {
+    margin-top: 0.8rem;
+  }
+
+  .submit-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+}

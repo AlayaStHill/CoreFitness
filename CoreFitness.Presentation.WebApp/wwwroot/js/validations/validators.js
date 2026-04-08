@@ -18,3 +18,21 @@ export function phone(value, message = "Invalid phone number") {
   const regex = /^[0-9+\-\s()]*$/;
   return regex.test(value) ? "" : message;
 }
+
+export function imageFile(
+  input,
+  {
+    allowedTypes = ["image/jpeg", "image/png", "image/webp"],
+    maxSizeBytes = 2 * 1024 * 1024,
+    typeMessage = "Only JPG, PNG or WEBP images are allowed",
+    sizeMessage = "Image must be 2 MB or smaller",
+  } = {},
+) {
+  const file = input?.files?.[0];
+  if (!file) return "";
+
+  if (!allowedTypes.includes(file.type)) return typeMessage;
+  if (file.size > maxSizeBytes) return sizeMessage;
+
+  return "";
+}

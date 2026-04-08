@@ -2,10 +2,14 @@ export function setupFormValidation(selectedForm, rules) {
   const form = document.querySelector(selectedForm);
   if (!form) return;
 
-  const inputs = form.querySelectorAll("input:not([type='file']), textarea");
+  const inputs = form.querySelectorAll(
+    "input:not([type='submit']):not([type='button']):not([type='reset']), textarea",
+  );
 
   inputs.forEach((input) => {
-    input.addEventListener("input", () => validateField(input));
+    const triggerEvent = input.type === "file" ? "change" : "input";
+
+    input.addEventListener(triggerEvent, () => validateField(input));
     input.addEventListener("blur", () => {
       input.dataset.touched = "true";
       validateField(input);
@@ -36,7 +40,7 @@ export function setupFormValidation(selectedForm, rules) {
     if (!fieldRules) return "";
 
     for (const rule of fieldRules) {
-      const error = rule(value);
+      const error = rule(value, input);
       if (error) return error;
     }
 

@@ -1,0 +1,107 @@
+.my-account-page {
+  display: grid;
+  gap: 4rem;
+  padding-bottom: 4rem;
+  .my-account {
+    display: flex;
+    gap: 3.5rem;
+    align-items: flex-start;
+
+    .account-sidebar {
+      width: 35%;
+      display: grid;
+      gap: 4rem;
+
+      .img-wrapper {
+        width: 100%;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .menu-section {
+        .menu-title {
+          background-color: var(--primary-color);
+          padding: 1rem 2rem;
+          border-top-left-radius: 1rem;
+          border-top-right-radius: 1rem;
+        }
+
+        .account-menu {
+          background-color: var(--white-color);
+          border-radius: var(--radius-lg);
+          padding: 0;
+
+          .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .menu-item {
+              padding: 1.3rem 2rem;
+              position: relative;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+
+              &:hover,
+              &:focus-within,
+              &.active {
+                .menu-link {
+                  color: var(--primary-color);
+                }
+              }
+
+              &:not(:last-child) {
+                &::after {
+                  content: "";
+                  position: absolute;
+                  left: 2rem;
+                  right: 2rem;
+                  bottom: 0;
+                  border-bottom: 1px solid var(--border-light-color);
+                }
+              }
+
+              .menu-link {
+                text-decoration: none;
+                color: var(--default-text-color);
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                &::after {
+                  content: "\f054";
+                  font-family: "Font Awesome 7 Pro";
+                  font-size: 1em;
+                  margin-left: auto;
+                  transform: translateX(0);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .account-content {
+      width: 65%;
+      display: grid;
+      gap: 4rem;
+
+      .card {
+        background-color: var(--white-color);
+        padding: 3rem;
+        border-radius: var(--radius-xl);
+      }
+
+      h2 {
+        border-bottom: 1px solid var(--border-light-color);
+        padding-bottom: 1.5rem;
+        font-size: 2.7rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
