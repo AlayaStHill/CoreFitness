@@ -94,4 +94,13 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
 
         return RedirectToAction("Index", "Home");
     }
+
+    [HttpPost("sign-out")]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public new async Task<IActionResult> SignOut()
+    {
+        await identityAuthService.SignOutUserAsync();
+        return RedirectToAction("Index", "Home");
+    }
 }
