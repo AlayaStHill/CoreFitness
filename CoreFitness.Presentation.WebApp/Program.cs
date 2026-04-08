@@ -1,5 +1,6 @@
 using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Extensions;
+using CoreFitness.Application.MyAccount;
 using CoreFitness.Infrastructure;
 using CoreFitness.Infrastructure.Extensions;
 using CoreFitness.Presentation.WebApp.Configurations;
@@ -14,6 +15,7 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<IProfileImageStorageService, ProfileImageStorageService>();
 
 
 

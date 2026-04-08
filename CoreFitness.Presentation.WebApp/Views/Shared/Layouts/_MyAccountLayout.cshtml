@@ -5,6 +5,11 @@
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 
     bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
+
+    var aboutMeModel = ViewData.Model as CoreFitness.Presentation.WebApp.Models.MyAccount.AboutMeFormModel;
+    var profileImageUrl = !string.IsNullOrWhiteSpace(aboutMeModel?.ImageUrl)
+        ? aboutMeModel.ImageUrl!
+        : Url.Content("~/images/trainer-1.webp");
 }
 
 <div class="my-account-page container">
@@ -18,7 +23,7 @@
     <div class="my-account">
         <aside class="account-sidebar">
             <div class="img-wrapper">
-                <img src="~/images/trainer-1.webp" alt="profile picture" />
+                <img src="@profileImageUrl" alt="profile picture" />
             </div>
             <div class="menu-section">
                 <h4 class="menu-title">Menu Options</h4>

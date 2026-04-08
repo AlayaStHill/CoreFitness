@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
             (v) => email(v, "Invalid email address"),
         ],
         PhoneNumber: [(v) => phone(v, "Invalid phone number")],
-        profileImage: [(v, input) => imageFile(input)],
+        ProfileImage: [(v, input) => imageFile(input)],
     });
 
     initFileUploadField({
@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
         inputSelector: "#profile-image",
         placeholderSelector: ".file-input__placeholder",
         removeButtonSelector: ".file-input__remove",
-        errorSelector: '[data-valmsg-for="profileImage"]',
+        errorSelector: '[data-valmsg-for="ProfileImage"]',
+        imageUrlSelector: 'input[name="ImageUrl"]',
         emptyText: "Upload Profile image",
     });
 });

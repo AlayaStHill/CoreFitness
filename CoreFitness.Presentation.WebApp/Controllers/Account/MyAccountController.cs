@@ -11,7 +11,7 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Account;
 public class MyAccountController(
     ICurrentUserService currentUserService,
     IMyAccountUserService myAccountUserService,
-    IWebHostEnvironment webHostEnvironment) : Controller
+    IProfileImageStorageService profileImageStorageService) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> AboutMe()
@@ -46,8 +46,12 @@ public class MyAccountController(
             return View(model);
 
         string? imageUrl = model.ImageUrl;
+
         if (model.ProfileImage is not null && model.ProfileImage.Length > 0)
-            imageUrl = await SaveProfileImageAsync(model.ProfileImage, ct);
+        {
+            await using Stream stream = model.ProfileImage.OpenReadStream();
+            imageUrl = await profileImageStorageService.SaveProfileImageAsync(stream, model.ProfileImage.FileName, ct);
+        }
 
         var input = new UpdateMyAccountUserInput(
             currentUserService.UserId,
@@ -66,20 +70,5 @@ public class MyAccountController(
 
         TempData["SuccessMessage"] = "Profile updated successfully.";
         return RedirectToAction(nameof(AboutMe));
-    }
-
-    private async Task<string> SaveProfileImageAsync(IFormFile file, CancellationToken ct)
-    {
-        string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images", "profiles");
-        Directory.CreateDirectory(uploadsFolder);
-
-        string extension = Path.GetExtension(file.FileName).ToLowerInvariant();
-        string fileName = $"{Guid.NewGuid():N}{extension}";
-        string filePath = Path.Combine(uploadsFolder, fileName);
-
-        await using FileStream stream = new(filePath, FileMode.Create);
-        await file.CopyToAsync(stream, ct);
-
-        return $"/images/profiles/{fileName}";
     }
 }

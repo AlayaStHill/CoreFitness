@@ -4,13 +4,11 @@ namespace CoreFitness.Presentation.WebApp.Models.MyAccount;
 
 public sealed class AboutMeFormModel : IValidatableObject
 {
-    [Required(ErrorMessage = "First name is required.")]
-    [StringLength(50, MinimumLength = 2, ErrorMessage = "First name must be between 2 and 50 characters.")]
-    public string FirstName { get; set; } = string.Empty;
+    [StringLength(50, ErrorMessage = "First name must be between 2 and 50 characters.")]
+    public string? FirstName { get; set; }
 
-    [Required(ErrorMessage = "Last name is required.")]
-    [StringLength(50, MinimumLength = 2, ErrorMessage = "Last name must be between 2 and 50 characters.")]
-    public string LastName { get; set; } = string.Empty;
+    [StringLength(50, ErrorMessage = "Last name must be between 2 and 50 characters.")]
+    public string? LastName { get; set; }
 
     [Required(ErrorMessage = "Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email address.")]
@@ -24,6 +22,20 @@ public sealed class AboutMeFormModel : IValidatableObject
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
+        if (!string.IsNullOrWhiteSpace(FirstName) && FirstName.Trim().Length < 2)
+        {
+            yield return new ValidationResult(
+                "First name must be between 2 and 50 characters.",
+                [nameof(FirstName)]);
+        }
+
+        if (!string.IsNullOrWhiteSpace(LastName) && LastName.Trim().Length < 2)
+        {
+            yield return new ValidationResult(
+                "Last name must be between 2 and 50 characters.",
+                [nameof(LastName)]);
+        }
+
         if (ProfileImage is null)
             yield break;
 
