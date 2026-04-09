@@ -176,6 +176,24 @@ public class MyAccountController(
         return RedirectToAction(nameof(MyMemberships));
     }
 
+    [HttpGet]
+    public async Task<IActionResult> MyBookings()
+    {
+        if (string.IsNullOrWhiteSpace(currentUserService.UserId))
+            return Challenge();
+
+        var user = await myAccountUserService.GetByIdAsync(currentUserService.UserId);
+        if (user is null)
+            return Challenge();
+
+        SetMyAccountLayoutData(user.ImageUrl);
+
+
+        return View();
+    }
+
+
+
     private void SetMyAccountLayoutData(string? profileImageUrl)
     {
         ViewData[ProfileImageViewDataKey] = profileImageUrl;

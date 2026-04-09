@@ -6,6 +6,7 @@
 
     bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
     bool isMyMembershipsActive = currentController == "MyAccount" && currentAction == "MyMemberships";
+    bool isMyBookingsActive = currentController == "MyAccount" && currentAction == "MyBookings";
 
     var profileImageUrl = ViewData["MyAccountProfileImageUrl"] as string;
     profileImageUrl = !string.IsNullOrWhiteSpace(profileImageUrl)
@@ -35,8 +36,8 @@
                         <li class="menu-item @(isMyMembershipsActive ? "active" : "")">
                             <a class="menu-link" asp-controller="MyAccount" asp-action="MyMemberships">My Memberships</a>
                         </li>
-                        <li class="menu-item">
-                            <a class="menu-link" href="/myaccount/training">My Bookings</a>
+                        <li class="menu-item @(isMyBookingsActive ? "active" : "")">
+                            <a class="menu-link" asp-controller="MyAccount" asp-action="MyBookings">My Bookings</a>
                         </li>
                         <li class="menu-item">
                             <a class="menu-link" href="/myaccount/store">Sign Out</a>
