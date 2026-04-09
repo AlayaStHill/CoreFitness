@@ -1,8 +1,8 @@
 ﻿.primary-button {
     display: inline-block;
-    padding: var(--space-sm) var(--space-md);
+    padding: 1rem 1.5rem;
     border: none;
-    border-radius: var(--radius-pill);
+    border-radius: 25px;
     background-color: var(--primary-button-bg-color);
     color: var(--primary-button-text-color);
     text-decoration: none;
@@ -14,8 +14,8 @@
     &::after {
         content: "\f054";
         font-family: "Font Awesome 7 Pro";
-        font-size: 1rem;
-        margin-left: var(--space-xs);
+        font-size: 1em;
+        margin-left: 0.5rem;
         transform: translateX(0);
     }
 
@@ -31,6 +31,42 @@
     &.offset:hover {
         background-color: var(--primary-button-hover-offset-bg-color);
         color: var(--primary-button-hover-offset-text-color);
+    }
+}
+
+.secondary-button {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--secondary-button-border-color);
+    border-radius: 25px;
+    background-color: transparent;
+    color: var(--secondary-button-text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(.4, 0, .2, 1), color 150ms cubic-bezier(.4, 0, .2, 1);
+
+    &::after {
+        content: "\f054";
+        font-family: "Font Awesome 7 Pro";
+        font-size: 1em;
+        margin-left: 0.5rem;
+        transform: translateX(0);
+    }
+
+    &:hover {
+        background-color: var(--secondary-button-hover-bg-color);
+        color: var(--secondary-button-hover-text-color);
+
+        &::after {
+            transform: translateX(3px);
+        }
+    }
+
+    &.offset:hover {
+        background-color: var(--secondary-button-hover-offset-bg-color);
+        color: var(--secondary-button-hover-offset-text-color);
     }
 }
 

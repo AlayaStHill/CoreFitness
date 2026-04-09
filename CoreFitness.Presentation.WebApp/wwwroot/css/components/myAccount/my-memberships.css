@@ -1,0 +1,45 @@
+/* my memberships */
+.my-memberships {
+  .my-memberships-title {
+    border: none;
+    padding: 0;
+  }
+
+  .membership-card {
+    background-color: var(--light-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    width: 100%;
+
+    h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-size: 1.2rem;
+      font-weight: 600;
+
+      span {
+        font-size: 0.9rem;
+        font-weight: 400;
+      }
+    }
+
+    .membership-includes {
+      display: grid;
+      gap: var(--space-sm);
+      list-style: none;
+      padding-left: 0;
+      margin-block: var(--space-lg);
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+      }
+    }
+  }
+  
+}

@@ -11,8 +11,11 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Account;
 public class MyAccountController(
     ICurrentUserService currentUserService,
     IMyAccountUserService myAccountUserService,
-    IProfileImageStorageService profileImageStorageService) : Controller
+    IProfileImageStorageService profileImageStorageService,
+    IMyAccountMembershipService myAccountMembershipService) : Controller
 {
+    private const string ProfileImageViewDataKey = "MyAccountProfileImageUrl";
+
     [HttpGet]
     public async Task<IActionResult> AboutMe()
     {
@@ -22,6 +25,8 @@ public class MyAccountController(
         var user = await myAccountUserService.GetByIdAsync(currentUserService.UserId);
         if (user is null)
             return Challenge();
+
+        SetMyAccountLayoutData(user.ImageUrl);
 
         AboutMeFormModel model = new()
         {
@@ -43,7 +48,10 @@ public class MyAccountController(
             return Challenge();
 
         if (!ModelState.IsValid)
+        {
+            SetMyAccountLayoutData(model.ImageUrl);
             return View(model);
+        }
 
         string? imageUrl = model.ImageUrl;
 
@@ -64,11 +72,64 @@ public class MyAccountController(
         var result = await myAccountUserService.UpdateAsync(input);
         if (result.IsFailure)
         {
+            model.ImageUrl = imageUrl;
+            SetMyAccountLayoutData(model.ImageUrl);
+
             ModelState.AddModelError(string.Empty, result.Error?.Message ?? "Could not update profile.");
             return View(model);
         }
 
         TempData["SuccessMessage"] = "Profile updated successfully.";
         return RedirectToAction(nameof(AboutMe));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> MyMemberships(CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(currentUserService.UserId))
+            return Challenge();
+
+        var user = await myAccountUserService.GetByIdAsync(currentUserService.UserId);
+        if (user is null)
+            return Challenge();
+
+        SetMyAccountLayoutData(user.ImageUrl);
+
+        var overview = await myAccountMembershipService.GetOverviewAsync(currentUserService.UserId, ct);
+
+        MyMembershipsViewModel model = overview is null
+            ? new MyMembershipsViewModel()
+            : new MyMembershipsViewModel
+            {
+                HasActiveMembership = overview.HasActiveMembership,
+                ActiveMembership = overview.ActiveMembership is null
+                    ? null
+                    : new ActiveMembershipViewModel
+                    {
+                        MembershipId = overview.ActiveMembership.MembershipId,
+                        MembershipTypeId = overview.ActiveMembership.MembershipTypeId,
+                        MembershipName = overview.ActiveMembership.MembershipName,
+                        PricePerMonth = overview.ActiveMembership.PricePerMonth,
+                        StartDate = overview.ActiveMembership.StartDate,
+                        Status = overview.ActiveMembership.Status,
+                        Benefits = overview.ActiveMembership.Benefits
+                    },
+                AvailablePlans = overview.AvailablePlans
+                    .Select(plan => new MembershipPlanViewModel
+                    {
+                        MembershipTypeId = plan.MembershipTypeId,
+                        Name = plan.Name,
+                        PricePerMonth = plan.PricePerMonth,
+                        Benefits = plan.Benefits
+                    })
+                    .ToList()
+            };
+
+        return View(model);
+    }
+
+    private void SetMyAccountLayoutData(string? profileImageUrl)
+    {
+        ViewData[ProfileImageViewDataKey] = profileImageUrl;
     }
 }

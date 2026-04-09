@@ -1,0 +1,28 @@
+﻿@model CoreFitness.Presentation.WebApp.Models.MyAccount.ActiveMembershipViewModel
+
+@{
+    var statusCssClass = Model.Status.ToLowerInvariant();
+}
+
+<div class="current-membership">
+    <div class="membership-card">
+        <h4 class="membership-name">
+            @Model.MembershipName
+            <span class="status-badge @statusCssClass">@Model.Status.ToLowerInvariant()</span>
+        </h4>
+
+        <p class="price">@Model.PricePerMonth kr / <span>month</span></p>
+
+        <ul class="membership-includes">
+            @foreach (var benefit in Model.Benefits)
+            {
+                <li><img src="~/icons/check-bot.svg" alt="Check icon">@benefit</li>
+            }
+        </ul>
+
+        <div class="action-buttons">
+            <button class="secondary-button" type="button">Pause Membership</button>
+            <button class="primary-button" type="button">Cancel Membership</button>
+        </div>
+    </div>
+</div>

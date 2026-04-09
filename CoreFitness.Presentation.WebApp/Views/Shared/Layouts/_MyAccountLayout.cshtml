@@ -5,15 +5,15 @@
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 
     bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
+    bool isMyMembershipsActive = currentController == "MyAccount" && currentAction == "MyMemberships";
 
-    var aboutMeModel = ViewData.Model as CoreFitness.Presentation.WebApp.Models.MyAccount.AboutMeFormModel;
-    var profileImageUrl = !string.IsNullOrWhiteSpace(aboutMeModel?.ImageUrl)
-        ? aboutMeModel.ImageUrl!
+    var profileImageUrl = ViewData["MyAccountProfileImageUrl"] as string;
+    profileImageUrl = !string.IsNullOrWhiteSpace(profileImageUrl)
+        ? profileImageUrl
         : Url.Content("~/images/trainer-1.webp");
 }
 
 <div class="my-account-page container">
-
     <section class="page-title">
         <div class="container">
             <h1>My Account</h1>
@@ -32,8 +32,8 @@
                         <li class="menu-item @(isAboutMeActive ? "active" : "")">
                             <a class="menu-link" asp-controller="MyAccount" asp-action="AboutMe">About Me</a>
                         </li>
-                        <li class="menu-item">
-                            <a class="menu-link" href="/myaccount/membership">My Memberships</a>
+                        <li class="menu-item @(isMyMembershipsActive ? "active" : "")">
+                            <a class="menu-link" asp-controller="MyAccount" asp-action="MyMemberships">My Memberships</a>
                         </li>
                         <li class="menu-item">
                             <a class="menu-link" href="/myaccount/training">My Bookings</a>
@@ -46,11 +46,9 @@
             </div>
         </aside>
         <section class="account-content">
-           @RenderBody()
+            @RenderBody()
         </section>
     </div>
-
-
 </div>
 
 @RenderSection("Scripts", required: false)

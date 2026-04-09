@@ -36,6 +36,12 @@
     --primary-button-hover-text-color: var(--white-color);
     --primary-button-hover-offset-bg-color: var(--white-color);
     --primary-button-hover-offset-text-color: var(--dark-color);
+    --secondary-button-border-color: var(--primary-color);
+    --secondary-button-text-color: var(--dark-color);
+    --secondary-button-hover-bg-color: var(--primary-color);
+    --secondary-button-hover-text-color: var(--dark-color);
+    --secondary-button-hover-offset-bg-color: var(--white-color);
+    --secondary-button-hover-offset-text-color: var(--dark-color);
     --form-label-text-color: var(--dark-color);
     --form-input-bg-color: var(--light-color);
     --form-input-border-color: var(--light-color);
