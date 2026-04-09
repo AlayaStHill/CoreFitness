@@ -12,7 +12,8 @@ public class MyAccountController(
     ICurrentUserService currentUserService,
     IMyAccountUserService myAccountUserService,
     IProfileImageStorageService profileImageStorageService,
-    IMyAccountMembershipService myAccountMembershipService) : Controller
+    IMyAccountMembershipService myAccountMembershipService,
+    IMyAccountBookingService myAccountBookingService) : Controller
 {
     private const string ProfileImageViewDataKey = "MyAccountProfileImageUrl";
 
@@ -188,8 +189,35 @@ public class MyAccountController(
 
         SetMyAccountLayoutData(user.ImageUrl);
 
+        var overview = await myAccountBookingService.GetOverviewAsync(currentUserService.UserId);
 
-        return View();
+        MyBookingsViewModel model = overview is null
+            ? new MyBookingsViewModel()
+            : new MyBookingsViewModel
+            {
+                UpcomingBookings = overview.UpcomingBookings
+                    .Select(booking => new MyBookingItemViewModel
+                    {
+                        WorkoutSessionId = booking.WorkoutSessionId,
+                        WorkoutTitle = booking.WorkoutTitle,
+                        WorkoutCategory = booking.WorkoutCategory,
+                        StartsAt = booking.StartsAt,
+                        DurationMinutes = booking.DurationMinutes
+                    })
+                    .ToList(),
+                PreviousBookings = overview.PreviousBookings
+                    .Select(booking => new MyBookingItemViewModel
+                    {
+                        WorkoutSessionId = booking.WorkoutSessionId,
+                        WorkoutTitle = booking.WorkoutTitle,
+                        WorkoutCategory = booking.WorkoutCategory,
+                        StartsAt = booking.StartsAt,
+                        DurationMinutes = booking.DurationMinutes
+                    })
+                    .ToList()
+            };
+
+        return View(model);
     }
 
 

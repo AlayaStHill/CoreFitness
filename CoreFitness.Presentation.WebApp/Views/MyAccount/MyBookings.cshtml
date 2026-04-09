@@ -1,4 +1,6 @@
-﻿@{
+﻿@model CoreFitness.Presentation.WebApp.Models.MyAccount.MyBookingsViewModel
+
+@{
     Layout = "~/Views/Shared/Layouts/_MyAccountLayout.cshtml";
 }
 
@@ -10,29 +12,31 @@
     <div class="upcoming-bookings">
         <h3 class="list-title">Upcoming Bookings</h3>
         <ul class="upcoming-bookings-list">
-            <li class="booking-item  card shadow">
-                <div class="booking-info">
-                    <h4 class="workout-type">Yoga Flow</h4>
-                    <p class="workout-category">Group Class</p>
-                    <p class="booking-date">20 Jul - 18:00</p>
-                    <p class="booking-duration">Duration: 60 minutes</p>
-                </div>
-                <div class="booking-actions">
-                    <button class="secondary-button">Cancel booking</button>
-                </div>
-            </li>
-
-            <li class="booking-item  card shadow">
-                <div class="booking-info">
-                    <h4 class="workout-type">Yoga Flow</h4>
-                    <p class="workout-category">Group Class</p>
-                    <p class="booking-date">20 Jul - 18:00</p>
-                    <p class="booking-duration">Duration: 60 minutes</p>
-                </div>
-                <div class="booking-actions">
-                    <button class="secondary-button">Cancel booking</button>
-                </div>
-            </li>
+            @if (Model.UpcomingBookings.Count == 0)
+            {
+                <li class="booking-item card shadow">
+                    <div class="booking-info">
+                        <p>No upcoming bookings.</p>
+                    </div>
+                </li>
+            }
+            else
+            {
+                @foreach (var booking in Model.UpcomingBookings)
+                {
+                    <li class="booking-item  card shadow">
+                        <div class="booking-info">
+                            <h4 class="workout-type">@booking.WorkoutTitle</h4>
+                            <p class="workout-category">@booking.WorkoutCategory</p>
+                            <p class="booking-date">@booking.StartsAt.ToString("dd MMM - HH:mm")</p>
+                            <p class="booking-duration">Duration: @booking.DurationMinutes minutes</p>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="secondary-button" type="button">Cancel booking</button>
+                        </div>
+                    </li>
+                }
+            }
         </ul>
     </div>
     <div class="previous-bookings">
@@ -47,26 +51,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Yoga Flow</td>
-                    <td>Group Class</td>
-                    <td>20 Jul - 18:00</td>
-                    <td>60 minutes</td>
-                </tr>
-
-                <tr>
-                    <td>Yoga Flow</td>
-                    <td>Group Class</td>
-                    <td>20 Jul - 18:00</td>
-                    <td>60 minutes</td>
-                </tr>
-
-                <tr>
-                    <td>Yoga Flow</td>
-                    <td>Group Class</td>
-                    <td>20 Jul - 18:00</td>
-                    <td>60 minutes</td>
-                </tr>
+                @if (Model.PreviousBookings.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4">No previous bookings.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var booking in Model.PreviousBookings)
+                    {
+                        <tr>
+                            <td>@booking.WorkoutTitle</td>
+                            <td>@booking.WorkoutCategory</td>
+                            <td>@booking.StartsAt.ToString("dd MMM - HH:mm")</td>
+                            <td>@booking.DurationMinutes minutes</td>
+                        </tr>
+                    }
+                }
 
 
             </tbody>

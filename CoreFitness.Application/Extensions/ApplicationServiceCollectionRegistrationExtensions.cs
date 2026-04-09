@@ -13,6 +13,7 @@ public static class ApplicationServiceCollectionRegistrationExtensions
 
         services.AddScoped<IContactRequestService, ContactRequestService>();
         services.AddScoped<IMembershipTypeService, MembershipTypeService>();
+        services.AddScoped<IMyAccountBookingService, MyAccountBookingService>();
         services.AddScoped<IMyAccountMembershipService, MyAccountMembershipService>();
 
         return services;
