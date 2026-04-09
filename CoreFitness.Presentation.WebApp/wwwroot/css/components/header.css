@@ -1,12 +1,25 @@
-﻿.site-header {
-    margin: var( --space-sm);
-    padding: var(--space-md) var(--space-sm);
-    border-radius: var(--radius-xl);
+﻿header {
+    margin: var(--space-sm);
     background-color: var(--header-bg-color);
     background-image: url("../../images/dark-section-img.webp");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius-xl);
     color: var(--header-text-color);
+    
+}
+
+.site-header {
+    padding: var(--space-md) var(--space-sm);
+}
+
+/*En .site-header som ligger INUTI en header som innehåller .section__hero*/
+header:has(.section__hero) .site-header {
+    padding-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+   /* background-color: transparent;*/
 }
 
 .site-header .header-layout {

@@ -24,7 +24,7 @@
     --header-text-color: var(--white-color);
     --footer-bg-color: var(--dark-color);
     --footer-text-color: var(--white-color);
-    --menu-item-text-color: var(--white-color);
+    --menu-item-text-color: var(--header-text-color);
     --menu-item-hover-text-color: var(--primary-color);
     --menu-dropdown-item-bg-color: var(--primary-color);
     --menu-dropdown-item-text-color: var(--dark-color);
@@ -139,12 +139,7 @@ h6 {
     font-style: normal;
 }
 
-h1 {
-    font-size: 3rem;
-    font-weight: 500;
-/*    line-height: 4rem;*/
-}
-
+h1,
 h2 {
     font-size: 3rem;
     font-weight: 500;
@@ -166,15 +161,16 @@ a:hover {
 
 /*<horizontal rule> - skapar center horisontell skiljelinje. Semantiskt nytt innehåll.*/
 hr {
-    width: 100%;
-    margin: 2rem 0;
-    border: none;
-    border: 1px solid var(--border-color);
-    opacity: 0.2;
+  margin: 0;
+  border: none;
+  height: 0.0625rem;
+  background: var(--border-color);
+  opacity: 0.4;
 }
 
-hr.accent {
-    border: 1px solid var(--primary-color);
+hr.primary {
+  background: var(--border-primary-color);
+  opacity: 0.2;
 }
 
 
@@ -192,7 +188,7 @@ hr.accent {
     font-size: 0.9rem;
     font-weight: 500;
     align-self: flex-start;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
 }
 
 /* Punkten före texten */

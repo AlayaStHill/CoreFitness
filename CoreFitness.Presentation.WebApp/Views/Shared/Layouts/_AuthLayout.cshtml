@@ -35,8 +35,13 @@
 </head>
 @* ska vara auth-layout *@
 <body class="app-layout"> 
-    <partial name="Partials/_Header" />
-
+    <header>
+        <partial name="Partials/_Header" />
+        @if (IsSectionDefined("Hero"))
+        {
+            @RenderSection("Hero", required: false)
+        }
+    </header>
     <main>
         @RenderBody()
     </main>
