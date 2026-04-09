@@ -86,4 +86,26 @@ public sealed class MyAccountMembershipService(
         await unitOfWork.SaveChangesAsync(ct);
         return Result.Success();
     }
+
+    public async Task<Result> CancelActiveMembershipAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+
+        var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
+        if (member is null)
+            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+
+        try
+        {
+            member.CancelActiveMembership();
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+        }
+
+        await unitOfWork.SaveChangesAsync(ct);
+        return Result.Success();
+    }
 }

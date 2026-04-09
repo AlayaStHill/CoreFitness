@@ -140,6 +140,18 @@ public class MyAccountController(
         return RedirectToAction(nameof(MyMemberships));
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CancelMembership(CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(currentUserService.UserId))
+            return Challenge();
+
+        await myAccountMembershipService.CancelActiveMembershipAsync(currentUserService.UserId, ct);
+
+        return RedirectToAction(nameof(MyMemberships));
+    }
+
     private void SetMyAccountLayoutData(string? profileImageUrl)
     {
         ViewData[ProfileImageViewDataKey] = profileImageUrl;

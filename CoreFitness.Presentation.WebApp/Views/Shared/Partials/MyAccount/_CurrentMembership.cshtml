@@ -22,7 +22,10 @@
 
         <div class="action-buttons">
             <button class="secondary-button" type="button">Pause Membership</button>
-            <button class="primary-button" type="button">Cancel Membership</button>
+            <form asp-controller="MyAccount" asp-action="CancelMembership" method="post">
+                @Html.AntiForgeryToken()
+                <button class="primary-button" type="submit">Cancel Membership</button>
+            </form>
         </div>
     </div>
 </div>
