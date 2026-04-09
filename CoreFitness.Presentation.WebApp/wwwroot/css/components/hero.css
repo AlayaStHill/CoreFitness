@@ -1,0 +1,100 @@
+﻿.section__hero {
+    padding-top: var(--space-sm);
+}
+
+.section__hero .container {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: center;
+    padding-inline: 4rem;
+}
+
+.hero-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 623px;
+}
+
+.section__hero .section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.875rem;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-family: var(--accent-font);
+    font-weight: 700;
+}
+
+.hero-description {
+    display: block;
+    opacity: 0.8;
+}
+
+.checklist {
+    display: grid;
+    gap: 0.75rem var(--space-md);
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.95rem;
+    padding-bottom: var(--space-lg);
+    position: relative;
+}
+
+.checklist::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.0625rem;
+    background: var(--primary-color);
+    opacity: 0.1;
+}
+
+.checklist--grid {
+    grid-template-columns: 1fr 1fr;
+}
+
+.checklist li {
+    display: grid;
+    grid-template-columns: 1.25rem 1fr;
+    align-items: start;
+    column-gap: 0.75rem;
+}
+
+.checklist li::before {
+    content: "\f00c";
+    font-family: "Font Awesome 7 Pro Solid";
+    font-weight: 900;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--dark-color);
+    display: grid;
+    place-items: center;
+    font-size: 0.7rem;
+    line-height: 1;
+}
+
+.hero-cta {
+    margin-top: 0.75rem;
+}
+
+.hero-cta a {
+    display: inline-block;
+}
+
+.hero-image {
+    padding-top: var(--space-lg);
+    justify-self: end;
+    align-self: end;
+    max-width: 560px;
+}
