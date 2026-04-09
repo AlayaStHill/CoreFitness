@@ -32,8 +32,10 @@ public sealed class MyAccountMembershipService(
                 plan.Benefits))
             .ToList();
 
-        var activeMembership = member.GetActiveMembership();
-        if (activeMembership is null)
+        var currentMembership = member.GetActiveMembership()
+            ?? member.Memberships.FirstOrDefault(membership => membership.IsPaused());
+
+        if (currentMembership is null)
         {
             return new MyMembershipsOverviewOutput(
                 HasActiveMembership: false,
@@ -41,15 +43,15 @@ public sealed class MyAccountMembershipService(
                 AvailablePlans: availablePlans);
         }
 
-        var activePlan = featuredPlans.FirstOrDefault(plan => plan.Id == activeMembership.MembershipTypeId.Value);
+        var activePlan = featuredPlans.FirstOrDefault(plan => plan.Id == currentMembership.MembershipTypeId.Value);
 
         var activeOutput = new ActiveMembershipOutput(
-            MembershipId: activeMembership.Id.Value,
-            MembershipTypeId: activeMembership.MembershipTypeId.Value,
+            MembershipId: currentMembership.Id.Value,
+            MembershipTypeId: currentMembership.MembershipTypeId.Value,
             MembershipName: activePlan?.Name ?? "Current membership",
             PricePerMonth: activePlan?.PricePerMonth ?? 0m,
-            StartDate: activeMembership.StartDate,
-            Status: activeMembership.Status.ToString(),
+            StartDate: currentMembership.StartDate,
+            Status: currentMembership.Status.ToString(),
             Benefits: activePlan?.Benefits ?? []);
 
         return new MyMembershipsOverviewOutput(
@@ -98,7 +100,59 @@ public sealed class MyAccountMembershipService(
 
         try
         {
-            member.CancelActiveMembership();
+            if (member.HasActiveMembership())
+            {
+                member.CancelActiveMembership();
+            }
+            else
+            {
+                member.ActivatePausedMembership();
+                member.CancelActiveMembership();
+            }
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+        }
+
+        await unitOfWork.SaveChangesAsync(ct);
+        return Result.Success();
+    }
+
+    public async Task<Result> PauseActiveMembershipAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+
+        var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
+        if (member is null)
+            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+
+        try
+        {
+            member.PauseActiveMembership();
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+        }
+
+        await unitOfWork.SaveChangesAsync(ct);
+        return Result.Success();
+    }
+
+    public async Task<Result> ActivatePausedMembershipAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+
+        var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
+        if (member is null)
+            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+
+        try
+        {
+            member.ActivatePausedMembership();
         }
         catch (ValidationDomainException ex)
         {

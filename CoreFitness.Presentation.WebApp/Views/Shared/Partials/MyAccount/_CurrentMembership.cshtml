@@ -2,6 +2,7 @@
 
 @{
     var statusCssClass = Model.Status.ToLowerInvariant();
+    var isPaused = string.Equals(Model.Status, "Paused", StringComparison.OrdinalIgnoreCase);
 }
 
 <div class="current-membership">
@@ -21,7 +22,20 @@
         </ul>
 
         <div class="action-buttons">
-            <button class="secondary-button" type="button">Pause Membership</button>
+            @if (isPaused)
+            {
+                <form asp-controller="MyAccount" asp-action="ActivateMembership" method="post">
+                    @Html.AntiForgeryToken()
+                    <button class="secondary-button" type="submit">Activate Membership</button>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="MyAccount" asp-action="PauseMembership" method="post">
+                    @Html.AntiForgeryToken()
+                    <button class="secondary-button" type="submit">Pause Membership</button>
+                </form>
+            }
             <form asp-controller="MyAccount" asp-action="CancelMembership" method="post">
                 @Html.AntiForgeryToken()
                 <button class="primary-button" type="submit">Cancel Membership</button>
