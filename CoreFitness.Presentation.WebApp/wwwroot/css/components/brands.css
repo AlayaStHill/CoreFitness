@@ -1,0 +1,31 @@
+﻿.section__brands {
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-md) var(--space-xxl);
+    margin-inline: var(--space-sm);
+}
+
+.section__brands .container {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+}
+
+.brands-slider {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-lg);
+    align-items: center;
+    justify-content: center;
+}
+
+.brands-slider img {
+    height: 40px;
+    object-fit: contain;
+}
+
+.brands-title {
+    text-align: right;
+    gap: var(--space-sm);
+    font-weight: 700;
+}
