@@ -1,8 +1,15 @@
 using CoreFitness.Application.MyAccount.Outputs;
+using CoreFitness.Application.Shared;
+using CoreFitness.Application.Shared.Results;
+using CoreFitness.Domain.Aggregates.WorkoutSessions.Services;
+using CoreFitness.Domain.Exceptions.Custom;
 
 namespace CoreFitness.Application.MyAccount;
 
-public sealed class MyAccountBookingService(IMyAccountBookingRepository bookingRepository) : IMyAccountBookingService
+public sealed class MyAccountBookingService(
+    IMyAccountBookingRepository bookingRepository,
+    WorkoutBookingDomainService workoutBookingDomainService,
+    IUnitOfWork unitOfWork) : IMyAccountBookingService
 {
     public async Task<MyBookingsOverviewOutput?> GetOverviewAsync(string userId, CancellationToken ct = default)
     {
@@ -24,5 +31,71 @@ public sealed class MyAccountBookingService(IMyAccountBookingRepository bookingR
             .ToList();
 
         return new MyBookingsOverviewOutput(upcomingBookings, previousBookings);
+    }
+
+    public async Task<IReadOnlyList<MyUpcomingSessionOutput>> GetUpcomingSessionsAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return [];
+
+        return await bookingRepository.GetUpcomingSessionsByUserIdAsync(userId, ct);
+    }
+
+    public async Task<Result> BookSessionAsync(string userId, Guid workoutSessionId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+
+        if (workoutSessionId == Guid.Empty)
+            return Result.Fail(ErrorTypes.BadRequest, "Workout session id must be provided.");
+
+        var member = await bookingRepository.GetMemberByUserIdForBookingAsync(userId, ct);
+        if (member is null)
+            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+
+        var workoutSession = await bookingRepository.GetWorkoutSessionByIdForBookingAsync(workoutSessionId, ct);
+        if (workoutSession is null)
+            return Result.Fail(ErrorTypes.NotFound, "Workout session not found.");
+
+        try
+        {
+            workoutBookingDomainService.Book(member, workoutSession);
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+        }
+
+        await unitOfWork.SaveChangesAsync(ct);
+        return Result.Success();
+    }
+
+    public async Task<Result> CancelSessionAsync(string userId, Guid workoutSessionId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+
+        if (workoutSessionId == Guid.Empty)
+            return Result.Fail(ErrorTypes.BadRequest, "Workout session id must be provided.");
+
+        var member = await bookingRepository.GetMemberByUserIdForBookingAsync(userId, ct);
+        if (member is null)
+            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+
+        var workoutSession = await bookingRepository.GetWorkoutSessionByIdForBookingAsync(workoutSessionId, ct);
+        if (workoutSession is null)
+            return Result.Fail(ErrorTypes.NotFound, "Workout session not found.");
+
+        try
+        {
+            workoutSession.CancelBooking(member.Id);
+        }
+        catch (ValidationDomainException ex)
+        {
+            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+        }
+
+        await unitOfWork.SaveChangesAsync(ct);
+        return Result.Success();
     }
 }

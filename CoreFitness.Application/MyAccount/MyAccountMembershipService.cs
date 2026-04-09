@@ -38,14 +38,14 @@ public sealed class MyAccountMembershipService(
         if (currentMembership is null)
         {
             return new MyMembershipsOverviewOutput(
-                HasActiveMembership: false,
-                ActiveMembership: null,
+                HasMembership: false,
+                CurrentMembership: null,
                 AvailablePlans: availablePlans);
         }
 
         var activePlan = featuredPlans.FirstOrDefault(plan => plan.Id == currentMembership.MembershipTypeId.Value);
 
-        var activeOutput = new ActiveMembershipOutput(
+        var currentOutput = new CurrentMembershipOutput(
             MembershipId: currentMembership.Id.Value,
             MembershipTypeId: currentMembership.MembershipTypeId.Value,
             MembershipName: activePlan?.Name ?? "Current membership",
@@ -55,8 +55,8 @@ public sealed class MyAccountMembershipService(
             Benefits: activePlan?.Benefits ?? []);
 
         return new MyMembershipsOverviewOutput(
-            HasActiveMembership: true,
-            ActiveMembership: activeOutput,
+            HasMembership: true,
+            CurrentMembership: currentOutput,
             AvailablePlans: availablePlans);
     }
 

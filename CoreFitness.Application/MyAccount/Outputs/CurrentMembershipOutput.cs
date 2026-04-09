@@ -1,6 +1,6 @@
-﻿namespace CoreFitness.Application.MyAccount.Outputs;
+namespace CoreFitness.Application.MyAccount.Outputs;
 
-public sealed record ActiveMembershipOutput(
+public sealed record CurrentMembershipOutput(
     Guid MembershipId,
     Guid MembershipTypeId,
     string MembershipName,

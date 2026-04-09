@@ -2,12 +2,12 @@
 
 public sealed class MyMembershipsViewModel
 {
-    public bool HasActiveMembership { get; init; }
-    public ActiveMembershipViewModel? ActiveMembership { get; init; }
+    public bool HasMembership { get; init; }
+    public CurrentMembershipViewModel? CurrentMembership { get; init; }
     public IReadOnlyList<MembershipPlanViewModel> AvailablePlans { get; init; } = [];
 }
 
-public sealed class ActiveMembershipViewModel
+public sealed class CurrentMembershipViewModel
 {
     public Guid MembershipId { get; init; }
     public Guid MembershipTypeId { get; init; }

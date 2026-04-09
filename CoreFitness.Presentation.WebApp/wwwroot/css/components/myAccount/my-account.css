@@ -95,6 +95,10 @@
             display: grid;
             gap: 4rem;
 
+            .membership-access-link {
+                justify-self: start;
+            }
+
             .card {
                 background-color: var(--white-color);
                 padding: 3rem;

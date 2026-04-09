@@ -2,6 +2,7 @@ namespace CoreFitness.Presentation.WebApp.Models.MyAccount;
 
 public sealed class MyBookingsViewModel
 {
+    public bool HasActiveMembership { get; init; }
     public IReadOnlyList<MyBookingItemViewModel> UpcomingBookings { get; init; } = [];
     public IReadOnlyList<MyBookingItemViewModel> PreviousBookings { get; init; } = [];
 }

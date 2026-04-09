@@ -6,7 +6,7 @@
 
     bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
     bool isMyMembershipsActive = currentController == "MyAccount" && currentAction == "MyMemberships";
-    bool isMyBookingsActive = currentController == "MyAccount" && currentAction == "MyBookings";
+    bool isMyBookingsActive = currentController == "MyAccount" && (currentAction == "MyBookings" || currentAction == "NewBooking");
 
     var profileImageUrl = ViewData["MyAccountProfileImageUrl"] as string;
     profileImageUrl = !string.IsNullOrWhiteSpace(profileImageUrl)

@@ -1,0 +1,194 @@
+.account-content {
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: #4d4d59;
+    font-weight: 500;
+    line-height: 1;
+    transition: color 150ms ease;
+
+    &::before {
+      content: "\2190";
+      color: var(--primary-color);
+      font-size: 1.05rem;
+      line-height: 1;
+      transform: translateX(0);
+      transition: transform 150ms ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--default-text-color);
+      outline: none;
+    }
+
+    &:hover::before,
+    &:focus-visible::before {
+      transform: translateX(-2px);
+    }
+  }
+}
+
+.book-new-workout {
+  display: grid;
+  gap: 1.5rem;
+
+  h2 {
+    border: none !important;
+    padding-bottom: 0 !important;
+    font-size: 2.2rem;
+    font-weight: 600;
+  }
+
+  .class-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .filter-button {
+    border: none;
+    border-radius: 0.7rem;
+    background-color: #ededf0;
+    color: #4d4d59;
+    padding: 0.55rem 1rem;
+    font-family: var(--default-font);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background-color: #dfe29d;
+      color: var(--default-text-color);
+      outline: none;
+    }
+
+    &.active {
+      background-color: var(--primary-color);
+      color: var(--default-text-color);
+      font-weight: 600;
+    }
+  }
+
+  .class-list {
+    display: grid;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .class-item {
+      background-color: #f9f9fb;
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.1rem 1.1rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+
+      &.is-full {
+        opacity: 0.95;
+      }
+
+      .class-main {
+        flex: 1;
+        display: grid;
+        gap: 0.85rem;
+
+        .class-heading {
+          display: flex;
+          align-items: flex-start;
+          gap: 0;
+        }
+
+        .class-title {
+          margin: 0;
+          font-size: 1.35rem;
+          font-weight: 600;
+          line-height: 1.1;
+        }
+
+        .class-category {
+          margin: 0.1rem 0 0;
+          color: var(--gray-color);
+          font-size: 1.35rem;
+        }
+
+        .class-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.8rem 0;
+          color: #52525f;
+          font-size: 0.95rem;
+
+          span {
+            position: relative;
+            padding: 0 1rem;
+          }
+
+          span:first-child {
+            padding-left: 0;
+          }
+
+          span:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 1px;
+            height: 0.95rem;
+            background-color: #d7d7de;
+            transform: translateY(-50%);
+          }
+        }
+      }
+
+      .book-button {
+        border: none;
+        border-radius: var(--radius-pill);
+        background-color: var(--primary-color);
+        color: var(--default-text-color);
+        padding: 0.6rem 1.2rem;
+        font-family: var(--default-font);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background-color 150ms ease,
+          transform 150ms ease;
+
+        &::after {
+          content: "\f054";
+          font-family: "Font Awesome 7 Pro";
+          font-size: 0.85em;
+          margin-left: 0.45rem;
+        }
+
+        &:hover,
+        &:focus-visible {
+          background-color: #c6d826;
+          transform: translateY(-1px);
+          outline: none;
+        }
+
+        &:disabled {
+          background-color: #dbdbe0;
+          color: #747481;
+          cursor: not-allowed;
+          transform: none;
+        }
+
+        &:disabled::after {
+          display: none;
+        }
+      }
+    }
+  }
+}
