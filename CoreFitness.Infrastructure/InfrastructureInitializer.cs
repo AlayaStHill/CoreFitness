@@ -1,5 +1,8 @@
 ﻿using CoreFitness.Infrastructure.Persistence;
 using CoreFitness.Infrastructure.Persistence.EfCore.Seed.MembershipTypes;
+using CoreFitness.Infrastructure.Persistence.EfCore.Seed.WorkoutCategories;
+using CoreFitness.Infrastructure.Persistence.EfCore.Seed.WorkoutSessions;
+using CoreFitness.Infrastructure.Persistence.EfCore.Seed.WorkoutTypes;
 using Infrastructure.Identity.Data;
 using Microsoft.Extensions.Hosting;
 
@@ -17,5 +20,8 @@ public class InfrastructureInitializer
         await IdentityInitializer.InitializeDefaultRolesAsync(serviceProvider);
         await IdentityInitializer.InitializeDefaultAdminAccountsAsync(serviceProvider);
         await MembershipTypeInitializer.InitializeDefaultAsync(serviceProvider);
+        await WorkoutCategoryInitializer.InitializeDefaultAsync(serviceProvider);
+        await WorkoutTypeInitializer.InitializeDefaultAsync(serviceProvider);
+        await WorkoutSessionInitializer.InitializeDefaultAsync(serviceProvider);
     }
 }
