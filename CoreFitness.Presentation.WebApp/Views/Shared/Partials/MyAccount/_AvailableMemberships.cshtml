@@ -21,7 +21,11 @@
             </ul>
 
             <div class="action-btn">
-                <button class="@buttonClass" type="button">Select Plan</button>
+                <form asp-controller="MyAccount" asp-action="SelectPlan" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="membershipTypeId" value="@plan.MembershipTypeId" />
+                    <button class="@buttonClass" type="submit">Select Plan</button>
+                </form>
             </div>
         </div>
     }

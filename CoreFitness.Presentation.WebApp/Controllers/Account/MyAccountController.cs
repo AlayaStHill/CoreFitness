@@ -128,6 +128,18 @@ public class MyAccountController(
         return View(model);
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> SelectPlan(Guid membershipTypeId, CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(currentUserService.UserId))
+            return Challenge();
+
+        await myAccountMembershipService.SelectPlanAsync(currentUserService.UserId, membershipTypeId, ct);
+
+        return RedirectToAction(nameof(MyMemberships));
+    }
+
     private void SetMyAccountLayoutData(string? profileImageUrl)
     {
         ViewData[ProfileImageViewDataKey] = profileImageUrl;
