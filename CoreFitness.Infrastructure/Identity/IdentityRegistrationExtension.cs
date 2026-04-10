@@ -1,4 +1,5 @@
 ﻿using CoreFitness.Application.Abstractions.Authentication;
+using CoreFitness.Application.MyAccount;
 using CoreFitness.Infrastructure.Identity.Models;
 using CoreFitness.Infrastructure.Identity.Services;
 using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
@@ -47,6 +48,7 @@ public static class IdentityRegistrationExtension
         });
 
         services.AddScoped<IAuthService, IdentityAuthService>();
+        services.AddScoped<IMyAccountUserService, MyAccountUserService>();
 
         services.AddExternalIdentity(configuration);
 

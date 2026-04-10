@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
+    bool isMyMembershipsActive = currentController == "MyAccount" && currentAction == "MyMemberships";
+    bool isMyBookingsActive = currentController == "MyAccount" && (currentAction == "MyBookings" || currentAction == "NewBooking");
+
+    var profileImageUrl = ViewData["MyAccountProfileImageUrl"] as string;
+    profileImageUrl = !string.IsNullOrWhiteSpace(profileImageUrl)
+        ? profileImageUrl
+        : Url.Content("~/images/trainer-1.webp");
+}
+
+<div class="my-account-page container">
+    <section class="page-title">
+        <div class="container">
+            <h1>My Account</h1>
+        </div>
+    </section>
+
+    <div class="my-account">
+        <aside class="account-sidebar">
+            <div class="img-wrapper">
+                <img src="@profileImageUrl" alt="profile picture" />
+            </div>
+            <div class="menu-section">
+                <h4 class="menu-title">Menu Options</h4>
+                <nav class="account-menu" aria-label="Account menu">
+                    <ul class="menu">
+                        <li class="menu-item @(isAboutMeActive ? "active" : "")">
+                            <a class="menu-link" asp-controller="MyAccount" asp-action="AboutMe">About Me</a>
+                        </li>
+                        <li class="menu-item @(isMyMembershipsActive ? "active" : "")">
+                            <a class="menu-link" asp-controller="MyAccount" asp-action="MyMemberships">My Memberships</a>
+                        </li>
+                        <li class="menu-item @(isMyBookingsActive ? "active" : "")">
+                            <a class="menu-link" asp-controller="MyAccount" asp-action="MyBookings">My Bookings</a>
+                        </li>
+                        <li class="menu-item">
+                            <form asp-controller="SignIn" asp-action="SignOut" method="post" class="menu-signout-form">
+                                @Html.AntiForgeryToken()
+                                <button class="menu-link" type="submit">Sign Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <section class="account-content">
+            @RenderBody()
+        </section>
+    </div>
+</div>
+
+@RenderSection("Scripts", required: false)

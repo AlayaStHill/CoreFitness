@@ -1,0 +1,76 @@
+.my-bookings {
+  display: grid;
+  gap: 3rem;
+
+  .title-and-create {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .my-bookings-title {
+      border: none !important;
+      padding: 0 !important;
+    }
+  }
+
+  .shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .list-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  .upcoming-bookings {
+    .upcoming-bookings-list {
+      display: grid;
+      gap: 1.5rem;
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+
+      .booking-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .booking-info {
+          .workout-type {
+            font-size: 1.1rem;
+            font-weight: 600;
+          }
+          .workout-category {
+            color: var(--form-placeholder-text-color);
+          }
+        }
+      }
+    }
+  }
+
+  .previous-bookings {
+    .previous-bookings-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        background-color: var(--primary-color);
+      }
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-light-color);
+      }
+
+      th {
+        font-weight: 600;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+    }
+  }
+}

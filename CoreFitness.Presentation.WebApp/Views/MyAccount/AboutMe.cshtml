@@ -1,0 +1,82 @@
+﻿@model CoreFitness.Presentation.WebApp.Models.MyAccount.AboutMeFormModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_MyAccountLayout.cshtml";
+
+    var hasExistingProfileImage = !string.IsNullOrWhiteSpace(Model.ImageUrl);
+    var existingProfileImageLabel = hasExistingProfileImage
+        ? (Model.ImageUrl!.Split('/').LastOrDefault()?.Split('?')[0] ?? "Current profile image")
+        : "Upload Profile image";
+}
+
+<div class="about-me card">
+    <h2>About Me</h2>
+
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div class="form-success">@successMessage</div>
+    }
+
+    <form asp-action="AboutMe" method="post" enctype="multipart/form-data" class="form-layout about-me-form" novalidate>
+        @Html.AntiForgeryToken()
+        <input asp-for="ImageUrl" type="hidden" />
+
+        <div asp-validation-summary="ModelOnly" class="field-validation field-validation-error"></div>
+
+        <div class="form-group">
+            <label asp-for="FirstName" class="form-label"></label>
+            <input asp-for="FirstName" class="form-input" placeholder="Enter First Name" />
+            <span asp-validation-for="FirstName" class="field-validation field-validation-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName" class="form-label"></label>
+            <input asp-for="LastName" class="form-input" placeholder="Enter Last Name" />
+            <span asp-validation-for="LastName" class="field-validation field-validation-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-input" placeholder="username@domain.com" />
+            <span asp-validation-for="Email" class="field-validation field-validation-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="form-label"></label>
+            <input asp-for="PhoneNumber" class="form-input" placeholder="Enter Phone Number" />
+            <span asp-validation-for="PhoneNumber" class="field-validation field-validation-error"></span>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label asp-for="ProfileImage" for="profile-image" class="form-label">Profile image</label>
+            <input asp-for="ProfileImage"
+                   id="profile-image"
+                   class="file-input-native"
+                   data-has-existing-file="@hasExistingProfileImage"
+                   data-existing-file-label="@existingProfileImageLabel"
+                   accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" />
+
+            <label for="profile-image" class="file-input">
+                <span class="file-input__placeholder @(hasExistingProfileImage ? "is-selected" : null)">@existingProfileImageLabel</span>
+                <span class="file-input__actions">
+                    <button class="file-input__remove" type="button" aria-label="Remove selected image" hidden="@(!hasExistingProfileImage)">X</button>
+                    <span class="file-input__button">Browse</span>
+                </span>
+            </label>
+
+            <span asp-validation-for="ProfileImage" class="field-validation field-validation-error"></span>
+        </div>
+
+        <div class="submit-btn">
+            <button class="primary-button" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+<partial name="~/Views/Shared/Partials/MyAccount/_MyStatistics.cshtml" />
+
+@section Scripts {
+    <script src="~/js/about-me-form.js" type="module" asp-append-version="true"></script>
+}

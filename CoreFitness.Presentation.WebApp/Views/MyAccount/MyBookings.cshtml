@@ -1,0 +1,92 @@
+﻿@model CoreFitness.Presentation.WebApp.Models.MyAccount.MyBookingsViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_MyAccountLayout.cshtml";
+}
+
+<div class="my-bookings card">
+    @if (!Model.HasActiveMembership)
+    {
+        <h2 class="my-bookings-title">My Bookings</h2>
+        <p>Activate your membership to access class bookings.</p>
+        <a class="primary-button membership-access-link" asp-controller="MyAccount" asp-action="MyMemberships">Go to My Memberships</a>
+    }
+    else
+    {
+        <div class="title-and-create">
+            <h2 class="my-bookings-title">My Bookings</h2>
+            <a class="primary-button" asp-controller="MyAccount" asp-action="NewBooking">New Booking</a>
+        </div>
+        <div class="upcoming-bookings">
+            <h3 class="list-title">Upcoming Bookings</h3>
+            <ul class="upcoming-bookings-list">
+                @if (Model.UpcomingBookings.Count == 0)
+                {
+                    <li class="booking-item card shadow">
+                        <div class="booking-info">
+                            <p>No upcoming bookings.</p>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    @foreach (var booking in Model.UpcomingBookings)
+                    {
+                        <li class="booking-item card shadow">
+                            <div class="booking-info">
+                                <h4 class="workout-type">@booking.WorkoutTitle</h4>
+                                <p class="workout-category">@booking.WorkoutCategory</p>
+                                <p class="booking-date">@booking.StartsAt.ToString("dd MMM - HH:mm")</p>
+                                <p class="booking-duration">Duration: @booking.DurationMinutes minutes</p>
+                            </div>
+                            <div class="booking-actions">
+                                <form asp-action="CancelBooking" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="workoutSessionId" value="@booking.WorkoutSessionId" />
+                                    <button class="secondary-button" type="submit">Cancel booking</button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="previous-bookings">
+            <h3 class="list-title">Previous Bookings</h3>
+            <table class="previous-bookings-table shadow card">
+                <thead>
+                    <tr>
+                        <th>Workout</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.PreviousBookings.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="4">No previous bookings.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var booking in Model.PreviousBookings)
+                        {
+                            <tr>
+                                <td>@booking.WorkoutTitle</td>
+                                <td>@booking.WorkoutCategory</td>
+                                <td>@booking.StartsAt.ToString("dd MMM - HH:mm")</td>
+                                <td>@booking.DurationMinutes minutes</td>
+                            </tr>
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    }
+
+
+</div>

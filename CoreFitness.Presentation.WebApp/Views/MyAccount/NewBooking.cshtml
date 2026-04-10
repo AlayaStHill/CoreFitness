@@ -1,0 +1,90 @@
+@model CoreFitness.Presentation.WebApp.Models.MyAccount.NewBookingViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_MyAccountLayout.cshtml";
+
+    var categories = Model.Sessions
+        .Select(session => session.WorkoutCategory?.Trim())
+        .Where(category => !string.IsNullOrWhiteSpace(category))
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .OrderBy(category => category)
+        .ToList();
+
+    static string ToFilterValue(string? category)
+        => (category ?? string.Empty).Trim().ToLowerInvariant();
+}
+
+
+<div>
+    <a class="back-link" asp-controller="MyAccount" asp-action="MyBookings">Back to My Bookings</a>
+    <div class="book-new-workout card">
+        <h2>New Booking</h2>
+
+        @if (!Model.HasActiveMembership)
+        {
+            <p>Activate your membership to access class bookings.</p>
+            <a class="primary-button membership-access-link" asp-controller="MyAccount" asp-action="MyMemberships">Go to My Memberships</a>
+        }
+        else if (Model.Sessions.Count == 0)
+        {
+            <p>No classes available right now.</p>
+        }
+        else
+        {
+            <div class="class-filters" role="tablist" aria-label="Class filters">
+                <button class="filter-button active" type="button" role="tab" aria-selected="true" data-filter="all">
+                    All
+                    Classes
+                </button>
+
+                @foreach (var category in categories)
+                {
+                    <button class="filter-button" type="button" role="tab" aria-selected="false" data-filter="@ToFilterValue(category)">@category</button>
+                }
+            </div>
+
+
+
+            <ul class="class-list" aria-label="Available classes">
+                @foreach (var session in Model.Sessions)
+                {
+                    var bookButtonText = session.IsAlreadyBooked ? "Booked" : session.IsFullyBooked ? "Full booked" : "Book";
+
+                    <li class="class-item @(session.IsFullyBooked ? "is-full" : null)" data-category="@ToFilterValue(session.WorkoutCategory)">
+                        <div class="class-main">
+                            <div class="class-heading">
+                                <div class="class-title-wrap">
+                                    <h3 class="class-title">@session.WorkoutTitle</h3>
+                                    <p class="class-category">@session.WorkoutCategory</p>
+                                </div>
+                            </div>
+
+                            <div class="class-meta">
+                                <span>@session.StartsAt.ToString("ddd dd MMM - HH:mm")</span>
+                                <span>Duration: @session.DurationMinutes min</span>
+                                <span>Capacity: @session.BookedCount / @session.Capacity</span>
+                            </div>
+                        </div>
+
+                        <form asp-controller="MyAccount" asp-action="BookSession" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="workoutSessionId" value="@session.WorkoutSessionId" />
+                            <button class="book-button" type="submit" disabled="@(!session.CanBook)">@bookButtonText</button>
+                        </form>
+                    </li>
+                }
+
+                <li class="class-item class-item--empty-filter" hidden>
+                    <div class="class-main">
+                        <p>No classes found for this filter.</p>
+                    </div>
+                </li>
+            </ul>
+        }
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/new-booking-filters.js" type="module" asp-append-version="true"></script>
+}

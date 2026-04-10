@@ -1,0 +1,21 @@
+.compare-title {
+    margin-top: 2rem;
+}
+
+.compare-memberships {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    align-items: stretch;
+}
+
+    .compare-memberships .membership-card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .compare-memberships .membership-card .action-btn {
+            margin-top: auto;
+        }

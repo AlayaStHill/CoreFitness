@@ -1,5 +1,7 @@
 ﻿using CoreFitness.Application.CustomerService.ContatRequests;
 using CoreFitness.Application.MembershipTypes;
+using CoreFitness.Application.MyAccount;
+using CoreFitness.Domain.Aggregates.WorkoutSessions.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreFitness.Application.Extensions;
@@ -12,7 +14,9 @@ public static class ApplicationServiceCollectionRegistrationExtensions
 
         services.AddScoped<IContactRequestService, ContactRequestService>();
         services.AddScoped<IMembershipTypeService, MembershipTypeService>();
-
+        services.AddScoped<WorkoutBookingDomainService>();
+        services.AddScoped<IMyAccountBookingService, MyAccountBookingService>();
+        services.AddScoped<IMyAccountMembershipService, MyAccountMembershipService>();
 
         return services;
     }

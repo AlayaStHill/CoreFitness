@@ -1,0 +1,18 @@
+﻿@model CoreFitness.Presentation.WebApp.Models.MyAccount.MyMembershipsViewModel
+
+@{
+    Layout = "~/Views/Shared/Layouts/_MyAccountLayout.cshtml";
+}
+
+<div class="my-memberships card">
+    <h2 class="my-memberships-title">My Memberships</h2>
+
+    @if (Model.HasMembership && Model.CurrentMembership is not null)
+    {
+        <partial name="~/Views/Shared/Partials/MyAccount/_CurrentMembership.cshtml" model="Model.CurrentMembership" />
+    }
+    else
+    {
+        <partial name="~/Views/Shared/Partials/MyAccount/_AvailableMemberships.cshtml" model="Model.AvailablePlans" />
+    }
+</div>
