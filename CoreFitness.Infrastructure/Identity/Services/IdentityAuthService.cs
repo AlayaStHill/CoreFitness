@@ -41,7 +41,7 @@ public sealed class IdentityAuthService(IMemberRepository memberRepository, IUni
             string? firstName = externalLoginInfo.Principal.FindFirstValue(ClaimTypes.GivenName);
             string? lastName = externalLoginInfo.Principal.FindFirstValue(ClaimTypes.Surname);
             string imageUrl = externalLoginInfo.Principal.FindFirstValue("urn:github:avatar")
-                ?? "~/images/profile-image-avatar.png";
+                ?? "~/images/profile-image-avatar.webp";
 
             user = ApplicationUser.Create(email);
             user.FirstName = firstName;
@@ -140,4 +140,6 @@ public sealed class IdentityAuthService(IMemberRepository memberRepository, IUni
         return Result.Success();
 
     }
+
+    public Task SignOutUserAsync() => signInManager.SignOutAsync();
 }

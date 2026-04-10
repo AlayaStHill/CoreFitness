@@ -41,10 +41,21 @@
     <link rel="stylesheet" href="~/css/components/myAccount/book-new-workout.css" asp-append-version="true" />
 
  
+    <link rel="stylesheet" href="~/css/components/hero.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/brands.css" asp-append-version="true" />
+
+@*     <link rel="stylesheet" href="~/CoreFitness.Presentation.WebApp.styles.css" asp-append-version="true" />*@ 
 </head>
 <body class="app-layout">
-    <partial name="Partials/_Header" />
 
+    <header>
+        <partial name="Partials/_Header" />
+        @if (IsSectionDefined("Hero"))
+        {
+            @RenderSection("Hero", required: false)
+        }
+    </header>
+    
    <main>
     @RenderBody()
    </main>

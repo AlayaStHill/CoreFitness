@@ -1,5 +1,5 @@
-﻿@using CoreFitness.Domain.Shared
-<header class="site-header">
+﻿
+<section class="site-header">
     <div class="container">
 
         <div class="header-layout">
@@ -13,8 +13,6 @@
             <nav class="account-navigation" aria-label="Account navigation">
                 <ul class="menu">
 
-
-
                     @if (User.Identity?.IsAuthenticated == true) 
                     {
                         @if (User.IsInRole(Roles.Admin))
@@ -22,6 +20,9 @@
                             <li class="menu-item">
                                 <a class="menu-link" asp-controller="Admin" asp-action="Index">Admin Center</a>
                             </li>
+
+                            @* SIGN OUT FORM *@
+                            <partial name="Partials/_SignOutForm" />
                         }
 
                         <li class="menu-item">
@@ -43,4 +44,4 @@
             </nav>
         </div>
     </div>
-</header>
+</section>

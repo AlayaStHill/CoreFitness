@@ -1,41 +1,111 @@
 ﻿.site-footer {
-    margin: 1rem;
-    border-radius: 20px;
+    margin: var(--space-sm);
+    border-radius: var(--radius-xl);
     background-color: var(--footer-bg-color);
     background-image: url("../../images/dark-section-img.webp");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     color: var(--footer-text-color);
-    padding: 2.5rem 1.5rem;
+    padding: var(--space-xl) var(--space-sm) 0;
+
 }
 
-/* __ = namngivningskonvention kallat BEM - Block Element Modifier: -block__element--modifier 
-site-footer är komponenten (block), site-footer__copy är ett element inne i blocket*/
+/* Top row: logo left, heading right */
+.site-footer__top {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: var(--space-md);
+}
+
+.site-footer__logo {
+    width: 215px;
+    height: 50px;
+    object-fit: contain;
+}
+
 .site-footer__heading {
     margin: 0;
     text-align: right;
+    font-family: var(--accent-font);
+    font-weight: 500;
+    font-size: 1.75rem;
+    line-height: 1.25;
 }
 
 .site-footer__sections {
     display: grid;
-    gap: 2.5rem;
-    padding-block: 1.5rem;
+    gap: var(--space-xl);
+    padding-block: var(--space-md);
+}
+
+.site-footer__section h4 {
+    margin: 0 0 0.75rem 0;
+    font-family: var(--accent-font);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.site-footer__section p {
+    margin: var(--space-xs) 0;
+    color: var(--footer-text-color);
+    opacity: 0.88;
+    font-size: 0.95rem;
+}
+
+.site-footer__section img {
+    margin-block: var(--space-sm);
+    width: auto;
+    max-width: 260px; 
+    height: auto;
+    opacity: 0.95;
+}
+
+.site-footer__section--right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+/*gäller div-barn inne i .site-footer__section--right*/ 
+.site-footer__section--right > div {
+    display: grid;
+    gap: var(--space-xxs);
 }
 
 .site-footer__copyright {
     margin: 0;
+    padding-block: var(--space-lg);
     text-align: center;
     opacity: 0.9;
-    padding-top: 2.5rem;
+    min-height: 56px;
+    display: grid;
+    place-items: center;
+    font-size: 0.95rem;
 }
 
 @media (width >= 992px) {
+
+
     .site-footer__sections {
         grid-template-columns: 1fr 1fr;
         align-items: start;
     }
 
     .site-footer__section--right {
+        align-items: flex-end;
         text-align: right;
     }
 }
+
+
+
+
+
+
+
+
+
+
+

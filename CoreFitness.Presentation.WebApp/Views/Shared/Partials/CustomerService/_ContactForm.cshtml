@@ -2,7 +2,7 @@
 
 
 <!-- CONTACTFORM -->
-<div class="contact-form-wrapper">
+<section class="section__contact-form">
     <form class="contact-form form-layout form-layout--two-columns" asp-controller="CustomerService" asp-action="Index" method="post" novalidate>
         @Html.AntiForgeryToken()
 
@@ -69,4 +69,4 @@
             </div>
         </div>
     </form>
-</div>
+</section>

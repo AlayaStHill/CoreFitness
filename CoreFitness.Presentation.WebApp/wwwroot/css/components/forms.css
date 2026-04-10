@@ -15,7 +15,7 @@
 }
 
 .form-label {
-    font-family: var(--title-font);
+    font-family: var(--accent-font);
     font-weight: 600;
     font-size: 0.875rem;
     color: var(--form-label-text-color);
