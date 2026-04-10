@@ -1,5 +1,32 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<section class="section__store">
+    <div class="container">
+        <div class="store-wrapper">
+            <div class="store-title">
+                <div class="ui-badge">Our Store</div>
+                <h2>
+                    High quality fitness products<br />
+                    built for results
+                </h2>
+            </div>
+            <div class="equipments-slider">
+                <figure class="equipment-card">
+                <img src="~/images/product-image-1.webp" alt="Gym weight" />
+                </figure>
+                <figure class="equipment-card">
+                <img src="~/images/product-image-2.webp" alt="Gym bag" />
+                </figure>
+                <figure class="equipment-card">
+                <img src="~/images/product-image-3.webp" alt="Fitness watch" />
+                </figure>
+                <figure class="equipment-card">
+                <img src="~/images/product-image-4.webp" alt="Treadmill" />
+                </figure>
+
+            </div>
+            <p class="additional-information">
+                Let's make something great work together.
+                <a asp-controller="CustomerService" asp-action="Index">Get Free Quote</a>
+            </p>
+        </div>
+    </div>
+</section>
