@@ -2,6 +2,7 @@
     background-color: var(--section-bg-color);
     padding: var(--section-spacing-sm);
     margin-inline: var(--space-sm);
+    border-radius: var(--radius-xl);
 }
 
 .programs-wrapper {
@@ -29,8 +30,7 @@
 .programs-card img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block; 
+    object-fit: cover;   
 }
 
 .additional-information {
