@@ -50,6 +50,9 @@ app.UseRouting();
 
 app.MapStaticAssets();
 
+// kopplar om alla 404-fel till en anpassad error-sida, där {0} kommer att ersättas med den faktiska statuskoden 
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();

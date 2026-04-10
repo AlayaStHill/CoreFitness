@@ -8,7 +8,6 @@
     background-position: center;
     color: var(--footer-text-color);
     padding: var(--space-xl) var(--space-sm) 0;
-
 }
 
 /* Top row: logo left, heading right */
@@ -17,6 +16,7 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     column-gap: var(--space-md);
+    padding-bottom: var(--space-lg);
 }
 
 .site-footer__logo {
@@ -37,7 +37,7 @@
 .site-footer__sections {
     display: grid;
     gap: var(--space-xl);
-    padding-block: var(--space-md);
+    padding-block: var(--space-lg);
 }
 
 .site-footer__section h4 {
