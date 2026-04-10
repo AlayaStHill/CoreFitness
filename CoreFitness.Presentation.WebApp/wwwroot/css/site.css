@@ -72,7 +72,7 @@
     --link-color: var(--text-color);
     --link-hover-color: var(--gray-color);
     --section-title-dot-color: var(--primary-color);
-    --section-background-color: var(--white-color);
+    --section-bg-color: var(--white-color);
     --section-text-color: var(--dark-gray);
     --section-title-bg-color: var(--dark-color);
     --section-title-text-color: var(--white-color);
