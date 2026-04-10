@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace CoreFitness.Presentation.WebApp.Controllers.Public;
+namespace CoreFitness.Presentation.WebApp.Controllers.Error;
 
 public class ErrorController : Controller
 {
