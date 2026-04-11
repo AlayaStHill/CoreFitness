@@ -1,0 +1,49 @@
+﻿/*=======================================
+    ASIDE
+=======================================*/
+.admin-aside {
+    margin: var(--space-sm);
+    padding: var(--space-md) var(--space-sm);
+    border-radius: var(--radius-xl);
+    background-color: var(--header-bg-color);
+    background-image: url("../../images/dark-section-img.webp");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    color: var(--header-text-color);
+}
+
+.aside-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--section-spacing-sm);
+    justify-content: center;
+    align-items: center;
+}
+
+/* aside: egen underline som inte sveper in från vänster */
+.admin-aside .menu-item:not(.dropdown) > .menu-link::after {
+    bottom: var(--menu-link-aside-underline);
+    transform: none;
+    opacity: 0;
+    transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-aside .menu-item:not(.dropdown) > .menu-link:hover::after,
+.admin-aside .menu-item:not(.dropdown) > .menu-link:active::after,
+.admin-aside .menu-item:not(.dropdown) > .menu-link.active::after {
+    opacity: 1;
+}
+
+.admin-aside .menu-link {
+    position: relative;
+    text-decoration: none;
+}
+
+/* aside: mer specifik så den vinner över global a:hover */
+.admin-aside .menu-link:hover,
+.admin-aside .menu-link:active,
+.admin-aside .menu-link.active {
+    color: var(--menu-item-hover-text-color);
+}

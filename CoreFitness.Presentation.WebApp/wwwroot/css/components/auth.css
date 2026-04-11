@@ -1,4 +1,10 @@
-﻿.auth-card {
+﻿.auth-page {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+}
+
+.auth-card {
     display: grid;
     background-color: var(--white-color);
     border-radius: var(--radius-xl);

@@ -2,7 +2,6 @@
 using CoreFitness.Application.Abstractions.Authentication.Inputs;
 using CoreFitness.Application.Abstractions.Authentication.Outputs;
 using CoreFitness.Application.Shared.Results;
-using CoreFitness.Domain.Shared;
 using CoreFitness.Infrastructure.Identity.Models;
 using CoreFitness.Presentation.WebApp.Filters;
 using CoreFitness.Presentation.WebApp.Models.Authentication;
