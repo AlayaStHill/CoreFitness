@@ -1,6 +1,8 @@
 ﻿using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Abstractions.Authentication.Inputs;
+using CoreFitness.Application.Abstractions.Authentication.Outputs;
 using CoreFitness.Application.Shared.Results;
+using CoreFitness.Domain.Shared;
 using CoreFitness.Infrastructure.Identity.Models;
 using CoreFitness.Presentation.WebApp.Filters;
 using CoreFitness.Presentation.WebApp.Models.Authentication;
@@ -40,7 +42,7 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
             RememberMe: request.RememberMe
         );
 
-        Result signInResult = await identityAuthService.SignInUserAsync(input);
+        Result<SignInOutput> signInResult = await identityAuthService.SignInUserAsync(input);
 
         if (signInResult.IsFailure)
         {
@@ -50,6 +52,11 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
 
         if (!string.IsNullOrWhiteSpace(returnUrl))
             return Redirect(returnUrl);
+
+        if (signInResult.Value.IsAdmin)
+        {
+            return RedirectToAction("Index", "AdminWorkoutSessions");
+        }
 
         return RedirectToAction("Index", "Home");
     }

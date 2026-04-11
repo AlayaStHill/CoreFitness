@@ -1,9 +1,11 @@
 ﻿using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Abstractions.Authentication.Inputs;
+using CoreFitness.Application.Abstractions.Authentication.Outputs;
 using CoreFitness.Application.Members;
 using CoreFitness.Application.Shared;
 using CoreFitness.Application.Shared.Results;
 using CoreFitness.Domain.Aggregates.Members;
+using CoreFitness.Domain.Shared;
 using CoreFitness.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
@@ -79,25 +81,34 @@ public sealed class IdentityAuthService(IMemberRepository memberRepository, IUni
         return Result.Success();
     }
 
-    public async Task<Result> SignInUserAsync(SignInUserInput request)
+    public async Task<Result<SignInOutput>> SignInUserAsync(SignInUserInput request)
     {
         if (request is null || string.IsNullOrWhiteSpace(request?.Email) || string.IsNullOrWhiteSpace(request?.Password))
-            return Result.Fail(ErrorTypes.BadRequest, IdentityAuthErrors.InvalidCredentials);
+            return Result<SignInOutput>.Fail(ErrorTypes.BadRequest, IdentityAuthErrors.InvalidCredentials);
 
         SignInResult signInResult = await signInManager.PasswordSignInAsync(request.Email, request.Password, request.RememberMe, lockoutOnFailure: false);
         if (signInResult.IsLockedOut)
-            return Result.Fail(ErrorTypes.Error, IdentityAuthErrors.UserLockedOut);
-
+            return Result<SignInOutput>.Fail(ErrorTypes.Error, IdentityAuthErrors.UserLockedOut);
         if (signInResult.IsNotAllowed)
-            return Result.Fail(ErrorTypes.Error, IdentityAuthErrors.UserNotAllowed);
+            return Result<SignInOutput>.Fail(ErrorTypes.Error, IdentityAuthErrors.UserNotAllowed);
 
         if (signInResult.RequiresTwoFactor)
-            return Result.Fail(ErrorTypes.Error, IdentityAuthErrors.TwoFactorRequired);
+            return Result<SignInOutput>.Fail(ErrorTypes.Error, IdentityAuthErrors.TwoFactorRequired);
 
         if (!signInResult.Succeeded)
-            return Result.Fail(ErrorTypes.BadRequest, IdentityAuthErrors.InvalidCredentials);
+            return Result<SignInOutput>.Fail(ErrorTypes.BadRequest, IdentityAuthErrors.InvalidCredentials);
 
-        return Result.Success();
+
+        ApplicationUser? user = await userManager.FindByEmailAsync(request.Email);
+        if (user is null)
+            return Result<SignInOutput>.Fail(ErrorTypes.Error, IdentityAuthErrors.InvalidCredentials);
+
+        bool isAdmin = await userManager.IsInRoleAsync(user, Roles.Admin);
+        return Result<SignInOutput>.Success(new SignInOutput
+        {
+            IsAdmin = isAdmin
+        });
+
     }
 
     public async Task<Result> SignUpUserAsync(SignUpUserInput input, CancellationToken ct)
