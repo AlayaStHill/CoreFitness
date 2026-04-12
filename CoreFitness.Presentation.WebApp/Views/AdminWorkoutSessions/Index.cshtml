@@ -1,6 +1,7 @@
-﻿@{
-    ViewData["title"] = "Workout Sessions";
+﻿@model AdminWorkoutSessionsViewModel
 
+@{
+    ViewData["title"] = "Workout Sessions";
     Layout = "Layouts/_AdminLayout";
 }
 
@@ -22,7 +23,6 @@
                 <table class="workout-sessions__table">
                     <thead>
                         <tr>
-                            <th>Session ID</th>
                             <th>Category</th>
                             <th>Type</th>
                             <th>Start</th>
@@ -32,23 +32,43 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- TODO: Ersätt med razor loop -->
-                        <tr>
-                            <td>Group Training</td>
-                            <td>HIIT</td>
-                            <td>2026-07-01 10:00</td>
-                            <td>60 min</td>
-                            <td>20</td>
-                            <td class="table-actions">
-                                <button type="button"
-                                        class="table-action-link table-action-link--danger js-delete-trigger">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach (WorkoutSessionItemViewModel session in Model.Sessions)
+                        {
+                            <tr>
+                                <td>@session.Category</td>
+                                <td>@session.Type</td>
+                                <td>@session.StartsAt</td>
+                                <td>@session.Duration</td>
+                                <td>@session.Capacity</td>
+                                <td class="table-actions">
+                                    <button class="table-action-link table-action-link--danger js-delete-trigger">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
             </div>
         </section>
     </div>
 </div>
+
+
+
+@foreach (var session in Model.Sessions)
+{
+    <tr>
+        <td>@session.Category</td>
+        <td>@session.Type</td>
+        <td>@session.StartsAt</td>
+        <td>@session.Duration</td>
+        <td>@session.Capacity</td>
+        <td>
+            <button data-session-id="@session.Id">
+                Delete
+            </button>
+        </td>
+    </tr>
+}
