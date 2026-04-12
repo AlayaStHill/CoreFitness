@@ -1,7 +1,11 @@
-﻿<nav class="aside-navigation" aria-label="Admin navigation">
+﻿@{
+    string? currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<nav class="aside-navigation" aria-label="Admin navigation">
     <ul class="menu">
         <li class="menu-item">
-            <a class="menu-link" asp-controller="AdminWorkoutSessions" asp-action="Index">Workout Sessions</a>
+            <a class="menu-link @(currentController == "AdminWorkoutSessions" ? "active" : "")" asp-controller="AdminWorkoutSessions" asp-action="Index">Workout Sessions</a>
         </li>
     </ul>
 </nav>

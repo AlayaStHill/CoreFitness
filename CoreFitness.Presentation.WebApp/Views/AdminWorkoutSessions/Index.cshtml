@@ -4,4 +4,51 @@
     Layout = "Layouts/_AdminLayout";
 }
 
-<p>WORKOUTSESSIONS</p>
+<div class="container full">
+    <div class="workout-session-layout">
+        <section class="workout-session__header">
+            <h1 class="workout-session__title">Workout Sessions</h1>
+        </section>
+
+        <section class="workout-sessions"
+                 aria-label="Workout sessions">
+            <div class="workout-sessions__actions">
+                <button class="primary-button workout-sessions__add-btn">
+                    Add New Session
+                </button>
+            </div>
+
+            <div class="workout-sessions__table-wrapper">
+                <table class="workout-sessions__table">
+                    <thead>
+                        <tr>
+                            <th>Session ID</th>
+                            <th>Category</th>
+                            <th>Type</th>
+                            <th>Start</th>
+                            <th>Duration</th>
+                            <th>Capacity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- TODO: Ersätt med razor loop -->
+                        <tr>
+                            <td>Group Training</td>
+                            <td>HIIT</td>
+                            <td>2026-07-01 10:00</td>
+                            <td>60 min</td>
+                            <td>20</td>
+                            <td class="table-actions">
+                                <button type="button"
+                                        class="table-action-link table-action-link--danger js-delete-trigger">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
