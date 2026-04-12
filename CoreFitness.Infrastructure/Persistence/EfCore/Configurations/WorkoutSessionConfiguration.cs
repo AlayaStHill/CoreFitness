@@ -22,11 +22,17 @@ public sealed class WorkoutSessionConfiguration : IEntityTypeConfiguration<Worko
                 value => new WorkoutSessionId(value))
             .ValueGeneratedNever();
 
-        builder.Property(x => x.WorkoutTypeId)
-            .HasConversion(
-                id => id.Value,
-                value => new WorkoutTypeId(value))
-            .IsRequired();
+        builder.HasOne(x => x.WorkoutType)
+           .WithMany()
+           .HasForeignKey(x => x.WorkoutTypeId)
+           .OnDelete(DeleteBehavior.Restrict)
+           .IsRequired();
+
+        //builder.Property(x => x.WorkoutTypeId)
+        //    .HasConversion(
+        //        id => id.Value,
+        //        value => new WorkoutTypeId(value))
+        //    .IsRequired();
 
         builder.Property(x => x.StartsAt)
             .IsRequired();

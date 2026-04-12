@@ -8,6 +8,8 @@ public sealed class WorkoutType
     public WorkoutTypeId Id { get; private set; } = default!;
     public string Title { get; private set; } = null!;
     public WorkoutCategoryId WorkoutCategoryId { get; private set; } = default!;
+    // navigationproperty EF
+    public WorkoutCategory WorkoutCategory { get; private set; } = default!;
 
     private WorkoutType(WorkoutTypeId id, string title, WorkoutCategoryId workoutCategoryId)
     {

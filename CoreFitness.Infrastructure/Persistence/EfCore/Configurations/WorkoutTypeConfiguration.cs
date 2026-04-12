@@ -23,11 +23,17 @@ public sealed class WorkoutTypeConfiguration : IEntityTypeConfiguration<WorkoutT
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(x => x.WorkoutCategoryId)
-            .HasConversion(
-                id => id.Value,
-                value => new WorkoutCategoryId(value))
+        builder.HasOne(x => x.WorkoutCategory)
+            .WithMany()
+            .HasForeignKey(x => x.WorkoutCategoryId)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
+
+        //builder.Property(x => x.WorkoutCategoryId)
+        //    .HasConversion(
+        //        id => id.Value,
+        //        value => new WorkoutCategoryId(value))
+        //    .IsRequired();
 
         builder.HasIndex(x => new { x.Title, x.WorkoutCategoryId })
             .IsUnique();

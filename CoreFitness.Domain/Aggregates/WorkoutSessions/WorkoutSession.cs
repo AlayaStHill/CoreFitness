@@ -12,6 +12,8 @@ public sealed class WorkoutSession
 
     public WorkoutSessionId Id { get; private set; } = default!;
     public WorkoutTypeId WorkoutTypeId { get; private set; } = default!;
+    // navigation property för EF
+    public WorkoutType WorkoutType { get; private set; } = default!;
     public DateTimeOffset StartsAt { get; private set; }
     public TimeSpan Duration { get; private set; }
     public int Capacity { get; private set; }
