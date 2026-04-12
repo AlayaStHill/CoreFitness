@@ -2,7 +2,7 @@
 
 namespace CoreFitness.Presentation.WebApp.Models.Admin;
 
-public class AdminWorkoutSessionsViewModel
+public sealed class AdminWorkoutSessionsViewModel
 {
     public List<WorkoutSessionItemViewModel> Sessions { get; set; } = [];
 
