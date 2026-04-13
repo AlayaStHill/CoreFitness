@@ -166,7 +166,7 @@ public class MyAccountController(
             return View(model);
         }
 
-        TempData["SuccessMessage"] = "Profile updated successfully.";
+        TempData["AboutSuccessMessage"] = "Profile updated successfully.";
         return RedirectToAction(nameof(AboutMe));
     }
 
