@@ -10,6 +10,7 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Account;
 [Authorize]
 public class MyAccountController(
     ICurrentUserService currentUserService,
+    IAuthService authService,
     IMyAccountUserService myAccountUserService,
     IProfileImageStorageService profileImageStorageService,
     IMyAccountMembershipService myAccountMembershipService,
@@ -107,6 +108,23 @@ public class MyAccountController(
         await myAccountBookingService.CancelSessionAsync(currentUserService.UserId, workoutSessionId, ct);
 
         return RedirectToAction(nameof(MyBookings));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteAccount(CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(currentUserService.UserId))
+            return Challenge();
+
+        var result = await authService.DeleteAccountAsync(currentUserService.UserId, ct);
+        if (result.IsFailure)
+        {
+            TempData["ErrorMessage"] = result.Error?.Message ?? "Could not delete account.";
+            return RedirectToAction(nameof(AboutMe));
+        }
+
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]

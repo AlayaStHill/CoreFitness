@@ -17,6 +17,11 @@
         <div class="form-success">@successMessage</div>
     }
 
+    @if (TempData["ErrorMessage"] is string errorMessage)
+    {
+        <div class="field-validation field-validation-error">@errorMessage</div>
+    }
+
     <form asp-action="AboutMe" method="post" enctype="multipart/form-data" class="form-layout about-me-form" novalidate>
         @Html.AntiForgeryToken()
         <input asp-for="ImageUrl" type="hidden" />
@@ -73,6 +78,7 @@
             <button class="primary-button" type="submit">Save</button>
         </div>
     </form>
+
 </div>
 
 <partial name="~/Views/Shared/Partials/MyAccount/_MyStatistics.cshtml" />

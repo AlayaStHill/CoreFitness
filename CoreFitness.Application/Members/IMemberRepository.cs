@@ -6,5 +6,6 @@ namespace CoreFitness.Application.Members;
 public interface IMemberRepository : IRepositoryBase<Member, string>
 {
     Task<Member?> GetByUserIdWithMembershipsAsync(string userId, CancellationToken ct = default);
+    Task<bool> RemoveByUserIdAsync(string userId, CancellationToken ct = default);
 
 }
