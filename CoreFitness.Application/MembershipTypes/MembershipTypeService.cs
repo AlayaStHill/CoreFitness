@@ -9,7 +9,7 @@ public sealed class MembershipTypeService(IMembershipTypeRepository membershipTy
     {
         var featuredMembershipTypes = await membershipTypes.GetFeaturedAsync(ct);
         if (featuredMembershipTypes == null)
-            return Result<IReadOnlyList<MembershipTypeFeaturedOutput>>.Fail(ErrorTypes.Error, "Something went wrong");
+            return Result<IReadOnlyList<MembershipTypeFeaturedOutput>>.Fail(MembershipTypeErrors.SomethingWentWrong);
 
         return Result<IReadOnlyList<MembershipTypeFeaturedOutput>>.Success(featuredMembershipTypes);
     }
