@@ -1,7 +1,9 @@
-﻿using CoreFitness.Application.Admin.WorkoutSessions;
+﻿using Azure.Core;
+using CoreFitness.Application.Admin.WorkoutSessions;
 using CoreFitness.Application.Admin.WorkoutSessions.Outputs;
 using CoreFitness.Application.Shared.Results;
 using CoreFitness.Domain.Aggregates.WorkoutSessions;
+using CoreFitness.Domain.Aggregates.WorkoutTypes;
 using CoreFitness.Presentation.WebApp.Models.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +45,15 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
         return Content("");  
     }
 
+    [HttpPost("create")]
+    public async Task<IActionResult> Create(CreateWorkoutSessionRequest request, CancellationToken ct = default)
+    {
+
+        return View();  
+    }
+
 }
 
 
 
+     
