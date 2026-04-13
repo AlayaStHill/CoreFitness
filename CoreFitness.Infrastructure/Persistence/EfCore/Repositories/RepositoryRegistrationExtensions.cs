@@ -1,7 +1,9 @@
-﻿using CoreFitness.Application.CustomerService.ContatRequests;
+﻿using CoreFitness.Application.Admin.WorkoutSessions;
+using CoreFitness.Application.CustomerService.ContatRequests;
 using CoreFitness.Application.Members;
 using CoreFitness.Application.MembershipTypes;
 using CoreFitness.Application.MyAccount;
+using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.Admin;
 using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.CustomerService;
 using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.Members;
 using CoreFitness.Infrastructure.Persistence.EfCore.Repositories.MembershipTypes;
@@ -20,6 +22,8 @@ public static class RepositoryRegistrationExtensions
         services.AddScoped<IMembershipTypeRepository, MembershipTypeRepository>();
         services.AddScoped<IMemberRepository, MemberRepository>();
         services.AddScoped<IMyAccountBookingRepository, MyAccountBookingRepository>();
+        services.AddScoped<IWorkoutSessionRepository, WorkoutSessionRepository>();
+
 
         return services;
     }

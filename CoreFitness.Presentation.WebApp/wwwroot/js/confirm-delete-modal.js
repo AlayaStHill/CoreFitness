@@ -18,26 +18,39 @@
 
         // hämta id för sessionen som ska tas bort
         sessionIdToDelete = deleteButton.getAttribute("data-session-id");
-
-        modal.hidden = false;
-        overlay.hidden = false;
-    });
-
-    // CONFIRM -> sätt HTMX-url
-    confirmButton.addEventListener("click", () => {
         if (!sessionIdToDelete) return;
 
         const deleteUrl = `/admin/workoutsessions/delete/${sessionIdToDelete}`;
         // sätter hx-post på knappen så att HTMX vet vart den ska skicka POST-förfrågan när knappen klickas
         confirmButton.setAttribute("hx-post", deleteUrl);
 
-        closeModal();
+        //CSS-selector-string som pekar på tabellraden med ett specifikt id
+        const rowSelector = `#session-${sessionIdToDelete}`;
+        // detta element ska uppdateras
+        confirmButton.setAttribute("hx-target", rowSelector);
+
+        // läs om så att HTMX binder de nya hx-attributen
+        if (window.htmx) {
+            htmx.process(confirmButton);
+        }
+
+        modal.hidden = false;
+        overlay.hidden = false;
+    });
+
+    // så att modalen stängs efter requesten skickats
+    document.body.addEventListener("htmx:afterRequest", (e) => {
+        if (e.target === confirmButton) {
+            closeModal();
+        }
     });
 
     function closeModal() {
         modal.hidden = true;
         overlay.hidden = true;
         sessionIdToDelete = null;
+        confirmButton.removeAttribute("hx-post");
+        confirmButton.removeAttribute("hx-target");
     }
 
     cancelButton.addEventListener("click", closeModal);

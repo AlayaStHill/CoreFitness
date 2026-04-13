@@ -49,13 +49,11 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
             return View(request);
         }
 
+        if (signInResult.Value.IsAdmin)
+            return RedirectToAction("Index", "AdminWorkoutSessions");
+        
         if (!string.IsNullOrWhiteSpace(returnUrl))
             return Redirect(returnUrl);
-
-        if (signInResult.Value.IsAdmin)
-        {
-            return RedirectToAction("Index", "AdminWorkoutSessions");
-        }
 
         return RedirectToAction("Index", "Home");
     }

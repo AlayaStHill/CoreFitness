@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories.Admin;
 
-public sealed class WorkoutSessionRepository(PersistenceContext context) : RepositoryBase<WorkoutSession, string, PersistenceContext>(context), IWorkoutSessionsRepository
+public sealed class WorkoutSessionRepository(PersistenceContext context) : RepositoryBase<WorkoutSession, WorkoutSessionId, PersistenceContext>(context), IWorkoutSessionRepository
 {
     public async override Task<IReadOnlyList<WorkoutSession>> GetAllAsync(CancellationToken ct = default)
     {
-        return await context.WorkoutSessions
+        return await _context.Set<WorkoutSession>()
             .AsNoTracking()
             .Include(ws => ws.WorkoutType)
             .ThenInclude(wt => wt.WorkoutCategory)
             .ToListAsync(ct);
     }
+
 }

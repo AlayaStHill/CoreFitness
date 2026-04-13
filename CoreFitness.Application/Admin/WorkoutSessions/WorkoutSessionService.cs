@@ -5,14 +5,14 @@ using CoreFitness.Domain.Aggregates.WorkoutSessions;
 
 namespace CoreFitness.Application.Admin.WorkoutSessions;
 
-public sealed class WorkoutSessionService(IWorkoutSessionsRepository workoutSessionsRepository, IUnitOfWork unitOfWork) : IWorkoutSessionService
+public sealed class WorkoutSessionService(IWorkoutSessionRepository workoutSessionRepository, IUnitOfWork unitOfWork) : IWorkoutSessionService
 {
-    public async Task<Result> DeleteWorkoutSessionAsync(Guid id, CancellationToken ct = default)
+    public async Task<Result> DeleteWorkoutSessionAsync(WorkoutSessionId id, CancellationToken ct = default)
     {
-        if (id == Guid.Empty)
+        if (id == default)
             return Result.Fail(ErrorTypes.BadRequest, "Id must be provided");
         
-        bool isRemoved = await workoutSessionsRepository.RemoveAsync(id, ct);
+        bool isRemoved = await workoutSessionRepository.RemoveAsync(id, ct);
         if (!isRemoved)
             return Result.Fail(ErrorTypes.NotFound, $"Workout session with ID {id} not found");
 
@@ -23,7 +23,7 @@ public sealed class WorkoutSessionService(IWorkoutSessionsRepository workoutSess
 
     public async Task<Result<IReadOnlyList<WorkoutSessionOutput>>> GetAllWorkoutSessionsAsync(CancellationToken ct = default)
     {
-        IReadOnlyList<WorkoutSession> workoutSessions = await workoutSessionsRepository.GetAllAsync(ct);
+        IReadOnlyList<WorkoutSession> workoutSessions = await workoutSessionRepository.GetAllAsync(ct);
 
         IReadOnlyList<WorkoutSessionOutput> workoutSessionOutputs = workoutSessions
             .Select(ws => new WorkoutSessionOutput

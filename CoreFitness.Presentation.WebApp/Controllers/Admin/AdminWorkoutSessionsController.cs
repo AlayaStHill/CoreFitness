@@ -1,6 +1,7 @@
 ﻿using CoreFitness.Application.Admin.WorkoutSessions;
 using CoreFitness.Application.Admin.WorkoutSessions.Outputs;
 using CoreFitness.Application.Shared.Results;
+using CoreFitness.Domain.Aggregates.WorkoutSessions;
 using CoreFitness.Presentation.WebApp.Models.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
     [HttpPost("delete/{id}")]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct = default)
     {
-       await sessionService.DeleteWorkoutSessionAsync(id, ct);
+       await sessionService.DeleteWorkoutSessionAsync(new WorkoutSessionId(id), ct);
 
         // returnerar tomt innehåll, som HTMX ersätter den raden med, så den försvinner från listan
         return Content("");  

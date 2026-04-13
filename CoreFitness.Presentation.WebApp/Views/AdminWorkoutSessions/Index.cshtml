@@ -45,7 +45,8 @@
                         {
                             @foreach (WorkoutSessionItemViewModel session in Model.Sessions)
                             {
-                                <tr>
+                                @* Skapar unikt DOM-id för raden *@
+                                <tr id="session-@session.Id">
                                     <td>@session.Category</td>
                                     <td>@session.Type</td>
                                     <td>@session.StartsAt</td>
@@ -87,8 +88,7 @@
                                     @* Skickar POST till controller *@
                                     hx-post=""
                                     @* Hitta närmaste <tr>(raden) *@
-                                    hx-target="closest tr"
-                                    @* byt ut hela raden *@
+                                    hx-target=""
                                     hx-swap="outerHTML" >
                                     Delete
                                 </button>
@@ -102,3 +102,6 @@
 
 
 
+@section Scripts {
+    <script src="~/js/confirm-delete-modal.js" asp-append-version="true"></script>
+}
