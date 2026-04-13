@@ -23,7 +23,16 @@
         overlay.hidden = false;
     });
 
+    // CONFIRM -> sätt HTMX-url
+    confirmButton.addEventListener("click", () => {
+        if (!sessionIdToDelete) return;
 
+        const deleteUrl = `/admin/workoutsessions/delete/${sessionIdToDelete}`;
+        // sätter hx-post på knappen så att HTMX vet vart den ska skicka POST-förfrågan när knappen klickas
+        confirmButton.setAttribute("hx-post", deleteUrl);
+
+        closeModal();
+    });
 
     function closeModal() {
         modal.hidden = true;

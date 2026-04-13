@@ -12,9 +12,9 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Admin;
 public class AdminWorkoutSessionsController(IWorkoutSessionService sessionService) : Controller
 {
     [HttpGet("")]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(CancellationToken ct = default)
     {
-        Result<IReadOnlyList<WorkoutSessionOutput>> outputs = await sessionService.GetAllWorkoutSessionsAsync();
+        Result<IReadOnlyList<WorkoutSessionOutput>> outputs = await sessionService.GetAllWorkoutSessionsAsync(ct);
 
         var viewModel = new AdminWorkoutSessionsViewModel
         {
@@ -31,9 +31,18 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
 
         return View(viewModel);
     }
-}
 
-//[HttpPost("{id}/delete")]
+    //Klick -> HTMX-attribut -> request -> server -> HTML tillbaka -> Controller → return "" → DOM uppdateras - raden tas bort 
+    [HttpPost("delete/{id}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken ct = default)
+    {
+       await sessionService.DeleteWorkoutSessionAsync(id, ct);
+
+        // returnerar tomt innehåll, som HTMX ersätter den raden med, så den försvinner från listan
+        return Content("");  
+    }
+
+}
 
 
 
