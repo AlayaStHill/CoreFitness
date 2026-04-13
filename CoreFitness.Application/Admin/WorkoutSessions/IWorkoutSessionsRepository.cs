@@ -3,6 +3,6 @@ using CoreFitness.Domain.Aggregates.WorkoutSessions;
 
 namespace CoreFitness.Application.Admin.WorkoutSessions;
 
-public interface IWorkoutSessionsRepository : IRepositoryBase<WorkoutSession, string>
+public interface IWorkoutSessionsRepository : IRepositoryBase<WorkoutSession, Guid>
 {
 }

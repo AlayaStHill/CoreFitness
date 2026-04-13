@@ -52,7 +52,11 @@
                                     <td>@session.Duration</td>
                                     <td>@session.Capacity</td>
                                     <td class="table-actions">
-                                        <button class="table-action-link table-action-link--danger js-delete-trigger">
+                                        @* JS = UI (modal)
+                                        HTMX = backend + DOM update *@
+                                        <button class="table-action-link table-action-link--danger js-delete-trigger"
+                                                data-session-id="@session.Id">
+                                            >
                                             Delete
                                         </button>
                                     </td>
@@ -62,6 +66,35 @@
 
                     </tbody>
                 </table>
+                <div class="modal-overlay" hidden></div>
+                    <div class="modal" hidden role="dialog" aria-modal="true"
+                        aria-labelledby="modal-title"
+                        aria-describedby="modal-description" >
+
+                        <div class="modal__content">
+                            <h2 class="modal__title" id="modal-title">Confirm delete</h2>
+                            <p class="modal__description" id="modal-description">
+                                Are you sure you want to delete this session?
+                            </p>
+                            <div class="modal__actions">
+                                <button type="button" class="modal__button" data-cancel-delete>
+                                    Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    class="modal__button modal__button--danger"
+                                    data-confirm-delete
+                                    @* Skickar POST till controller *@
+                                    hx-post=""
+                                    @* Hitta närmaste <tr>(raden) *@
+                                    hx-target="closest tr"
+                                    @* byt ut hela raden *@
+                                    hx-swap="outerHTML" >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>    
             </div>
         </section>
     </div>
