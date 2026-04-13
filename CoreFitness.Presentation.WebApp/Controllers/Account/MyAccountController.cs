@@ -10,6 +10,7 @@ namespace CoreFitness.Presentation.WebApp.Controllers.Account;
 [Authorize]
 public class MyAccountController(
     ICurrentUserService currentUserService,
+    IAuthService authService,
     IMyAccountUserService myAccountUserService,
     IProfileImageStorageService profileImageStorageService,
     IMyAccountMembershipService myAccountMembershipService,
@@ -111,6 +112,23 @@ public class MyAccountController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteAccount(CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(currentUserService.UserId))
+            return Challenge();
+
+        var result = await authService.DeleteAccountAsync(currentUserService.UserId, ct);
+        if (result.IsFailure)
+        {
+            TempData["ErrorMessage"] = result.Error?.Message ?? "Could not delete account.";
+            return RedirectToAction(nameof(AboutMe));
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AboutMe(AboutMeFormModel model, CancellationToken ct)
     {
         if (string.IsNullOrWhiteSpace(currentUserService.UserId))
@@ -148,7 +166,7 @@ public class MyAccountController(
             return View(model);
         }
 
-        TempData["SuccessMessage"] = "Profile updated successfully.";
+        TempData["AboutSuccessMessage"] = "Profile updated successfully.";
         return RedirectToAction(nameof(AboutMe));
     }
 

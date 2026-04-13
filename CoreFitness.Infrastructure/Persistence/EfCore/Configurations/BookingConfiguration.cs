@@ -36,6 +36,6 @@ public sealed class BookingConfiguration : IEntityTypeConfiguration<Booking>
         builder.HasOne<Member>()
             .WithMany()
             .HasForeignKey(x => x.MemberId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

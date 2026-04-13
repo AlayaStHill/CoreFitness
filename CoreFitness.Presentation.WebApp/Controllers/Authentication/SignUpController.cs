@@ -100,6 +100,6 @@ public class SignUpController(IAuthService identityAuthService) : Controller
         if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             return Redirect(returnUrl);
 
-        return RedirectToAction("Index", "Account");
+        return RedirectToAction("AboutMe", "MyAccount");
     }
 }
