@@ -39,7 +39,6 @@ internal static class IdentityInitializer
         if (existingUser is not null)
             return;
 
-        // denna istället för nedan??????
         ApplicationUser user = ApplicationUser.Create(AdminEmail);
         user.EmailConfirmed = true;
 

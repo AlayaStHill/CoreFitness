@@ -75,3 +75,7 @@
     grid-area: main;
     overflow: auto;
 }
+
+.admin-content {
+    display: flex;
+}

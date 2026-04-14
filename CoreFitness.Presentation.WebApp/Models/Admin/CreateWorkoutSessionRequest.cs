@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CoreFitness.Presentation.WebApp.Models.Admin;
 
-public class CreateWorkoutSessionRequest
+public class CreateWorkoutSessionRequest : IValidatableObject
 {
     [Required(ErrorMessage = "Workout type is required.")]
     public Guid WorkoutTypeId { get; set; }
@@ -22,5 +22,26 @@ public class CreateWorkoutSessionRequest
 
     // för att visa dropdown-lista över tillgängliga workouttypes <select>
     public IEnumerable<SelectListItem> WorkoutTypes { get; set; } = [];
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (Duration <= TimeSpan.Zero)
+        {
+            yield return new ValidationResult(
+                "Duration must be greater than 00:00.",
+                [nameof(Duration)]);
+        }
+
+        DateTime localDateTime = Date.ToDateTime(StartTime);
+        DateTime minSafeLocal = DateTimeOffset.MinValue.UtcDateTime.AddHours(14);
+        DateTime maxSafeLocal = DateTimeOffset.MaxValue.UtcDateTime.AddHours(-14);
+
+        if (localDateTime < minSafeLocal || localDateTime > maxSafeLocal)
+        {
+            yield return new ValidationResult(
+                "Date and start time are out of supported range.",
+                [nameof(Date), nameof(StartTime)]);
+        }
+    }
 }
 

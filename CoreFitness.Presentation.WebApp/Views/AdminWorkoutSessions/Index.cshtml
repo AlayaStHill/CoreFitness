@@ -5,31 +5,40 @@
     Layout = "Layouts/_AdminLayout";
 }
 
-<div class="container--full">
+<div class="admin-content-wrapper">
     <div class="workout-sessions">
-        <section class="workout-sessions__header">
+        <section class="workout-sessions__header-row">
             <h1 class="workout-sessions__title">Workout Sessions</h1>
-        </section>
 
-        @* ADD NEW SESSION-BUTTON *@
-        <div class="workout-sessions__actions">
             <button class="primary button workout-sessions__add-btn"
                     hx-get="/admin/workoutsessions/create-form"
                     hx-target="#form-container"
                     hx-swap="innerHTML">
                 Add New Session
             </button>
-        </div>
+        </section>
+
+        @* ADD NEW SESSION-BUTTON *@
+        @* <div class="workout-sessions__actions">
+            <button class="primary button workout-sessions__add-btn"
+                    hx-get="/admin/workoutsessions/create-form"
+                    hx-target="#form-container"
+                    hx-swap="innerHTML">
+                Add New Session
+            </button>
+        </div> *@
 
         @* CREATE SESSION FORM *@
         @* HTMX fyller den via hx-get *@
         <div id="form-container"></div>
 
-        <section class="workout-sessions__content" aria-label="Workout sessions">
+        <section class="workout-sessions__card" aria-label="Workout sessions">
             @*   SESSIONS TABLE *@
             <div id="sessions-table"
                  hx-get="/admin/workoutsessions"
-                 hx-trigger="sessionCreated from:body">
+                 hx-trigger="session-created from:body"
+                 hx-target="#sessions-table"
+                 hx-swap="innerHTML">
 
                 <partial name="~/Views/Shared/Partials/Admin/_WorkoutSessionsTable.cshtml" model="Model.Sessions" />
               </div>

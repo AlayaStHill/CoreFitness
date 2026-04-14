@@ -44,7 +44,7 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
         {
             //tabellen ska kunna visa fel
             ViewBag.Error = error;
-            return PartialView("~/Views/Shared/Partials/Admin/_WorkoutSessionsTable", sessions);
+            return PartialView("~/Views/Shared/Partials/Admin/_WorkoutSessionsTable.cshtml", sessions);
         }
         // annars returnera hela sidan, vanlig MVC-rendering
         var viewModel = new AdminWorkoutSessionsViewModel
@@ -94,6 +94,13 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
         return PartialView("~/Views/Shared/Partials/Admin/_CreateWorkoutSessionForm.cshtml", request);
     }
 
+    // För Cancel-knapp. Create form töms bort från DOM - ersätts med en tom sträng så att den inte är synlig längre
+    [HttpGet("clear-form")]
+    public IActionResult ClearCreateForm()
+    {
+        return Content(string.Empty);
+    }
+
 
     [HttpPost("create")]
     [ValidateAntiForgeryToken]
@@ -105,18 +112,9 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
             return PartialView("~/Views/Shared/Partials/Admin/_CreateWorkoutSessionForm.cshtml", request);
         }
 
-        //  Date + StartTime = StartsAt domain modell
-        var dateTime = new DateTime
-        (
-            request.Date.Year,
-            request.Date.Month,
-            request.Date.Day,
-            request.StartTime.Hour,
-            request.StartTime.Minute,
-            0 // sekunder
-        );
-
-        var startsAt = new DateTimeOffset(dateTime, DateTimeOffset.Now.Offset);
+        // Date + StartTime = StartsAt domain modell
+        DateTime dateTime = request.Date.ToDateTime(request.StartTime);
+        DateTimeOffset startsAt = new DateTimeOffset(dateTime, DateTimeOffset.Now.Offset);
 
         var input = new CreateWorkoutSessionInput
         {
@@ -138,7 +136,7 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
         }
 
         // triggar tabell reload
-        Response.Headers["HX-Trigger"] = "sessionCreated";
+        Response.Headers["HX-Trigger-After-Swap"] = "session-created";
 
         return PartialView("~/Views/Shared/Partials/Admin/_CreateWorkoutSessionForm.cshtml", new CreateWorkoutSessionRequest
         {

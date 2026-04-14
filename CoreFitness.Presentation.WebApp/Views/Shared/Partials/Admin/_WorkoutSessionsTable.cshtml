@@ -37,7 +37,7 @@
                     <tr id="session-@session.Id">
                         <td>@session.Category</td>
                         <td>@session.Type</td>
-                        <td>@session.StartsAt</td>
+                        <td>@session.StartsAt.ToLocalTime().ToString("g")</td>
                         <td>@session.Duration</td>
                         <td>@session.Capacity</td>
                         <td class="table-actions">

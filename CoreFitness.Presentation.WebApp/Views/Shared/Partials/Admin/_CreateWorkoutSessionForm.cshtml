@@ -12,7 +12,7 @@
     <form class="form-layout create-session__form" 
         hx-post="/admin/workoutsessions/create"
         hx-target="#form-container"  
-        hx-swap="outerHTML"
+        hx-swap="innerHTML"
         method="post" novalidate>
     
         @Html.AntiForgeryToken()
@@ -49,15 +49,19 @@
 
         </div>
 
-        @* <div class="form-actions">
-            <button type="submit" class="primary-button form-layout__submit">
-                Create Session
-            </button>
-        </div> *@
-
         <div class="form-submit-group">
-            <button class="primary-button form-submit" type="submit">Create Session</button>
+            <div class="create-session__actions">
+                <button class="secondary-button create-session__cancel"
+                        type="button"
+                        hx-get="/admin/workoutsessions/clear-form"
+                        hx-target="#form-container"
+                        hx-swap="innerHTML">
+                    Cancel
+                </button>
 
+                <button class="primary-button form-submit" type="submit">Create Session</button>
+            </div>
+     
             <div class="form-feedback">
                 <div id="validation-summary" asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
             </div>
