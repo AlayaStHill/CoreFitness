@@ -47,3 +47,162 @@
 .admin-aside .menu-link.active {
     color: var(--menu-item-hover-text-color);
 }
+
+
+/*=======================================
+    Workoutsession table
+=======================================*/
+
+
+/*=======================================
+    Workoutsession createform
+=======================================*/
+/* ===== Admin Create Workout Session ===== */
+
+/* card runt formuläret */
+.create-session {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.create-session__header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.create-session__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs); 
+}
+
+.create-session__description {
+    font-size: 0.9rem;
+    color: var(--muted-text-color);
+}
+
+.create-session__form {
+    background-color: var(--section-bg-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.create-session__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md) var(--space-lg);
+}
+
+/* fullbredd */
+.create-session__grid .full-width {
+    grid-column: span 2;
+}
+
+/* Anpassning av input med ikon (date/time) */
+/*.create-session__grid .form-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}*/
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-lg);
+}
+
+/* Gör knappen lite mer "admin-stil" */
+.form-actions .form-layout__submit {
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-lg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.admin-form-card {
+    background-color: #f7f7f7;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+.admin-page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #c4e000;
+}*/
+
+/* Validation */
+/*.field-validation {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+}*/
+
+/* Button alignment */
+/*.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}*/
+

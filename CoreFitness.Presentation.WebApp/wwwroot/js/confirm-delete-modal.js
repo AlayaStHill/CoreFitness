@@ -34,15 +34,35 @@
             htmx.process(confirmButton);
         }
 
+        // reset error
+        const errorBox = modal.querySelector(".modal__error");
+        if (errorBox) {
+            errorBox.textContent = "";
+            errorBox.hidden = true;
+        }
+
         modal.hidden = false;
         overlay.hidden = false;
     });
 
     // så att modalen stängs efter requesten skickats
     document.body.addEventListener("htmx:afterRequest", (e) => {
-        if (e.target === confirmButton) {
+        if (e.target === confirmButton && e.detail.successful) {
             closeModal();
         }
+    });
+
+    // visar errormeddelande i modalen om något gick fel med requesten
+    document.body.addEventListener("htmx:responseError", (e) => {
+        // kör bara om eventet kommer från delete-knappen. Eftersom HTMX triggar events för alla requests på sidan
+        if (e.target !== confirmButton) return;
+
+        // hitta error-elementet
+        const errorBox = modal.querySelector(".modal__error");
+        if (!errorBox) return;
+
+        errorBox.textContent = e.detail.xhr.responseText;
+        errorBox.hidden = false;
     });
 
     function closeModal() {
@@ -63,6 +83,8 @@
             closeModal();
         }
     });
+
+
 });
 
 

@@ -3,7 +3,7 @@ using CoreFitness.Domain.Aggregates.WorkoutSessions;
 using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories.Admin;
+namespace CoreFitness.Infrastructure.Persistence.EfCore.Repositories.Admin.WorkoutSessions;
 
 public sealed class WorkoutSessionRepository(PersistenceContext context) : RepositoryBase<WorkoutSession, WorkoutSessionId, PersistenceContext>(context), IWorkoutSessionRepository
 {

@@ -1,0 +1,67 @@
+﻿@model CreateWorkoutSessionRequest
+
+<div class="create-session">
+
+    <section class="create-session__header">
+        <div>
+            <h1 class="create-session__title">Create Workout Session</h1>
+            <p class="create-session__description">Fill in the details to schedule a new session</p>
+        </div>
+    </section>
+
+    <form class="form-layout create-session__form" 
+        hx-post="/admin/workoutsessions/create"
+        hx-target="#form-container"  
+        hx-swap="outerHTML"
+        method="post" novalidate>
+    
+        @Html.AntiForgeryToken()
+        <div class="create-session__grid">
+
+            <div class="form-group">
+                <label class="form-label" asp-for="WorkoutTypeId"></label>
+                <select class="form-input" asp-for="WorkoutTypeId" asp-items="Model.WorkoutTypes"></select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="Capacity"></label>
+                <input class="form-input" asp-for="Capacity" />
+                <span class="field-validation" asp-validation-for="Capacity"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="Date"></label>
+                <input class="form-input" asp-for="Date" />
+                <span class="field-validation" asp-validation-for="Date"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="Duration"></label>
+                <input class="form-input" asp-for="Duration" />
+                <span class="field-validation" asp-validation-for="Duration"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="StartTime"></label>
+                <input class="form-input" asp-for="StartTime" />
+                <span class="field-validation" asp-validation-for="StartTime"></span>
+            </div>
+
+        </div>
+
+        @* <div class="form-actions">
+            <button type="submit" class="primary-button form-layout__submit">
+                Create Session
+            </button>
+        </div> *@
+
+        <div class="form-submit-group">
+            <button class="primary-button form-submit" type="submit">Create Session</button>
+
+            <div class="form-feedback">
+                <div id="validation-summary" asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
+            </div>
+        </div>
+
+    </form>
+</div>

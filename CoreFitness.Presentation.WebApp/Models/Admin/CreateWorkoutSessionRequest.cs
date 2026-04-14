@@ -1,6 +1,4 @@
-﻿using CoreFitness.Domain.Aggregates.WorkoutCategories;
-using CoreFitness.Domain.Aggregates.WorkoutTypes;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace CoreFitness.Presentation.WebApp.Models.Admin;
@@ -22,6 +20,7 @@ public class CreateWorkoutSessionRequest
     [Range(1, 40, ErrorMessage = "Capacity must be between {1} and {2}.")]
     public int Capacity { get; set; }
 
+    // för att visa dropdown-lista över tillgängliga workouttypes <select>
     public IEnumerable<SelectListItem> WorkoutTypes { get; set; } = [];
 }
 

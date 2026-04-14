@@ -1,0 +1,59 @@
+﻿@model IReadOnlyList<WorkoutSessionItemViewModel>
+
+<div class="workout-sessions__table-container">
+    <table class="workout-sessions__table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Start</th>
+                <th>Duration</th>
+                <th>Capacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.Error != null)
+            {
+                <tr>
+                    <td colspan="6" class="table-error">
+                        @ViewBag.Error
+                    </td>
+                </tr>
+            }
+            @if (Model is null || Model.Count == 0)
+            {
+                <tr>
+                    <td colspan="6" class="table-empty">
+                        No workout sessions available
+                    </td>
+                </tr>
+            }
+            else
+            {
+                @foreach (WorkoutSessionItemViewModel session in Model)
+                {
+                    @* Skapar unikt DOM-id för raden *@
+                    <tr id="session-@session.Id">
+                        <td>@session.Category</td>
+                        <td>@session.Type</td>
+                        <td>@session.StartsAt</td>
+                        <td>@session.Duration</td>
+                        <td>@session.Capacity</td>
+                        <td class="table-actions">
+                            @* JS = UI (modal)
+                                        HTMX = backend + DOM update *@
+                            <button class="table-action-link table-action-link--danger js-delete-trigger"
+                                    data-session-id="@session.Id">
+                                >
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+  
+</div>

@@ -28,11 +28,12 @@
     @media (width >= 1400px) {
         max-width: 1320px;
     }
-    /*ingen maxbreddsbegränsning*/
-    &.full {
-        width: 100%;
-        max-width: 100%;
-    }
+}
+
+/*ingen maxbreddsbegränsning*/
+.container--full {
+    width: 100%;
+    max-width: 100%;
 }
 
 /*=======================================
@@ -72,4 +73,5 @@
 
 .admin-layout > main {
     grid-area: main;
+    overflow: auto;
 }
