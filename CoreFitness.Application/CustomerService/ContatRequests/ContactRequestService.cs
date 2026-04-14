@@ -10,7 +10,7 @@ public sealed class ContactRequestService(IContactRequestRepository repository, 
     public async Task<Result> CreateContactRequestAsync(ContactRequestInput input, CancellationToken ct = default)
     {
        if (input is null)
-            return Result.Fail(ErrorTypes.BadRequest, "Contact request input must be provided.");
+            return Result.Fail(ContactRequestErrors.InputMustBeProvided);
 
         ContactRequest request = ContactRequest.Create(input.FirstName, input.LastName, input.Email, input.PhoneNumber, input.Message);
 
@@ -22,12 +22,12 @@ public sealed class ContactRequestService(IContactRequestRepository repository, 
     public async Task<Result> DeleteContactRequestAsync(string id, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(id))
-            return Result.Fail(ErrorTypes.BadRequest, "Id must be provided");
+            return Result.Fail(ContactRequestErrors.IdMustBeProvided);
 
         bool isRemoved = await repository.RemoveAsync(id, ct);
 
         if (!isRemoved)
-            return Result.Fail(ErrorTypes.NotFound, $"Contact request with ID {id} not found.");
+            return Result.Fail(ContactRequestErrors.NotFoundById(id));
 
         await iUnitOfWork.SaveChangesAsync(ct);
 
@@ -44,12 +44,12 @@ public sealed class ContactRequestService(IContactRequestRepository repository, 
     public async Task<Result<ContactRequest>> GetContactRequestAsync(string id, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(id))
-            return Result<ContactRequest>.Fail(ErrorTypes.BadRequest, "Contact request id must be provided.");
+            return Result<ContactRequest>.Fail(ContactRequestErrors.ContactRequestIdMustBeProvided);
 
         ContactRequest? contactRequest = await repository.GetByIdAsync(id, ct);
 
         return contactRequest is null
-            ? Result<ContactRequest>.Fail(ErrorTypes.NotFound, $"Contact request with ID {id} not found.")
+            ? Result<ContactRequest>.Fail(ContactRequestErrors.NotFoundById(id))
             : Result<ContactRequest>.Success(contactRequest);
     }
 
@@ -97,12 +97,12 @@ public sealed class ContactRequestService(IContactRequestRepository repository, 
     private async Task<Result<ContactRequest>> GetContactRequestOrFailAsync(string id, CancellationToken ct)
     {
         if (string.IsNullOrWhiteSpace(id))
-            return Result<ContactRequest>.Fail(ErrorTypes.BadRequest, "Id must be provided");
+            return Result<ContactRequest>.Fail(ContactRequestErrors.IdMustBeProvided);
 
         ContactRequest? contactRequest = await repository.GetByIdAsync(id, ct);
 
         return contactRequest is null
-            ? Result<ContactRequest>.Fail(ErrorTypes.NotFound, $"Contact request with ID {id} not found.")
+            ? Result<ContactRequest>.Fail(ContactRequestErrors.NotFoundById(id))
             : Result<ContactRequest>.Success(contactRequest);
     }
 }
