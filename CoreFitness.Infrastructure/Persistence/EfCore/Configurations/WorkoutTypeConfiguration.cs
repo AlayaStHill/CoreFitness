@@ -29,14 +29,15 @@ public sealed class WorkoutTypeConfiguration : IEntityTypeConfiguration<WorkoutT
                 value => new WorkoutCategoryId(value))
             .IsRequired();
 
+        builder.HasOne(x => x.WorkoutCategory)
+            .WithMany()
+            .HasForeignKey(x => x.WorkoutCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasIndex(x => new { x.Title, x.WorkoutCategoryId })
             .IsUnique();
 
         builder.HasIndex(x => x.WorkoutCategoryId);
 
-        builder.HasOne<WorkoutCategory>()
-            .WithMany()
-            .HasForeignKey(x => x.WorkoutCategoryId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

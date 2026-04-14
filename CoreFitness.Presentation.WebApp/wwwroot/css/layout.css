@@ -28,11 +28,12 @@
     @media (width >= 1400px) {
         max-width: 1320px;
     }
-    /*ingen maxbreddsbegränsning*/
-    &.full {
-        width: 100%;
-        max-width: 100%;
-    }
+}
+
+/*ingen maxbreddsbegränsning*/
+.container--full {
+    width: 100%;
+    max-width: 100%;
 }
 
 /*=======================================
@@ -41,7 +42,6 @@
 .auth-layout {
     min-height: 100dvh;
     display: grid;
-    place-items: center;
     height: 100%;
 }
 
@@ -50,3 +50,32 @@
     margin-inline: auto;
 }
 
+/*=======================================
+    Admin-layout
+=======================================*/
+.admin-layout {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "aside  main";
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 250px 1fr;
+    height: 100dvh;
+}
+/*direkt barn selector inuti admin-layout*/
+.admin-layout > header {
+    grid-area: header;
+}
+
+.admin-layout > aside {
+    grid-area: aside;
+}
+
+.admin-layout > main {
+    grid-area: main;
+    overflow: auto;
+}
+
+.admin-content {
+    display: flex;
+}

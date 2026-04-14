@@ -7,7 +7,7 @@ public class ErrorController : Controller
     [Route("error/404")]
     public IActionResult NotFoundPage()
     {
-        Response.StatusCode = 404;
+        Response.StatusCode = StatusCodes.Status404NotFound;
         return View("NotFound");
     }
 }

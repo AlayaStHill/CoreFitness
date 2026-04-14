@@ -50,13 +50,23 @@ app.UseRouting();
 
 app.MapStaticAssets();
 
-// kopplar om alla 404-fel till en anpassad error-sida, där {0} kommer att ersättas med den faktiska statuskoden 
-app.UseStatusCodePagesWithReExecute("/Error/{0}");
+// kopplar om alla 404-fel till min 404-sida
+app.UseStatusCodePages(statusCodeContext =>
+{
+    HttpContext context = statusCodeContext.HttpContext;
+
+    if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+    {
+        context.Response.Redirect("/error/404");
+    }
+
+    return Task.CompletedTask;
+});
 
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-// ??
+
 app.MapControllers();
 
 app.MapControllerRoute(

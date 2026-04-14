@@ -31,6 +31,7 @@
     --menu-dropdown-item-text-color: var(--dark-color);
     --menu-dropdown-item-hover-bg-color: var( --dark-color-alpha-30);
     --menu-dropdown-item-hover-text-color: var(--white-color);
+    --menu-link-aside-underline: -0.1rem;
     --primary-button-bg-color: var(--primary-color);
     --primary-button-text-color: var(--dark-color);
     --primary-button-hover-bg-color: var(--dark-color);

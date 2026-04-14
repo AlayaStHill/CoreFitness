@@ -5,9 +5,10 @@
     string siteName = string.IsNullOrWhiteSpace(site.SiteName) ? "CoreFitness" : site.SiteName;
     string? pageTitle = ViewData["Title"]?.ToString();
 
-    string title = string.IsNullOrWhiteSpace(pageTitle) ? $"{siteName} | {site.Slogan}" : $"{pageTitle} | {siteName}";
+    string title = string.IsNullOrWhiteSpace(pageTitle) 
+        ? $"{pageTitle} | Admin Center" 
+        : "Admin Center  | CoreFitness - Gym & Fitness Center";
 }
-
 
 <!DOCTYPE html>
 <html lang="@language">
@@ -25,18 +26,16 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components/header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/menu.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components/buttons.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/components/forms.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/components/menu.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/components/auth.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/pages/set-password.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/admin.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/pages/not-found.css" asp-append-version="true" />
 
-   @*  <link rel="stylesheet" href="~/CoreFitness.Presentation.WebApp.styles.css" asp-append-version="true" /> *@
- 
+
+    @*     <link rel="stylesheet" href="~/CoreFitness.Presentation.WebApp.styles.css" asp-append-version="true" />*@
 </head>
-@* ska vara auth-layout *@
-<body class="auth-layout"> 
+<body class="admin-layout">
     <header>
         <partial name="Partials/_Header" />
         @if (IsSectionDefined("Hero"))
@@ -44,10 +43,19 @@
             @RenderSection("Hero", required: false)
         }
     </header>
-    <main>
+
+    <div class="admin-content">
+    <aside class="admin-aside">
+        <partial name="Partials/Admin/_AsideNavigation" />
+    </aside>
+
+
+    <main class="admin-main">
         @RenderBody()
     </main>
+    </div>
 
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -28,6 +28,11 @@ public sealed class WorkoutSessionConfiguration : IEntityTypeConfiguration<Worko
                 value => new WorkoutTypeId(value))
             .IsRequired();
 
+        builder.HasOne(x => x.WorkoutType)
+           .WithMany()
+           .HasForeignKey(x => x.WorkoutTypeId)
+           .OnDelete(DeleteBehavior.Restrict);
+
         builder.Property(x => x.StartsAt)
             .IsRequired();
 
@@ -39,11 +44,6 @@ public sealed class WorkoutSessionConfiguration : IEntityTypeConfiguration<Worko
 
         builder.HasIndex(x => x.WorkoutTypeId);
         builder.HasIndex(x => x.StartsAt);
-
-        builder.HasOne<WorkoutType>()
-            .WithMany()
-            .HasForeignKey(x => x.WorkoutTypeId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(x => x.Bookings)
             .WithOne()
