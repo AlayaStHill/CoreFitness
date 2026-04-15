@@ -44,18 +44,18 @@ public sealed class MyAccountBookingService(
     public async Task<Result> BookSessionAsync(string userId, Guid workoutSessionId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+            return Result.Fail(MyAccountErrors.UserIdRequired);
 
         if (workoutSessionId == Guid.Empty)
-            return Result.Fail(ErrorTypes.BadRequest, "Workout session id must be provided.");
+            return Result.Fail(MyAccountErrors.WorkoutSessionIdRequired);
 
         var member = await bookingRepository.GetMemberByUserIdForBookingAsync(userId, ct);
         if (member is null)
-            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+            return Result.Fail(MyAccountErrors.MemberNotFound);
 
         var workoutSession = await bookingRepository.GetWorkoutSessionByIdForBookingAsync(workoutSessionId, ct);
         if (workoutSession is null)
-            return Result.Fail(ErrorTypes.NotFound, "Workout session not found.");
+            return Result.Fail(MyAccountErrors.WorkoutSessionNotFound);
 
         try
         {
@@ -63,7 +63,7 @@ public sealed class MyAccountBookingService(
         }
         catch (ValidationDomainException ex)
         {
-            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+            return Result.Fail(MyAccountErrors.Validation(ex.Message));
         }
 
         await unitOfWork.SaveChangesAsync(ct);
@@ -73,18 +73,18 @@ public sealed class MyAccountBookingService(
     public async Task<Result> CancelSessionAsync(string userId, Guid workoutSessionId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+            return Result.Fail(MyAccountErrors.UserIdRequired);
 
         if (workoutSessionId == Guid.Empty)
-            return Result.Fail(ErrorTypes.BadRequest, "Workout session id must be provided.");
+            return Result.Fail(MyAccountErrors.WorkoutSessionIdRequired);
 
         var member = await bookingRepository.GetMemberByUserIdForBookingAsync(userId, ct);
         if (member is null)
-            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+            return Result.Fail(MyAccountErrors.MemberNotFound);
 
         var workoutSession = await bookingRepository.GetWorkoutSessionByIdForBookingAsync(workoutSessionId, ct);
         if (workoutSession is null)
-            return Result.Fail(ErrorTypes.NotFound, "Workout session not found.");
+            return Result.Fail(MyAccountErrors.WorkoutSessionNotFound);
 
         try
         {
@@ -92,7 +92,7 @@ public sealed class MyAccountBookingService(
         }
         catch (ValidationDomainException ex)
         {
-            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+            return Result.Fail(MyAccountErrors.Validation(ex.Message));
         }
 
         await unitOfWork.SaveChangesAsync(ct);

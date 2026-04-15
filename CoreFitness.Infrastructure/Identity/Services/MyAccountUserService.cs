@@ -28,7 +28,7 @@ public sealed class MyAccountUserService(UserManager<ApplicationUser> userManage
     {
         ApplicationUser? user = await userManager.FindByIdAsync(input.UserId);
         if (user is null)
-            return Result.Fail(ErrorTypes.NotFound, "User not found.");
+            return Result.Fail(MyAccountErrors.UserNotFound);
 
         ApplicationUser.UpdateDetails(
             user,
@@ -42,7 +42,7 @@ public sealed class MyAccountUserService(UserManager<ApplicationUser> userManage
 
         IdentityResult result = await userManager.UpdateAsync(user);
         if (!result.Succeeded)
-            return Result.Fail(ErrorTypes.BadRequest, string.Join(", ", result.Errors.Select(e => e.Description)));
+            return Result.Fail(MyAccountErrors.IdentityUpdateFailed(string.Join(", ", result.Errors.Select(e => e.Description))));
 
         return Result.Success();
     }

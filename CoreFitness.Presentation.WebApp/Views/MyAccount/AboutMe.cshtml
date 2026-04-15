@@ -12,9 +12,14 @@
 <div class="about-me card">
     <h2>About Me</h2>
 
-    @if (TempData["SuccessMessage"] is string successMessage)
+    @if (TempData["AboutSuccessMessage"] is string successMessage)
     {
         <div class="form-success">@successMessage</div>
+    }
+
+    @if (TempData["ErrorMessage"] is string errorMessage)
+    {
+        <div class="field-validation field-validation-error">@errorMessage</div>
     }
 
     <form asp-action="AboutMe" method="post" enctype="multipart/form-data" class="form-layout about-me-form" novalidate>
@@ -73,6 +78,7 @@
             <button class="primary-button" type="submit">Save</button>
         </div>
     </form>
+
 </div>
 
 <partial name="~/Views/Shared/Partials/MyAccount/_MyStatistics.cshtml" />

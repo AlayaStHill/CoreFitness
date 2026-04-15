@@ -153,4 +153,25 @@ public sealed class IdentityAuthService(IMemberRepository memberRepository, IUni
     }
 
     public Task SignOutUserAsync() => signInManager.SignOutAsync();
+
+    public async Task<Result> DeleteAccountAsync(string userId, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(userId))
+            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+
+        await memberRepository.RemoveByUserIdAsync(userId, ct);
+        await iUnitOfWork.SaveChangesAsync(ct);
+
+        var user = await userManager.FindByIdAsync(userId);
+        if (user is null)
+            return Result.Fail(ErrorTypes.NotFound, "User not found.");
+
+        var deletedResult = await userManager.DeleteAsync(user);
+        if (!deletedResult.Succeeded)
+            return Result.Fail(ErrorTypes.Error, string.Join(", ", deletedResult.Errors.Select(error => error.Description)));
+
+        await signInManager.SignOutAsync();
+
+        return Result.Success();
+    }
 }

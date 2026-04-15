@@ -10,6 +10,7 @@ public interface IAuthService
     Task<Result> SignInExternalUserAsync(string? roleName);
     Task<Result<SignInOutput>> SignInUserAsync(SignInUserInput request);
     Task SignOutUserAsync();
+    Task<Result> DeleteAccountAsync(string userId, CancellationToken ct = default);
 
 }
 

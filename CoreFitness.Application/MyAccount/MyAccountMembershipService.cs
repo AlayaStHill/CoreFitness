@@ -63,18 +63,18 @@ public sealed class MyAccountMembershipService(
     public async Task<Result> SelectPlanAsync(string userId, Guid membershipTypeId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+            return Result.Fail(MyAccountErrors.UserIdRequired);
 
         if (membershipTypeId == Guid.Empty)
-            return Result.Fail(ErrorTypes.BadRequest, "Membership type id must be provided.");
+            return Result.Fail(MyAccountErrors.MembershipTypeIdRequired);
 
         var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
         if (member is null)
-            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+            return Result.Fail(MyAccountErrors.MemberNotFound);
 
         var availablePlans = await membershipTypeRepository.GetFeaturedAsync(ct);
         if (!availablePlans.Any(plan => plan.Id == membershipTypeId))
-            return Result.Fail(ErrorTypes.NotFound, "Selected membership plan was not found.");
+            return Result.Fail(MyAccountErrors.SelectedMembershipPlanNotFound);
 
         try
         {
@@ -82,7 +82,7 @@ public sealed class MyAccountMembershipService(
         }
         catch (ValidationDomainException ex)
         {
-            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+            return Result.Fail(MyAccountErrors.Validation(ex.Message));
         }
 
         await unitOfWork.SaveChangesAsync(ct);
@@ -92,11 +92,11 @@ public sealed class MyAccountMembershipService(
     public async Task<Result> CancelActiveMembershipAsync(string userId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+            return Result.Fail(MyAccountErrors.UserIdRequired);
 
         var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
         if (member is null)
-            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+            return Result.Fail(MyAccountErrors.MemberNotFound);
 
         try
         {
@@ -112,7 +112,7 @@ public sealed class MyAccountMembershipService(
         }
         catch (ValidationDomainException ex)
         {
-            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+            return Result.Fail(MyAccountErrors.Validation(ex.Message));
         }
 
         await unitOfWork.SaveChangesAsync(ct);
@@ -122,11 +122,11 @@ public sealed class MyAccountMembershipService(
     public async Task<Result> PauseActiveMembershipAsync(string userId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+            return Result.Fail(MyAccountErrors.UserIdRequired);
 
         var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
         if (member is null)
-            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+            return Result.Fail(MyAccountErrors.MemberNotFound);
 
         try
         {
@@ -134,7 +134,7 @@ public sealed class MyAccountMembershipService(
         }
         catch (ValidationDomainException ex)
         {
-            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+            return Result.Fail(MyAccountErrors.Validation(ex.Message));
         }
 
         await unitOfWork.SaveChangesAsync(ct);
@@ -144,11 +144,11 @@ public sealed class MyAccountMembershipService(
     public async Task<Result> ActivatePausedMembershipAsync(string userId, CancellationToken ct = default)
     {
         if (string.IsNullOrWhiteSpace(userId))
-            return Result.Fail(ErrorTypes.BadRequest, "User id must be provided.");
+            return Result.Fail(MyAccountErrors.UserIdRequired);
 
         var member = await memberRepository.GetByUserIdWithMembershipsAsync(userId, ct);
         if (member is null)
-            return Result.Fail(ErrorTypes.NotFound, "Member not found.");
+            return Result.Fail(MyAccountErrors.MemberNotFound);
 
         try
         {
@@ -156,7 +156,7 @@ public sealed class MyAccountMembershipService(
         }
         catch (ValidationDomainException ex)
         {
-            return Result.Fail(ErrorTypes.BadRequest, ex.Message);
+            return Result.Fail(MyAccountErrors.Validation(ex.Message));
         }
 
         await unitOfWork.SaveChangesAsync(ct);

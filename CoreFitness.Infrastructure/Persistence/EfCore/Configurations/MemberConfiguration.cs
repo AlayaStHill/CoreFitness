@@ -39,6 +39,6 @@ public sealed class MemberConfiguration : IEntityTypeConfiguration<Member>
             .WithOne()
             .HasForeignKey<Member>(x => x.UserId)
             .HasPrincipalKey<ApplicationUser>(x => x.Id)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

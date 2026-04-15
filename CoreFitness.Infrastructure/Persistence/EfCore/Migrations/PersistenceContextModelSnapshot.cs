@@ -504,7 +504,7 @@ namespace CoreFitness.Infrastructure.Persistence.EfCore.Migrations
                     b.HasOne("CoreFitness.Infrastructure.Identity.Models.ApplicationUser", null)
                         .WithOne()
                         .HasForeignKey("CoreFitness.Domain.Aggregates.Members.Member", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -537,7 +537,7 @@ namespace CoreFitness.Infrastructure.Persistence.EfCore.Migrations
                     b.HasOne("CoreFitness.Domain.Aggregates.Members.Member", null)
                         .WithMany()
                         .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CoreFitness.Domain.Aggregates.WorkoutSessions.WorkoutSession", null)
