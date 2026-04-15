@@ -8,42 +8,42 @@
         gap: 3.5rem;
         align-items: flex-start;
 
-        .account-sidebar {
-            width: 35%;
+        .my-account-sidebar {
+            width: 30%;
             display: grid;
             gap: 4rem;
 
-            .img-wrapper {
+            .my-account-img-wrapper {
                 width: 100%;
                 border-radius: var(--radius-xl);
                 overflow: hidden;
 
-                img {
+                my-account-img {
                     width: 100%;
                     display: block;
                 }
             }
 
-            .menu-section {
-                .menu-title {
+            .my-account-menu-section {
+                .my-account-menu-title {
                     background-color: var(--primary-color);
                     padding: 1rem 2rem;
                     border-top-left-radius: 1rem;
                     border-top-right-radius: 1rem;
                 }
 
-                .account-menu {
+                .my-account-menu {
                     background-color: var(--white-color);
                     border-bottom-left-radius: var(--radius-lg);
                     border-bottom-right-radius: var(--radius-lg);
                     padding: 0;
 
-                    .menu {
+                    .account-menu {
                         list-style: none;
                         margin: 0;
                         padding: 0;
 
-                        .menu-item {
+                        .my-account-menu-item {
                             padding: 1.3rem 2rem;
                             position: relative;
                             cursor: pointer;
@@ -52,7 +52,7 @@
                             &:hover,
                             &:focus-within,
                             &.active {
-                                .menu-link {
+                                .my-account-menu-link {
                                     color: var(--primary-color);
                                 }
                             }
@@ -68,7 +68,7 @@
                                 }
                             }
 
-                            .menu-link {
+                            .my-account-menu-link {
                                 text-decoration: none;
                                 color: var(--default-text-color);
                                 font-weight: 500;
@@ -85,10 +85,10 @@
                                 }
                             }
 
-                            .menu-signout-form {
+                            .my-account-menu-signout-form {
                                 margin: 0;
 
-                                .menu-link {
+                                .my-account-menu-link {
                                     background: none;
                                     border: 0;
                                     padding: 0;
