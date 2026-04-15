@@ -113,15 +113,15 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
         }
 
         // Date + StartTime = StartsAt domain modell
-        DateTime dateTime = request.Date.ToDateTime(request.StartTime);
+        DateTime dateTime = request.Date!.Value.ToDateTime(request.StartTime!.Value);
         DateTimeOffset startsAt = new DateTimeOffset(dateTime, DateTimeOffset.Now.Offset);
 
         var input = new CreateWorkoutSessionInput
         {
-            WorkoutTypeId = new WorkoutTypeId(request.WorkoutTypeId),
+            WorkoutTypeId = new WorkoutTypeId(request.WorkoutTypeId!.Value),
             StartsAt = startsAt,
-            Duration = request.Duration,
-            Capacity = request.Capacity
+            Duration = request.Duration!.Value,
+            Capacity = request.Capacity!.Value
         };
 
         Result result = await sessionService.CreateWorkoutSessionAsync(input, ct);
@@ -137,6 +137,8 @@ public class AdminWorkoutSessionsController(IWorkoutSessionService sessionServic
 
         // triggar tabell reload
         Response.Headers["HX-Trigger-After-Swap"] = "session-created";
+
+        ModelState.Clear();
 
         return PartialView("~/Views/Shared/Partials/Admin/_CreateWorkoutSessionForm.cshtml", new CreateWorkoutSessionRequest
         {

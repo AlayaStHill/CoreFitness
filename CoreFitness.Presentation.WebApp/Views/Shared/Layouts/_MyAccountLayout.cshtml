@@ -22,27 +22,27 @@
     </section>
 
     <div class="my-account">
-        <aside class="account-sidebar">
-            <div class="img-wrapper">
+        <aside class="my-account-sidebar">
+            <div class="my-account-img-wrapper">
                 <img src="@profileImageUrl" alt="profile picture" />
             </div>
-            <div class="menu-section">
-                <h4 class="menu-title">Menu Options</h4>
-                <nav class="account-menu" aria-label="Account menu">
-                    <ul class="menu">
-                        <li class="menu-item @(isAboutMeActive ? "active" : "")">
-                            <a class="menu-link" asp-controller="MyAccount" asp-action="AboutMe">About Me</a>
+            <div class="my-account-menu-section">
+                <h4 class="my-account-menu-title">Menu Options</h4>
+                <nav class="my-account-menu" aria-label="Account menu">
+                    <ul class="account-menu">
+                        <li class="my-account-menu-item @(isAboutMeActive ? "active" : "")">
+                            <a class="my-account-menu-link" asp-controller="MyAccount" asp-action="AboutMe">About Me</a>
                         </li>
-                        <li class="menu-item @(isMyMembershipsActive ? "active" : "")">
-                            <a class="menu-link" asp-controller="MyAccount" asp-action="MyMemberships">My Memberships</a>
+                        <li class="my-account-menu-item @(isMyMembershipsActive ? "active" : "")">
+                            <a class="my-account-menu-link" asp-controller="MyAccount" asp-action="MyMemberships">My Memberships</a>
                         </li>
-                        <li class="menu-item @(isMyBookingsActive ? "active" : "")">
-                            <a class="menu-link" asp-controller="MyAccount" asp-action="MyBookings">My Bookings</a>
+                        <li class="my-account-menu-item @(isMyBookingsActive ? "active" : "")">
+                            <a class="my-account-menu-link" asp-controller="MyAccount" asp-action="MyBookings">My Bookings</a>
                         </li>
-                        <li class="menu-item">
-                            <form asp-controller="SignIn" asp-action="SignOut" method="post" class="menu-signout-form">
+                        <li class="my-account-menu-item">
+                            <form asp-controller="SignIn" asp-action="SignOut" method="post" class="my-account-menu-signout-form">
                                 @Html.AntiForgeryToken()
-                                <button class="menu-link" type="submit">Sign Out</button>
+                                <button class="my-account-menu-link" type="submit">Sign Out</button>
                             </form>
                         </li>
                     </ul>
