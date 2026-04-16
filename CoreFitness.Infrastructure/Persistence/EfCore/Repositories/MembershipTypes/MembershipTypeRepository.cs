@@ -9,10 +9,9 @@ public sealed class MembershipTypeRepository(PersistenceContext context) : IMemb
 {
     public async Task<IReadOnlyList<MembershipTypeFeaturedOutput>> GetFeaturedAsync(CancellationToken ct)
     {
-        return await context.MembershipTypes
+        List<MembershipTypeFeaturedOutput> featured = await context.MembershipTypes
             .AsNoTracking()
             .Where(membershipType => membershipType.IsFeatured)
-            .OrderBy(membershipType => membershipType.PricePerMonth)
             .Select(membershipType => new MembershipTypeFeaturedOutput
             {
                 Id = membershipType.Id.Value,
@@ -25,5 +24,9 @@ public sealed class MembershipTypeRepository(PersistenceContext context) : IMemb
                     .ToArray()
             })
             .ToListAsync(ct);
+
+        return featured
+            .OrderBy(membershipType => membershipType.PricePerMonth)
+            .ToList();
     }
 }
