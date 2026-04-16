@@ -51,9 +51,12 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
 
         if (signInResult.Value.IsAdmin)
             return RedirectToAction("Index", "AdminWorkoutSessions");
-        
-        if (!string.IsNullOrWhiteSpace(returnUrl))
+
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             return Redirect(returnUrl);
+
+        if (signInResult.Value.IsMember)
+            return RedirectToAction("AboutMe", "MyAccount");
 
         return RedirectToAction("Index", "Home");
     }
@@ -93,7 +96,7 @@ public class SignInController(IAuthService identityAuthService, SignInManager<Ap
             return RedirectToAction(nameof(SignIn), new { returnUrl });
         }
 
-        if (!string.IsNullOrWhiteSpace(returnUrl))
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             return Redirect(returnUrl);
 
         return RedirectToAction("Index", "Home");
