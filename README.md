@@ -19,8 +19,6 @@ Projektet är uppbyggt enligt principerna för:
 - Domain-Driven Design (DDD)  
 - Clean Architecture 
 
----
-
 ## Arkitektur & Struktur
 
 Projektet är uppdelat i flera lager för att skapa en tydlig och testbar struktur:
@@ -36,8 +34,6 @@ Hanterar databas (Entity Framework Core) och externa tjänster
 
 ### Presentation (MVC)
 Controllers, Views och UI-logik (inkl. HTMX)  
-
----
 
 ## Funktionalitet
 
@@ -71,8 +67,6 @@ Innehåller:
 - Skapa pass  
 - Ta bort pass  
 
----
-
 ## Säkerhet
 
 - ASP.NET Core Identity för autentisering  
@@ -82,8 +76,6 @@ Innehåller:
 - Skyddade endpoints med `[Authorize]`  
 - Skydd mot CSRF-attacker via Anti-Forgery Tokens i formulär  
 - Validering via ModelState  
-
----
 
 ## Databas
 
@@ -95,8 +87,6 @@ Innehåller:
 - SQL Server används i produktionsmiljö
 
 I produktionsmiljö tillämpas migreringar automatiskt vid uppstart av applikationen.
-
---- 
 
 ## Tester
 
@@ -110,8 +100,6 @@ Testar domänlogik och affärsregler
 - SQLite In-Memory används  
 Testar applikationsflöden 
 
---- 
-
 ## Tekniker & Verktyg
 
 - ASP.NET Core MVC  
@@ -121,8 +109,6 @@ Testar applikationsflöden
 - xUnit  
 - NSubstitute  
 - Git & GitHub 
-
----
 
 ## Starta projektet lokalt
 
