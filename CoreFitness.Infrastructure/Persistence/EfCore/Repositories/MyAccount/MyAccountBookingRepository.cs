@@ -55,29 +55,26 @@ public sealed class MyAccountBookingRepository(PersistenceContext context) : IMy
 
         var now = DateTimeOffset.UtcNow;
 
-        return await context.WorkoutSessions
+        var sessions = await context.WorkoutSessions
             .AsNoTracking()
+            .Include(workoutSession => workoutSession.WorkoutType)
+            .ThenInclude(workoutType => workoutType.WorkoutCategory)
+            .Include(workoutSession => workoutSession.Bookings)
+            .ToListAsync(ct);
+
+        return sessions
             .Where(workoutSession => workoutSession.StartsAt > now)
             .OrderBy(workoutSession => workoutSession.StartsAt)
-            .Join(
-                context.WorkoutTypes.AsNoTracking(),
-                workoutSession => workoutSession.WorkoutTypeId,
-                workoutType => workoutType.Id,
-                (workoutSession, workoutType) => new { workoutSession, workoutType })
-            .Join(
-                context.WorkoutCategories.AsNoTracking(),
-                item => item.workoutType.WorkoutCategoryId,
-                workoutCategory => workoutCategory.Id,
-                (item, workoutCategory) => new MyUpcomingSessionOutput(
-                    item.workoutSession.Id.Value,
-                    item.workoutType.Title,
-                    workoutCategory.Title,
-                    item.workoutSession.StartsAt,
-                    (int)item.workoutSession.Duration.TotalMinutes,
-                    context.Bookings.Count(booking => booking.WorkoutSessionId == item.workoutSession.Id),
-                    item.workoutSession.Capacity,
-                    context.Bookings.Any(booking => booking.WorkoutSessionId == item.workoutSession.Id && booking.MemberId == memberId)))
-            .ToListAsync(ct);
+            .Select(workoutSession => new MyUpcomingSessionOutput(
+                workoutSession.Id.Value,
+                workoutSession.WorkoutType.Title,
+                workoutSession.WorkoutType.WorkoutCategory.Title,
+                workoutSession.StartsAt,
+                (int)workoutSession.Duration.TotalMinutes,
+                workoutSession.Bookings.Count,
+                workoutSession.Capacity,
+                workoutSession.Bookings.Any(booking => booking.MemberId == memberId)))
+            .ToList();
     }
 
     public async Task<Member?> GetMemberByUserIdForBookingAsync(string userId, CancellationToken ct = default)
