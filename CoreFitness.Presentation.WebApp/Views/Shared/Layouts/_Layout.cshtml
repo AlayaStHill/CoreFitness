@@ -1,0 +1,68 @@
+﻿@{
+    var site = SiteSettings.Value;
+
+    string language = string.IsNullOrWhiteSpace(site.Language) ? "en" : site.Language;
+    string siteName = string.IsNullOrWhiteSpace(site.SiteName) ? "CoreFitness" : site.SiteName;
+    string? pageTitle = ViewData["Title"]?.ToString();
+
+    string title = string.IsNullOrWhiteSpace(pageTitle) ? $"{siteName} | {site.Slogan}" : $"{pageTitle} | {siteName}";
+}
+
+
+<!DOCTYPE html>
+<html lang="@language">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="@siteName" />
+    <meta name="description" content="@site.Description" />
+    <title>@title</title>
+    <script type="importmap"></script>
+    <script src="https://kit.fontawesome.com/55d9285a26.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/header.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/footer.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/buttons.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/menu.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/components/forms.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/customer-service.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/our-memberships.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/homepage.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/my-account.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/about-me.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/my-statistics.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/my-memberships.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/current-membership.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/compare-memberships.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/my-bookings.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/myAccount/book-new-workout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/pages/not-found.css" asp-append-version="true" />
+
+
+
+
+@*     <link rel="stylesheet" href="~/CoreFitness.Presentation.WebApp.styles.css" asp-append-version="true" />*@ 
+</head>
+<body class="app-layout">
+
+    <header>
+        <partial name="Partials/_Header" />
+        @if (IsSectionDefined("Hero"))
+        {
+            @RenderSection("Hero", required: false)
+        }
+    </header>
+    
+   <main>
+    @RenderBody()
+   </main>
+
+    <partial name="Partials/_Footer" />
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

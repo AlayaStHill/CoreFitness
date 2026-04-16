@@ -1,0 +1,4 @@
+﻿<form method="post" asp-controller="SignIn" asp-action="SignOut">
+    @Html.AntiForgeryToken()
+    <button class="secondary-button signout-btn" type="submit">Sign out</button>
+</form>

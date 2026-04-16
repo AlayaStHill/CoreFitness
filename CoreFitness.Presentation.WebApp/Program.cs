@@ -1,12 +1,23 @@
+using CoreFitness.Application.Abstractions.Authentication;
 using CoreFitness.Application.Extensions;
+using CoreFitness.Application.MyAccount;
 using CoreFitness.Infrastructure;
 using CoreFitness.Infrastructure.Extensions;
+using CoreFitness.Presentation.WebApp.Configurations;
 using CoreFitness.Presentation.WebApp.Extensions;
+using CoreFitness.Presentation.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration.AddUserSecrets<Program>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<IProfileImageStorageService, ProfileImageStorageService>();
+
+
 
 // Alla URL:er som ASP.NET genererar kommer vara små bokstäver. SEO föredrar
 builder.Services.AddRouting(options =>
@@ -16,23 +27,47 @@ builder.Services.AddRouting(options =>
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration, builder.Environment);
+builder.Services.Configure<SiteSettings>(builder.Configuration.GetSection("SiteSettings"));
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+
+}
+
 // Kör databasinitiering beroende på aktuell miljö
-await PersistenceDatabaseInitializer.InitializeAsync(app.Services, app.Environment);
+await InfrastructureInitializer.InitializeAsync(app.Services, app.Environment);
 
 app.UseHsts();
 app.UseGlobalExceptionHandling();
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
 app.UseRouting();
 
+app.MapStaticAssets();
+
+// kopplar om alla 404-fel till min 404-sida
+app.UseStatusCodePages(statusCodeContext =>
+{
+    HttpContext context = statusCodeContext.HttpContext;
+
+    if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+    {
+        context.Response.Redirect("/error/404");
+    }
+
+    return Task.CompletedTask;
+});
+
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

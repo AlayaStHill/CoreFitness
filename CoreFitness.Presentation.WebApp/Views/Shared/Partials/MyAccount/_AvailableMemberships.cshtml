@@ -1,0 +1,32 @@
+﻿@model IReadOnlyList<CoreFitness.Presentation.WebApp.Models.MyAccount.MembershipPlanViewModel>
+
+<p>You don't have any active memberships at the moment.</p>
+<h3 class="compare-title">Compare Memberships</h3>
+
+<div class="compare-memberships">
+    @for (var i = 0; i < Model.Count; i++)
+    {
+        var plan = Model[i];
+        var buttonClass = i == Model.Count - 1 ? "primary-button" : "secondary-button";
+
+        <div class="membership-card">
+            <h4>@plan.Name</h4>
+            <p class="price">@plan.PricePerMonth kr / <span>month</span></p>
+
+            <ul class="membership-includes">
+                @foreach (var benefit in plan.Benefits)
+                {
+                    <li><img src="~/icons/check-bot.svg" alt="Check icon">@benefit</li>
+                }
+            </ul>
+
+            <div class="action-btn">
+                <form asp-controller="MyAccount" asp-action="SelectPlan" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="membershipTypeId" value="@plan.MembershipTypeId" />
+                    <button class="@buttonClass" type="submit">Select Plan</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

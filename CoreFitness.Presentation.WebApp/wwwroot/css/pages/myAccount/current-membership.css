@@ -1,0 +1,44 @@
+.current-membership {
+  margin-top: 2rem;
+
+  .membership-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--white-color);
+      text-transform: uppercase;
+
+      &.active {
+        background-color: var(--success-color);
+      }
+
+      &.paused {
+        background-color: var(--warning-color);
+      }
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+
+    .primary-button {
+      background-color: var(--error-color);
+      color: var(--white-color);
+      transition:
+        background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+        color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      &:hover {
+        background-color: var(--dark-color);
+        color: var(--white-color);
+      }
+    }
+  }
+}

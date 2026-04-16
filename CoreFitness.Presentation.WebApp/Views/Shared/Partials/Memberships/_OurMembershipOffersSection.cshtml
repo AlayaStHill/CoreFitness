@@ -1,0 +1,40 @@
+﻿@using CoreFitness.Presentation.WebApp.Models.Memberships
+@model MembershipsIndexViewModel
+
+<section class="our-memberships-section">
+    <div class="our-membership-offers">
+        @for (int i = 0; i < 2; i++)
+        {
+            <partial name="~/Views/Shared/Partials/Memberships/_MembershipCard.cshtml" model="Model.Memberships[i]" />
+        }
+        <div class="call-us-card">
+            <div class="title">
+                <h3>Get Your Membership</h3>
+                <p>
+                    Our memberships give you access to all
+                    equipment, personalized training.
+                </p>
+            </div>
+            <hr>
+            <h3 class="phone-info">Call Us At: +(46) 8 410 521 00</h3>
+            <a href="tel:+46763233430" class="primary-button"
+                   aria-label="Call CoreFitness at +46 8 410 521 00">
+                Call Us Today!
+            </a>
+        </div>
+    </div>
+    <div class="membership-info">
+        <div>
+            <img src="icons/checkbox.svg" alt="Checkbox icon">
+            <p>Get 30 day free trial</p>
+        </div>
+        <div>
+            <img src="icons/wallet.svg" alt="Wallet icon">
+            <p>No any hidden fees pay</p>
+        </div>
+        <div>
+            <img src="icons/clock.svg" alt="Clock icon">
+            <p>You can cancel anytime</p>
+        </div>
+    </div>
+</section>

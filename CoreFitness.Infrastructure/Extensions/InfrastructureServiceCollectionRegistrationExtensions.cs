@@ -1,4 +1,7 @@
-﻿using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
+﻿using CoreFitness.Infrastructure.Identity;
+using CoreFitness.Infrastructure.Loggings;
+using CoreFitness.Infrastructure.Persistence;
+using CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 using CoreFitness.Infrastructure.Persistence.EfCore.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,10 +17,11 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(environment);
 
-        services.AddLogging();
+        services.AddLogger();
         services.AddPersistence(configuration, environment);
         services.AddEfCoreContexts(configuration, environment);
-        services.AddRepositories(configuration, environment);
+        services.AddRepositories();
+        services.AddIdentity(configuration);
 
         return services;
     }

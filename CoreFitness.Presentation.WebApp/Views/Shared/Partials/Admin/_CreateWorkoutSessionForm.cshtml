@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model CreateWorkoutSessionRequest
+
+@{
+    List<SelectListItem> startTimeOptions = Enumerable
+        .Range(6, 17)
+        .Select(hour =>
+        {
+            TimeOnly time = new(hour, 0);
+            string value = time.ToString("HH:mm");
+            return new SelectListItem
+            {
+                Value = value,
+                Text = value,
+                Selected = Model.StartTime.HasValue && Model.StartTime.Value == time
+            };
+        })
+        .ToList();
+
+    var durations = new[]
+    {
+        TimeSpan.FromMinutes(30),
+        TimeSpan.FromMinutes(45),
+        TimeSpan.FromMinutes(60),
+        TimeSpan.FromMinutes(75),
+        TimeSpan.FromMinutes(90),
+        TimeSpan.FromMinutes(120)
+    };
+
+    List<SelectListItem> durationOptions = durations
+        .Select(duration =>
+        {
+            int totalMinutes = (int)duration.TotalMinutes;
+            string hoursAndMinutes = $"{totalMinutes / 60}h {totalMinutes % 60}m";
+
+            return new SelectListItem
+            {
+                Value = duration.ToString("hh\\:mm\\:ss"),
+                Text = hoursAndMinutes,
+                Selected = Model.Duration.HasValue && Model.Duration.Value == duration
+            };
+        })
+        .ToList();
+}
+
+<div class="create-session">
+
+    <section class="create-session__header">
+        <div>
+            <h1 class="create-session__title">Create Workout Session</h1>
+            <p class="create-session__description">Fill in the details to schedule a new session</p>
+        </div>
+    </section>
+
+    <form class="form-layout create-session__form" 
+        hx-post="/admin/workoutsessions/create"
+        hx-target="#form-container"  
+        hx-swap="innerHTML"
+        method="post" novalidate>
+    
+        @Html.AntiForgeryToken()
+        <div class="create-session__grid">
+
+            <div class="form-group">
+                <label class="form-label" asp-for="WorkoutTypeId"></label>
+                <select class="form-input" asp-for="WorkoutTypeId" asp-items="Model.WorkoutTypes">
+                    <option value="">Select workout type</option>
+                </select>
+                <span class="field-validation" asp-validation-for="WorkoutTypeId"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="Capacity"></label>
+                <input class="form-input" asp-for="Capacity" />
+                <span class="field-validation" asp-validation-for="Capacity"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="Date"></label>
+                <input class="form-input" asp-for="Date" type="date" />
+                <span class="field-validation" asp-validation-for="Date"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="Duration"></label>
+                <select class="form-input" asp-for="Duration" asp-items="durationOptions">
+                    <option value="">Select duration</option>
+                </select>
+                <span class="field-validation" asp-validation-for="Duration"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" asp-for="StartTime"></label>
+                <select class="form-input" asp-for="StartTime" asp-items="startTimeOptions">
+                    <option value="">Select start time</option>
+                </select>
+                <span class="field-validation" asp-validation-for="StartTime"></span>
+            </div>
+
+        </div>
+
+        <div class="form-submit-group">
+            <div class="create-session__actions">
+                <button class="secondary-button create-session__cancel"
+                        type="button"
+                        hx-get="/admin/workoutsessions/clear-form"
+                        hx-target="#form-container"
+                        hx-swap="innerHTML">
+                    Cancel
+                </button>
+
+                <button class="primary-button form-submit" type="submit">Create Session</button>
+            </div>
+     
+            <div class="form-feedback">
+                <div id="validation-summary" asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
+            </div>
+        </div>
+
+    </form>
+</div>

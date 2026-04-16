@@ -1,0 +1,72 @@
+﻿@model ContactForm
+
+
+<!-- CONTACTFORM -->
+<section class="section__contact-form">
+    <form class="contact-form form-layout form-layout--two-columns" asp-controller="CustomerService" asp-action="Index" method="post" novalidate>
+        @Html.AntiForgeryToken()
+
+        <div class="form-group form-group--first-name">
+            <label class="form-label" asp-for="FirstName"></label>
+            <input class="form-input" asp-for="FirstName" />
+            <span class="field-validation" asp-validation-for="FirstName"></span>
+        </div>
+
+        <div class="form-group form-group--last-name">
+            <label class="form-label" asp-for="LastName"></label>
+            <input class="form-input" asp-for="LastName" />
+            <span class="field-validation" asp-validation-for="LastName"></span>
+        </div>
+
+        <div class="form-group form-group--email">
+            <label class="form-label" asp-for="Email" ></label>
+            <input class="form-input" asp-for="Email" autocomplete="email" />
+            <span class="field-validation" asp-validation-for="Email"></span>
+        </div>
+
+        <div class="form-group form-group--phone">
+            <label class="form-label" asp-for="PhoneNumber"></label>
+            <input class="form-input" asp-for="PhoneNumber" autocomplete="tel" />
+            <span class="field-validation" asp-validation-for="PhoneNumber"></span>
+        </div>
+
+        <div class="form-group form-group--message">
+            <label class="form-label" asp-for="Message"></label>
+            <textarea class="form-input" asp-for="Message"></textarea>
+            <span class="field-validation" asp-validation-for="Message"></span>
+        </div>
+
+      
+        <div class="form-submit-group">
+        <button class="primary-button form-layout__submit--left" type="submit">Submit Message</button>
+        <div class="form-feedback">
+                @* Success message *@
+                @* undvika dubbel access till TempData["ContactFormMessage"] genom att spara det i en lokal variabel *@
+                @{
+                    string? successMessage = TempData["SuccessMessage"] as string;
+                }
+                @if (!string.IsNullOrWhiteSpace(successMessage))
+                {
+                    // avbryter inte annat som läses upp av screen reader. Polite är egentligen implicit med role="status
+                    <div class="form-success" role="status" aria-live="polite">
+                        @successMessage
+                    </div>
+                }
+
+                @* Error message *@
+                @{
+                    string? errorMessage = TempData["ErrorMessage"] as string;
+                }
+                @if (!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    // avbryter direkt annat som läses upp av screen reader
+                    <div class="form-error" role="alert" aria-live="assertive">
+                        @errorMessage
+                    </div>
+                }
+                 @* Sammanställning av fel från ModelState, inte kopplat till ett specifikt fält - if (!ModelState.IsValid). Role alert - screen reader läser upp direkt *@
+                <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert"></div>
+            </div>
+        </div>
+    </form>
+</section>

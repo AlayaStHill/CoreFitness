@@ -1,0 +1,30 @@
+﻿@model SignUpRequest
+
+<form id="signup-form" method="post" asp-action="SignUp" asp-controller="SignUp" aria-describedby="validation-summary" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+    <div class="form-group">
+        <label class="form-label" asp-for="Email"></label>
+        <input class="form-input" asp-for="Email" autocomplete="email" />
+        <span class="field-validation" asp-validation-for="Email"></span>
+    </div>
+
+    <div class="form-submit-group">
+        <button class="primary-button primary-button--full form-submit" type="submit">Continue to set password</button>
+        <div class="form-feedback">
+        @* Success message *@
+        @{
+            string? successMessage = TempData["SuccessMessage"] as string;
+        }
+        @if (!string.IsNullOrWhiteSpace(successMessage))
+        {
+            // avbryter inte annat som läses upp av screen reader. Polite är egentligen implicit med role="status
+            <div class="form-success" role="status" aria-live="polite">
+                @successMessage
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="validation-summary" role="alert" aria-live="assertive"></div>
+        </div>
+    </div>
+</form>

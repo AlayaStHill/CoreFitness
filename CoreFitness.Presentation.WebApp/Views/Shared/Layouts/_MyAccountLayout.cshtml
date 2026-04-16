@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "_Layout.cshtml";
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+    bool isAboutMeActive = currentController == "MyAccount" && currentAction == "AboutMe";
+    bool isMyMembershipsActive = currentController == "MyAccount" && currentAction == "MyMemberships";
+    bool isMyBookingsActive = currentController == "MyAccount" && (currentAction == "MyBookings" || currentAction == "NewBooking");
+
+    var profileImageUrl = ViewData["MyAccountProfileImageUrl"] as string;
+    profileImageUrl = !string.IsNullOrWhiteSpace(profileImageUrl)
+        ? profileImageUrl
+        : Url.Content("~/images/trainer-1.webp");
+}
+
+<div class="my-account-page container">
+    <section class="page-title">
+        <div class="container">
+            <h1>My Account</h1>
+        </div>
+    </section>
+
+    <div class="my-account">
+        <aside class="my-account-sidebar">
+            <div class="my-account-img-wrapper">
+                <img src="@profileImageUrl" alt="profile picture" />
+            </div>
+            <div class="my-account-menu-section">
+                <h4 class="my-account-menu-title">Menu Options</h4>
+                <nav class="my-account-menu" aria-label="Account menu">
+                    <ul class="account-menu">
+                        <li class="my-account-menu-item @(isAboutMeActive ? "active" : "")">
+                            <a class="my-account-menu-link" asp-controller="MyAccount" asp-action="AboutMe">About Me</a>
+                        </li>
+                        <li class="my-account-menu-item @(isMyMembershipsActive ? "active" : "")">
+                            <a class="my-account-menu-link" asp-controller="MyAccount" asp-action="MyMemberships">My Memberships</a>
+                        </li>
+                        <li class="my-account-menu-item @(isMyBookingsActive ? "active" : "")">
+                            <a class="my-account-menu-link" asp-controller="MyAccount" asp-action="MyBookings">My Bookings</a>
+                        </li>
+                        <li class="my-account-menu-item">
+                            <form asp-controller="SignIn" asp-action="SignOut" method="post" class="my-account-menu-signout-form">
+                                @Html.AntiForgeryToken()
+                                <button class="my-account-menu-link" type="submit">Sign Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="remove-account">
+                    <p>If you like to cancel your account click below</p>
+                    <form asp-controller="MyAccount" asp-action="DeleteAccount" method="post" class="remove-account-form"
+                          id="remove-account-form">
+                        @Html.AntiForgeryToken()
+                        <button type="button" class="remove-account-button" id="remove-account-trigger"
+                                aria-haspopup="dialog" aria-controls="remove-account-modal">
+                            Remove Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </aside>
+        <section class="account-content">
+            @RenderBody()
+        </section>
+    </div>
+</div>
+
+<div class="account-modal" id="remove-account-modal" role="dialog" aria-modal="true"
+     aria-labelledby="remove-account-title" aria-describedby="remove-account-description" hidden>
+    <div class="account-modal__backdrop" data-close-modal></div>
+    <div class="account-modal__dialog" role="document">
+        <button type="button" class="account-modal__close" aria-label="Close dialog" data-close-modal>X</button>
+        <h2 id="remove-account-title">Delete account?</h2>
+        <p id="remove-account-description">
+            Deleting your account is permanent. Any active memberships and upcoming bookings connected to
+            this account will also be removed. Are you sure you want to continue? Type DELETE below to
+            confirm.
+        </p>
+
+        <label for="delete-confirmation" class="account-modal__label">Confirmation text</label>
+        <input id="delete-confirmation" type="text" class="account-modal__input" autocomplete="off"
+               placeholder="Type DELETE" />
+        <p class="account-modal__error" id="remove-account-error" aria-live="polite"></p>
+
+        <div class="account-modal__actions">
+            <button type="button" class="secondary-button" data-close-modal>Cancel</button>
+            <button type="button" class="primary-button" id="confirm-remove-account" disabled>
+                Delete account
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/my-account-remove-flow.js" asp-append-version="true" defer></script>
+
+@RenderSection("Scripts", required: false)

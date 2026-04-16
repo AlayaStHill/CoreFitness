@@ -1,4 +1,4 @@
 ﻿using CoreFitness.Application.Shared.Results;
 
-public sealed record ResultError(Errortypes Type, string Message);
+public sealed record ResultError(ErrorTypes Type, string Message);
 

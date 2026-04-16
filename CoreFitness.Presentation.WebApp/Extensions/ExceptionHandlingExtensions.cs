@@ -3,6 +3,7 @@ using CoreFitness.Domain.Exceptions;
 using CoreFitness.Domain.Exceptions.Custom;
 using CoreFitness.Presentation.WebApp.Contracts;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 
@@ -37,13 +38,18 @@ public static class ExceptionHandlingExtensions
                     logger.Log(exception);
                 }
 
-                // Alla svar ska vara JSON
-                context.Response.ContentType = "application/json";
+                /* 
+                Avgör om anropet vill ha JSON (kommer från JavaScript/API) eller HTML (från en vanlig webbsida)
+                - Om det är en webbsida → redirecta till en HTML-felsida (/error)
+                - Om det är ett API/JS-anrop → returnera JSON istället */
+                bool isApi = context.Request.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase);
+                bool wantsJsonHeader = context.Request.Headers.Accept.Any(a => a?.Contains("application/json", StringComparison.OrdinalIgnoreCase) == true);
+                bool isAjax = string.Equals(context.Request.Headers["X-Requested-With"].ToString(), "XMLHttpRequest", StringComparison.OrdinalIgnoreCase);
 
-                // default om inget annat matchar
+                bool wantsJson = isApi || wantsJsonHeader || isAjax;
+
+                // Defaultvärden om inget annat matchar.
                 int statusCode = StatusCodes.Status500InternalServerError;
-
-                // Standardmeddelande
                 string message = "An unexpected error occurred.";
 
                 // Pattern matching på exception-typer
@@ -100,6 +106,11 @@ public static class ExceptionHandlingExtensions
 
                         break;
 
+                    case DbUpdateException:
+                        statusCode = StatusCodes.Status409Conflict;
+                        message = "A database error occurred.";
+                        break;
+
                     // Alla andra okända fel
                     default:
 
@@ -113,8 +124,28 @@ public static class ExceptionHandlingExtensions
                         break;
                 }
 
-                // Sätt HTTP statuskod
+                if (!wantsJson)
+                {
+                    context.Response.Clear();
+                    context.Response.StatusCode = statusCode;
+
+                    // redirect till 404-sidan endast om det verkligen är en 404
+                    if (statusCode == StatusCodes.Status404NotFound)
+                    {
+                        context.Response.Redirect("/error/404");
+                        return;
+                    }
+
+                    // visa inte 404-sidan för alla andra fel. Returnera istället ett generellt felmeddelande.
+                    context.Response.ContentType = "text/plain; charset=utf-8"; // returnerar ett enkelt textmeddelande för vanliga sidanrop
+                    await context.Response.WriteAsync("Something went wrong."); 
+                    return;
+                }
+
+                // JSON ContentType sätts  i JSON-flödet.
+                context.Response.Clear();
                 context.Response.StatusCode = statusCode;
+                context.Response.ContentType = "application/json";
 
                 ErrorResponse errorResponse = new() { Message = message };
 

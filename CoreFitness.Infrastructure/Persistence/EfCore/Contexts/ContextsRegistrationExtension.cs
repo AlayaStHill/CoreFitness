@@ -1,10 +1,10 @@
 ﻿using CoreFitness.Domain.Abstractions.Loggings;
-using CoreFitness.Domain.Exceptions.Custom;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 
 namespace CoreFitness.Infrastructure.Persistence.EfCore.Contexts;
 // Hanterar kopplingen med databasen och konfigurationen av DbContext beroende på miljö (utveckling eller produktion).
@@ -26,7 +26,7 @@ public static class ContextsRegistrationExtension
                 return connection;
             });
 
-            services.AddDbContext<DataContext>((serviceProvider, options) =>
+            services.AddDbContext<PersistenceContext>((serviceProvider, options) =>
             {
                 SqliteConnection connection = serviceProvider.GetRequiredService<SqliteConnection>();
                 options.UseSqlite(connection);
@@ -34,7 +34,7 @@ public static class ContextsRegistrationExtension
         }
         else
         {
-            services.AddDbContext<DataContext>((serviceProvider, options) =>
+            services.AddDbContext<PersistenceContext>((serviceProvider, options) =>
             {
                 IDomainLogger logger = serviceProvider.GetRequiredService<IDomainLogger>();
 

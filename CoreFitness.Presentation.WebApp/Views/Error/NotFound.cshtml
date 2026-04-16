@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Page Not Found";
+}
+
+<section class="notfound-section">
+    <div class="container">
+        <div class="notfound-wrapper">
+            <img class="notfound-section__image "src="~/images/404-error-img.webp" alt="Illustration showing a 404 page not found error" />
+
+            <div class="notfound-content">
+                <h1 class="notfound-content__title">Oops! Page not found</h1>
+                <p class="notfound-content__description">The page you are looking for does not exist.</p>
+                <a asp-controller="Home" asp-action="Index" class="primary-button">Back to Homepage</a>
+            </div>
+        </div>
+    </div>
+</section>

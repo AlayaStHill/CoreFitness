@@ -1,0 +1,27 @@
+﻿@model SignInRequest
+
+@{
+    ViewData["Title"] = "Sign In";
+    Layout = "Layouts/_AuthLayout";
+}
+
+<section class="auth-page">
+    <div class="container container-narrow">
+        <div class="auth-card">
+            <h1 class="auth-card__title">Welcome Back!</h1>
+            <p class="auth-card__description">
+                Log in to continue your fitness journey with full access to your customized program, training history, and progress tracking. 
+                Stay consistent, monitor your development, and keep moving forward with the structure and support built into your account.
+            </p>
+
+            <div class="auth-social">
+                <partial name="Partials/Authentication/_ExternalLoginForm" />
+            </div>
+            <p class="auth-divider">OR CONTINUE WITH</p>
+
+            <partial name="Partials/Authentication/_SignInForm" model="Model" />
+
+        </div>
+    </div>
+</section>
+

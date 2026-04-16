@@ -1,0 +1,23 @@
+﻿@model ContactForm
+
+@{
+    ViewData["Title"] = "Customer Service";
+}
+
+<section class="page-title">
+    <div class="container">
+        <h1>Customer Service</h1>
+    </div>
+</section>
+
+@* CONTACT + contact form*@
+<partial name="~/Views/Shared/Partials/CustomerService/_ContactSection.cshtml" model="Model" />
+
+@* FAQ *@
+<partial name="~/Views/Shared/Partials/CustomerService/_FaqSection.cshtml" model="Model" />
+
+
+
+@section Scripts {
+    <script src="~/js/contact-form.js" asp-append-version="true"></script>
+}

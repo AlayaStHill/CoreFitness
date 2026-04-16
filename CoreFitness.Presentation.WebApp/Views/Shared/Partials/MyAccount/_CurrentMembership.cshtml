@@ -1,0 +1,45 @@
+﻿@model CoreFitness.Presentation.WebApp.Models.MyAccount.CurrentMembershipViewModel
+
+@{
+    var statusCssClass = Model.Status.ToLowerInvariant();
+    var isPaused = string.Equals(Model.Status, "Paused", StringComparison.OrdinalIgnoreCase);
+}
+
+<div class="current-membership">
+    <div class="membership-card">
+        <h4 class="membership-name">
+            @Model.MembershipName
+            <span class="status-badge @statusCssClass">@Model.Status.ToLowerInvariant()</span>
+        </h4>
+
+        <p class="price">@Model.PricePerMonth kr / <span>month</span></p>
+
+        <ul class="membership-includes">
+            @foreach (var benefit in Model.Benefits)
+            {
+                <li><img src="~/icons/check-bot.svg" alt="Check icon">@benefit</li>
+            }
+        </ul>
+
+        <div class="action-buttons">
+            @if (isPaused)
+            {
+                <form asp-controller="MyAccount" asp-action="ActivateMembership" method="post">
+                    @Html.AntiForgeryToken()
+                    <button class="secondary-button" type="submit">Activate Membership</button>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="MyAccount" asp-action="PauseMembership" method="post">
+                    @Html.AntiForgeryToken()
+                    <button class="secondary-button" type="submit">Pause Membership</button>
+                </form>
+            }
+            <form asp-controller="MyAccount" asp-action="CancelMembership" method="post">
+                @Html.AntiForgeryToken()
+                <button class="primary-button" type="submit">Cancel Membership</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿namespace CoreFitness.Application.Shared.Results;
 
-public enum Errortypes
+public enum ErrorTypes
 {
     BadRequest = 400,
     NotFound = 404,

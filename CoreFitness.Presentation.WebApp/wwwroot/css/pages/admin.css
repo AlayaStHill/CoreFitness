@@ -1,0 +1,380 @@
+﻿/*=======================================
+    ASIDE
+=======================================*/
+.admin-aside {
+    margin: var(--space-sm);
+    padding: var(--space-md) var(--space-sm);
+    border-radius: var(--radius-xl);
+    background-color: var(--header-bg-color);
+    background-image: url("../../images/dark-section-img.webp");
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position: center;
+    color: var(--header-text-color);
+}
+
+.aside-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--section-spacing-sm);
+    justify-content: center;
+    align-items: center;
+}
+
+/* aside: egen underline som inte sveper in från vänster */
+.admin-aside .menu-item:not(.dropdown) > .menu-link::after {
+    bottom: var(--menu-link-aside-underline);
+    transform: none;
+    opacity: 0;
+    transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-aside .menu-item:not(.dropdown) > .menu-link:hover::after,
+.admin-aside .menu-item:not(.dropdown) > .menu-link:active::after,
+.admin-aside .menu-item:not(.dropdown) > .menu-link.active::after {
+    opacity: 1;
+}
+
+.admin-aside .menu-link {
+    position: relative;
+    text-decoration: none;
+}
+
+/* aside: mer specifik så den vinner över global a:hover */
+.admin-aside .menu-link:hover,
+.admin-aside .menu-link:active,
+.admin-aside .menu-link.active {
+    color: var(--menu-item-hover-text-color);
+}
+
+
+/*=======================================
+    Admin Main
+=======================================*/
+.admin-main {
+    padding: var(--space-xl);
+}
+
+.admin-content-wrapper {
+    width: 100%;
+    padding: 0 var(--space-xl);
+}
+
+/*=======================================
+    Workoutsession table
+=======================================*/
+.workout-sessions {
+    width: 100%;
+    display: grid;
+    gap: var(--space-md);
+    grid-template-rows: auto 1fr;
+    padding-block: var(--space-xl) var(--space-xxl);
+}
+
+.workout-sessions__header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.workout-sessions__card {
+    background-color: var(--white-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.workout-sessions__title {
+    text-align: left;
+    font-family: var(--accent-font);
+    font-size: 2.75rem;
+    font-weight: 700;
+}
+
+/*.workout-sessions__actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 1.5rem;
+}*/
+
+.workout-sessions__table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 20px;
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+}
+
+.workout-sessions__table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 860px;
+}
+
+.table-error {
+    color: var(--error-color);
+    font-weight: 500;
+    text-align: center;
+}
+
+.workout-sessions__table th,
+.workout-sessions__table td {
+    padding: 1rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.workout-sessions__table thead th {
+    font-weight: 600;
+    color: var(--default-text-color);
+    background-color: var(--light-color);
+    white-space: nowrap;
+}
+
+.workout-sessions__table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table-actions {
+    white-space: nowrap;
+}
+
+.table-action-link {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.table-action-link--danger {
+    color: var(--error-color);
+    font-weight: 600;
+}
+
+.workout-sessions__table
+.table-action-link:not(.table-action-link--danger):hover,
+.workout-sessions__table
+.table-action-link:not(.table-action-link--danger):active {
+    color: var(--primary-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.workout-sessions__table .table-action-link--danger:hover,
+.workout-sessions__table .table-action-link--danger:active {
+    color: var(--error-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.table-empty {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+}
+
+/*=======================================
+    Workoutsession createform
+=======================================*/
+/* ===== Admin Create Workout Session ===== */
+
+/* card runt formuläret */
+.create-session {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.create-session__header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.create-session__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs); 
+}
+
+.create-session__description {
+    font-size: 0.9rem;
+    color: var(--muted-text-color);
+}
+
+.create-session__form {
+    background-color: var(--section-bg-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    /*max-width: 900px;
+    margin: 0 auto;*/
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.create-session__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md) var(--space-lg);
+}
+
+/* fullbredd */
+.create-session__grid .full-width {
+    grid-column: span 2;
+}
+
+/* Anpassning av input med ikon (date/time) */
+/*.create-session__grid .form-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}*/
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-lg);
+}
+
+.form-actions .form-layout__submit {
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-lg);
+}
+
+.create-session__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+.create-session__cancel::after {
+    content: none;
+}
+
+
+/* =========================
+   Modal (confirm delete)
+========================= */
+/* bakgrunden bakom modalen */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--dark-color-alpha-75);
+    z-index: 1000;
+}
+
+/* visa bara när den INTE är hidden */
+.modal-overlay:not([hidden]) {
+    display: block;
+}
+
+/* dialogrutan */
+.modal {
+    position: fixed;
+    inset: 0;
+    place-items: center;
+    padding: var(--space-sm);
+    z-index: 1001;
+}
+
+/* visa bara när den INTE är hidden */
+.modal:not([hidden]) {
+    display: grid;
+}
+
+.modal__content {
+    width: min(520px, 100%);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    background: var(--white-color);
+    color: var(--default-text-color);
+    padding: 1.25rem;
+}
+
+.modal__title {
+    margin: 0;
+    font-family: var(--accent-font);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal__description {
+    margin: 0.75rem 0 0;
+}
+
+.modal__error {
+    margin: 0.75rem 0 0;
+    color: var(--error-color);
+    font-weight: 500;
+}
+
+.modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.modal__button {
+    border: 1px solid var(--border-color);
+    background: var(--light-color);
+    color: var(--default-text-color);
+    border-radius: 25px;
+    padding: 0.75rem 1.1rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal__button:hover,
+.modal__button:active {
+    background: var(--white-color);
+}
+
+.modal__button--danger {
+    border-color: var(--error-color);
+    background: var(--error-color);
+    color: var(--white-color);
+}
+
+    .modal__button--danger:hover,
+    .modal__button--danger:active {
+        filter: brightness(0.95);
+        color: var(--error-color);
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

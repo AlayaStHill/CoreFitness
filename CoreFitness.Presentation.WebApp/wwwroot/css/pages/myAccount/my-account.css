@@ -1,0 +1,245 @@
+.my-account-page {
+    display: grid;
+    gap: 4rem;
+    padding-bottom: 4rem;
+
+    .my-account {
+        display: flex;
+        gap: 3.5rem;
+        align-items: flex-start;
+
+        .my-account-sidebar {
+            width: 30%;
+            display: grid;
+            gap: 4rem;
+
+            .my-account-img-wrapper {
+                width: 100%;
+                border-radius: var(--radius-xl);
+                overflow: hidden;
+
+                my-account-img {
+                    width: 100%;
+                    display: block;
+                }
+            }
+
+            .my-account-menu-section {
+                .my-account-menu-title {
+                    background-color: var(--primary-color);
+                    padding: 1rem 2rem;
+                    border-top-left-radius: 1rem;
+                    border-top-right-radius: 1rem;
+                }
+
+                .my-account-menu {
+                    background-color: var(--white-color);
+                    border-bottom-left-radius: var(--radius-lg);
+                    border-bottom-right-radius: var(--radius-lg);
+                    padding: 0;
+
+                    .account-menu {
+                        list-style: none;
+                        margin: 0;
+                        padding: 0;
+
+                        .my-account-menu-item {
+                            padding: 1.3rem 2rem;
+                            position: relative;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+
+                            &:hover,
+                            &:focus-within,
+                            &.active {
+                                .my-account-menu-link {
+                                    color: var(--primary-color);
+                                }
+                            }
+
+                            &:not(:last-child) {
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    left: 2rem;
+                                    right: 2rem;
+                                    bottom: 0;
+                                    border-bottom: 1px solid var(--border-light-color);
+                                }
+                            }
+
+                            .my-account-menu-link {
+                                text-decoration: none;
+                                color: var(--default-text-color);
+                                font-weight: 500;
+                                display: flex;
+                                align-items: center;
+                                width: 100%;
+
+                                &::after {
+                                    content: "\f054";
+                                    font-family: "Font Awesome 7 Pro";
+                                    font-size: 1em;
+                                    margin-left: auto;
+                                    transform: translateX(0);
+                                }
+                            }
+
+                            .my-account-menu-signout-form {
+                                margin: 0;
+
+                                .my-account-menu-link {
+                                    background: none;
+                                    border: 0;
+                                    padding: 0;
+                                    font: inherit;
+                                    text-align: left;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .remove-account {
+                    margin-top: 1.2rem;
+                    padding: 0.25rem 0;
+                    display: grid;
+                    gap: 0.4rem;
+                    justify-items: center;
+                    text-align: center;
+
+                    p {
+                        margin: 0;
+                        color: var(--text-color);
+                        font-size: 0.9rem;
+                    }
+
+                    .remove-account-button {
+                        border: 0;
+                        background: transparent;
+                        color: var(--error-color);
+                        border-radius: 0;
+                        padding: 0;
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                        line-height: 1.3;
+                        cursor: pointer;
+                        transition: color 150ms ease, text-decoration-color 150ms ease;
+                        text-decoration: none;
+                        text-decoration-thickness: 1px;
+                        text-underline-offset: 0.2em;
+
+                        &:hover,
+                        &:focus-visible {
+                            color: #8f1711;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+
+        .account-content {
+            width: 65%;
+            display: grid;
+            gap: 4rem;
+
+            .membership-access-link {
+                justify-self: start;
+            }
+
+            .card {
+                background-color: var(--white-color);
+                padding: 3rem;
+                border-radius: var(--radius-xl);
+            }
+
+            h2 {
+                border-bottom: 1px solid var(--border-light-color);
+                padding-bottom: 1.5rem;
+                font-size: 2.7rem;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.account-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+
+    &[hidden] {
+        display: none;
+    }
+
+    .account-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: var(--dark-color-alpha-75);
+    }
+
+    .account-modal__dialog {
+        position: relative;
+        width: min(100%, 32rem);
+        background: var(--white-color);
+        border-radius: var(--radius-xl);
+        padding: 1.25rem;
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        margin: 0;
+        color: var(--text-color);
+    }
+
+    .account-modal__close {
+        position: absolute;
+        top: 0.7rem;
+        right: 0.7rem;
+        width: 2rem;
+        height: 2rem;
+        border: 0;
+        border-radius: 50%;
+        background: var(--light-color);
+        cursor: pointer;
+    }
+
+    .account-modal__label {
+        font-weight: 600;
+    }
+
+    .account-modal__input {
+        border: 1px solid var(--border-light-color);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem;
+        font: inherit;
+    }
+
+    .account-modal__error {
+        min-height: 1.25rem;
+        color: var(--error-color);
+        font-size: 0.9rem;
+    }
+
+    .account-modal__actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.65rem;
+        flex-wrap: wrap;
+
+        .primary-button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}

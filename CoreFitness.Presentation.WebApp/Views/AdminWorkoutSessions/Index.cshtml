@@ -1,0 +1,85 @@
+﻿@model AdminWorkoutSessionsViewModel
+
+@{
+    ViewData["title"] = "Workout Sessions";
+    Layout = "Layouts/_AdminLayout";
+}
+
+<div class="admin-content-wrapper">
+    <div class="workout-sessions">
+        <section class="workout-sessions__header-row">
+            <h1 class="workout-sessions__title">Workout Sessions</h1>
+
+            <button class="primary-button .form-layout__submit workout-sessions__add-btn"
+                    hx-get="/admin/workoutsessions/create-form"
+                    hx-target="#form-container"
+                    hx-swap="innerHTML">
+                Add New Session
+            </button>
+        </section>
+
+        @* ADD NEW SESSION-BUTTON *@
+        @* <div class="workout-sessions__actions">
+            <button class="primary button workout-sessions__add-btn"
+                    hx-get="/admin/workoutsessions/create-form"
+                    hx-target="#form-container"
+                    hx-swap="innerHTML">
+                Add New Session
+            </button>
+        </div> *@
+
+        @* CREATE SESSION FORM *@
+        @* HTMX fyller den via hx-get *@
+        <div id="form-container"></div>
+
+        <section class="workout-sessions__card" aria-label="Workout sessions">
+            @*   SESSIONS TABLE *@
+            <div id="sessions-table"
+                 hx-get="/admin/workoutsessions"
+                 hx-trigger="session-created from:body"
+                 hx-target="#sessions-table"
+                 hx-swap="innerHTML">
+
+                <partial name="~/Views/Shared/Partials/Admin/_WorkoutSessionsTable.cshtml" model="Model.Sessions" />
+              </div>
+            </section>
+        </div>
+    </div>
+
+    @* MODAL *@
+    <div class="modal-overlay" hidden></div>
+    <div class="modal" hidden role="dialog" aria-modal="true"
+         aria-labelledby="modal-title"
+         aria-describedby="modal-description">
+
+        <div class="modal__content">
+            <h2 class="modal__title" id="modal-title">Confirm delete</h2>
+            <p class="modal__description" id="modal-description">
+                Are you sure you want to delete this session?
+            </p>
+
+            <div class="modal__error" hidden></div>
+
+            <div class="modal__actions">
+                <button type="button" class="modal__button" data-cancel-delete>
+                    Cancel
+                </button>
+                <button type="button"
+                        class="modal__button modal__button--danger"
+                        data-confirm-delete
+                    @* Skickar POST till controller *@
+                        hx-post=""
+                    @* Hitta närmaste <tr>(raden) *@
+                        hx-target=""
+                        hx-swap="outerHTML"
+                        hx-headers='{"RequestVerificationToken": "@Antiforgery.GetAndStoreTokens(Context).RequestToken"}'>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+        <script src="~/js/confirm-delete-modal.js" asp-append-version="true"></script>
+    }
